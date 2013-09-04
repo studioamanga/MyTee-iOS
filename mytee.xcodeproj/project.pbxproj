@@ -36,7 +36,6 @@
 		1F06907915B9BFC6003E71CE /* shelves-free-form.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F06907715B9BFC5003E71CE /* shelves-free-form.png */; };
 		1F06907A15B9BFC6003E71CE /* shelves-free-form@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F06907815B9BFC5003E71CE /* shelves-free-form@2x.png */; };
 		1F0D48A416AB51520076D60F /* MTEMyTeeAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D48A316AB51520076D60F /* MTEMyTeeAPIClient.m */; };
-		1F0D48A816AB535E0076D60F /* MTEMyTeeIncrementalStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D48A716AB535E0076D60F /* MTEMyTeeIncrementalStore.m */; };
 		1F18A71F1688CD0F00BC9F6D /* linen-darker-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F18A71B1688CD0F00BC9F6D /* linen-darker-bar.png */; };
 		1F18A7201688CD0F00BC9F6D /* linen-darker-bar-landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F18A71C1688CD0F00BC9F6D /* linen-darker-bar-landscape.png */; };
 		1F18A7211688CD0F00BC9F6D /* linen-darker-bar-landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F18A71D1688CD0F00BC9F6D /* linen-darker-bar-landscape@2x.png */; };
@@ -92,6 +91,7 @@
 		1F6B7FD814E0813E00292B62 /* 179-notepad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F6B7FD614E0813E00292B62 /* 179-notepad@2x.png */; };
 		1F6CD28B15B2FD610086518B /* shelves@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F6CD28915B2FD610086518B /* shelves@2x.png */; };
 		1F6CD28D15B2FD890086518B /* shelves.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F6CD28C15B2FD890086518B /* shelves.png */; };
+		1F6DFDD917D7CA9800101020 /* MTESyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6DFDD817D7CA9800101020 /* MTESyncManager.m */; };
 		1F7205161533921900B4D60F /* 118-coat-hanger.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F7205141533921900B4D60F /* 118-coat-hanger.png */; };
 		1F7205171533921900B4D60F /* 118-coat-hanger@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F7205151533921900B4D60F /* 118-coat-hanger@2x.png */; };
 		1F72051B1533940300B4D60F /* 19-gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F7205191533940300B4D60F /* 19-gear.png */; };
@@ -203,8 +203,6 @@
 		1F06907815B9BFC5003E71CE /* shelves-free-form@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "shelves-free-form@2x.png"; path = "MyTee/Resources/Images/shelves-free-form@2x.png"; sourceTree = SOURCE_ROOT; };
 		1F0D48A216AB51520076D60F /* MTEMyTeeAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEMyTeeAPIClient.h; path = MyTee/Classes/MTEMyTeeAPIClient.h; sourceTree = SOURCE_ROOT; };
 		1F0D48A316AB51520076D60F /* MTEMyTeeAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEMyTeeAPIClient.m; path = MyTee/Classes/MTEMyTeeAPIClient.m; sourceTree = SOURCE_ROOT; };
-		1F0D48A616AB535E0076D60F /* MTEMyTeeIncrementalStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEMyTeeIncrementalStore.h; path = MyTee/Classes/MTEMyTeeIncrementalStore.h; sourceTree = SOURCE_ROOT; };
-		1F0D48A716AB535E0076D60F /* MTEMyTeeIncrementalStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEMyTeeIncrementalStore.m; path = MyTee/Classes/MTEMyTeeIncrementalStore.m; sourceTree = SOURCE_ROOT; };
 		1F18A71B1688CD0F00BC9F6D /* linen-darker-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "linen-darker-bar.png"; path = "MyTee/Resources/Images/linen-darker-bar.png"; sourceTree = SOURCE_ROOT; };
 		1F18A71C1688CD0F00BC9F6D /* linen-darker-bar-landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "linen-darker-bar-landscape.png"; path = "MyTee/Resources/Images/linen-darker-bar-landscape.png"; sourceTree = SOURCE_ROOT; };
 		1F18A71D1688CD0F00BC9F6D /* linen-darker-bar-landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "linen-darker-bar-landscape@2x.png"; path = "MyTee/Resources/Images/linen-darker-bar-landscape@2x.png"; sourceTree = SOURCE_ROOT; };
@@ -267,6 +265,8 @@
 		1F6B7FD614E0813E00292B62 /* 179-notepad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "179-notepad@2x.png"; path = "MyTee/Resources/Images/179-notepad@2x.png"; sourceTree = SOURCE_ROOT; };
 		1F6CD28915B2FD610086518B /* shelves@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "shelves@2x.png"; path = "MyTee/Resources/Images/shelves@2x.png"; sourceTree = SOURCE_ROOT; };
 		1F6CD28C15B2FD890086518B /* shelves.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shelves.png; path = MyTee/Resources/Images/shelves.png; sourceTree = SOURCE_ROOT; };
+		1F6DFDD717D7CA9800101020 /* MTESyncManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTESyncManager.h; path = MyTee/Classes/MTESyncManager.h; sourceTree = SOURCE_ROOT; };
+		1F6DFDD817D7CA9800101020 /* MTESyncManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTESyncManager.m; path = MyTee/Classes/MTESyncManager.m; sourceTree = SOURCE_ROOT; };
 		1F7205141533921900B4D60F /* 118-coat-hanger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "118-coat-hanger.png"; path = "MyTee/Resources/Images/118-coat-hanger.png"; sourceTree = SOURCE_ROOT; };
 		1F7205151533921900B4D60F /* 118-coat-hanger@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "118-coat-hanger@2x.png"; path = "MyTee/Resources/Images/118-coat-hanger@2x.png"; sourceTree = SOURCE_ROOT; };
 		1F7205191533940300B4D60F /* 19-gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "19-gear.png"; path = "MyTee/Resources/Images/19-gear.png"; sourceTree = SOURCE_ROOT; };
@@ -516,10 +516,10 @@
 		1F294E1514D74F3000A24AED /* Sync Manager */ = {
 			isa = PBXGroup;
 			children = (
+				1F6DFDD717D7CA9800101020 /* MTESyncManager.h */,
+				1F6DFDD817D7CA9800101020 /* MTESyncManager.m */,
 				1F0D48A216AB51520076D60F /* MTEMyTeeAPIClient.h */,
 				1F0D48A316AB51520076D60F /* MTEMyTeeAPIClient.m */,
-				1F0D48A616AB535E0076D60F /* MTEMyTeeIncrementalStore.h */,
-				1F0D48A716AB535E0076D60F /* MTEMyTeeIncrementalStore.m */,
 				1FED0C0E16AC4E9100E33965 /* MTEAuthenticationManager.h */,
 				1FED0C0F16AC4E9100E33965 /* MTEAuthenticationManager.m */,
 			);
@@ -1159,8 +1159,8 @@
 				1FA1EA551585575C00A78FA8 /* MTEStoreOnlineViewController.m in Sources */,
 				1FF381B115FBEFA0000334FC /* MTETShirtsFilterViewController.m in Sources */,
 				1F7C152F162B706D00929ECB /* MTESettingSwitchCell.m in Sources */,
+				1F6DFDD917D7CA9800101020 /* MTESyncManager.m in Sources */,
 				1F0D48A416AB51520076D60F /* MTEMyTeeAPIClient.m in Sources */,
-				1F0D48A816AB535E0076D60F /* MTEMyTeeIncrementalStore.m in Sources */,
 				1FED0C1016AC4E9100E33965 /* MTEAuthenticationManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

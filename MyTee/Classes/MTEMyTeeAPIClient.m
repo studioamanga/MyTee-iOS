@@ -62,8 +62,7 @@ static NSString * const kMTEMyTeeAPIAuthenticationPath = @"user/me";
                              withContext:(NSManagedObjectContext *)context
 {
     NSMutableURLRequest *mutableURLRequest = nil;
-    if ([fetchRequest.entityName isEqualToString:@"MTETShirt"])
-    {
+    if ([fetchRequest.entityName isEqualToString:@"MTETShirt"]) {
         NSDictionary *parameters = [MTEAuthenticationManager emailFromKeychain] ? @{@"login" : [MTEAuthenticationManager emailFromKeychain], @"password" : [MTEAuthenticationManager passwordFromKeychain]} : nil;
         mutableURLRequest = [self requestWithMethod:@"GET" path:@"tshirt/all" parameters:parameters];
     }

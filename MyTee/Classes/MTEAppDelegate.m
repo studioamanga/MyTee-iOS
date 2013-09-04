@@ -8,10 +8,12 @@
 
 #import "MTEAppDelegate.h"
 
-#import "MTEMyTeeIncrementalStore.h"
+#import <AFNetworkActivityIndicatorManager.h>
 #import "MTETShirtsViewController.h"
 #import "MTESettingsViewController.h"
 #import "ECSlidingViewController.h"
+#import "MTESyncManager.h"
+#import "MTEMyTeeAPIClient.h"
 
 @interface MTEAppDelegate ()
 
@@ -40,21 +42,19 @@
     [[UINavigationBar appearanceWhenContainedIn:[UIPopoverController class], nil] setBackgroundImage:nil
                                                                                        forBarMetrics:UIBarMetricsLandscapePhone];
     
-    [[UIBarButtonItem appearance] setTintColor:[UIColor darkGrayColor]];
+    //[[UIBarButtonItem appearance] setTintColor:[UIColor darkGrayColor]];
     
     [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"tabbar"]];
     [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageNamed:@"selection-tab"]];
     [[UITabBar appearance] setSelectedImageTintColor:[UIColor grayColor]];
     
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) 
-    {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
         MTETShirtsViewController * tshirtsViewController = (MTETShirtsViewController*)navController.topViewController;
         
         tshirtsViewController.managedObjectContext = self.managedObjectContext;
     }
-    else 
-    {
+    else {
         ECSlidingViewController *slidingViewController = (ECSlidingViewController *)self.window.rootViewController;
         UINavigationController *tshirtsNavController = (UINavigationController *)[slidingViewController.storyboard instantiateViewControllerWithIdentifier:@"MTETShirtsNavigationController"];
         MTETShirtsViewController * tshirtsViewController = (MTETShirtsViewController *)tshirtsNavController.topViewController;
@@ -62,6 +62,10 @@
         
         tshirtsViewController.managedObjectContext = self.managedObjectContext;
     }
+    
+    self.syncManager = [MTESyncManager syncManagerWithClient:[MTEMyTeeAPIClient sharedClient]
+                                                     context:self.managedObjectContext];
+    [self.syncManager sync];
     
     return YES;
 }
@@ -94,7 +98,7 @@
     
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
-        __managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        __managedObjectContext = [[NSManagedObjectContext alloc] init];
         [__managedObjectContext setPersistentStoreCoordinator:coordinator];
     }
     
@@ -119,19 +123,12 @@
         return __persistentStoreCoordinator;
     }
     
-    __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    
-    AFIncrementalStore *incrementalStore = (AFIncrementalStore *)[__persistentStoreCoordinator addPersistentStoreWithType:[MTEMyTeeIncrementalStore type] configuration:nil URL:nil options:nil error:nil];
-    
-    NSURL *storeURL = [self storeURL];
-    
-    NSDictionary *options = @{
-    NSInferMappingModelAutomaticallyOption : @(YES),
-NSMigratePersistentStoresAutomaticallyOption: @(YES)
-    };
-    
     NSError *error = nil;
-    if (![incrementalStore.backingPersistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"mytee.sqlite"];
+    NSDictionary *options = @{NSInferMappingModelAutomaticallyOption: @(YES), NSMigratePersistentStoresAutomaticallyOption: @(YES)};
+    
+    __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
