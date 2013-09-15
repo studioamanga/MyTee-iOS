@@ -30,6 +30,7 @@
 
 @end
 
+
 @implementation MTETShirtsViewController
 
 #pragma mark - View lifecycle
@@ -73,28 +74,16 @@
         [self performSegueWithIdentifier:@"MTELoginSegue" sender:nil];
 }
 
-- (IBAction)didPressSettingsBarButtonItem:(id)sender
-{
-    UIStoryboard *iPhoneStoryboard = [UIStoryboard storyboardWithName:@"Storyboard_iPhone"
-                                                               bundle:[NSBundle mainBundle]];
-    UINavigationController *settingsNavigationController = [iPhoneStoryboard instantiateViewControllerWithIdentifier:@"MTESettingsNavigationController"];
-    settingsNavigationController.modalPresentationStyle = UIModalPresentationFormSheet;
-    MTESettingsViewController *viewController = (MTESettingsViewController*)settingsNavigationController.topViewController;
-    viewController.delegate = self;
-    [self presentViewController:settingsNavigationController animated:YES completion:nil];
-}
+#pragma mark - Actions
 
 - (IBAction)showFilterViewController:(id)sender
 {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        if (self.filterPopoverController)
-        {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if (self.filterPopoverController) {
             [self.filterPopoverController dismissPopoverAnimated:YES];
             self.filterPopoverController = nil;
         }
-        else
-        {
+        else {
             MTETShirtsFilterViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MTETShirtsFilterViewController"];
             viewController.delegate = self;
             UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
@@ -110,30 +99,38 @@
 
 - (IBAction)showSettingsViewController:(id)sender
 {
-//    [self.slidingViewController anchorTopViewTo:ECLeft];
+    UIStoryboard *storyboard;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        storyboard = [UIStoryboard storyboardWithName:@"Storyboard_iPhone" bundle:[NSBundle mainBundle]];
+    else
+        storyboard = self.storyboard;
+    
+    UINavigationController *settingsNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"MTESettingsNavigationController"];
+    settingsNavigationController.modalPresentationStyle = UIModalPresentationFormSheet;
+    MTESettingsViewController *viewController = (MTESettingsViewController*)settingsNavigationController.topViewController;
+    viewController.delegate = self;
+    [self presentViewController:settingsNavigationController animated:YES completion:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"MTELoginSegue"])
-    {
+    if ([segue.identifier isEqualToString:@"MTELoginSegue"]) {
         UINavigationController *navigationController = segue.destinationViewController;
         MTELoginViewController *viewController = (MTELoginViewController*)navigationController.topViewController;
         viewController.delegate = self;
     }
-    else if ([segue.identifier isEqualToString:@"MTETShirtSegue"])
-    {
+    else if ([segue.identifier isEqualToString:@"MTETShirtSegue"]) {
         MTETShirtViewController *viewController = nil;
-        if ([segue.destinationViewController isMemberOfClass:[MTETShirtViewController class]])
+        if ([segue.destinationViewController isMemberOfClass:[MTETShirtViewController class]]) {
              viewController = segue.destinationViewController;
-        else if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]])
-        {
+        }
+        else if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
             UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
             viewController = (MTETShirtViewController *)navigationController.topViewController;
         }
         
         NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] lastObject];
-        MTETShirt *tshirt = [self.tshirtExplorer tshirtAtIndex:indexPath.row];
+        MTETShirt *tshirt      = [self.tshirtExplorer tshirtAtIndex:indexPath.row];
         viewController.tshirt = tshirt;
     }
     else if ([segue.identifier isEqualToString:@"MTEFilterSegue"])
@@ -269,20 +266,10 @@
     [MTEAuthenticationManager resetKeychain];
     [((MTEAppDelegate *)[UIApplication sharedApplication].delegate) resetManagedObjectContext];
     
-    [self.collectionView reloadData];
+    [self.tshirtExplorer fetchData];
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        [self.detailViewController.navigationController popToRootViewControllerAnimated:NO];
-        self.detailViewController.tshirt = nil;
-        
-        [self dismissViewControllerAnimated:YES completion:^{
-            [self performSegueWithIdentifier:@"MTELoginSegue" sender:nil];
-        }];
-    }
-    else {
-        [self.navigationController popToRootViewControllerAnimated:YES];
-        [self performSegueWithIdentifier:@"MTELoginSegue" sender:nil];
-    }
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Filter view delegate
@@ -291,15 +278,14 @@
 {
     [self.collectionView reloadData];
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         [self.filterPopoverController dismissPopoverAnimated:YES];
         self.filterPopoverController = nil;
     }
-    else
-    {
+    else {
         [self.navigationController popToRootViewControllerAnimated:NO];
     }
+    
     [self.collectionView setContentOffset:CGPointZero animated:NO];
 }
 

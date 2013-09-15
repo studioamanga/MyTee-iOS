@@ -34,19 +34,9 @@ enum MTESettingsViewSections {
 {
     [super viewDidLoad];
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    {
-        CGRect spaceRect = CGRectMake(0, 0, 128, 1);
-        UIBarButtonItem *spaceBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[[UIView alloc] initWithFrame:spaceRect]];
-        self.navigationItem.leftBarButtonItem = spaceBarButtonItem;
-        
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"linen-darker-bar"]
-                                                      forBarMetrics:UIBarMetricsDefault];
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"linen-darker-bar-landscape"]
-                                                      forBarMetrics:UIBarMetricsLandscapePhone];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
     }
-    else
-    {
+    else {
         self.emailLabel.textColor   = [UIColor blackColor];
         self.emailLabel.shadowColor = [UIColor clearColor];
         
@@ -81,15 +71,6 @@ enum MTESettingsViewSections {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    {
-        UIBarButtonItem *spaceBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, UIInterfaceOrientationIsPortrait(toInterfaceOrientation) ? 128 : 380, 1)]];
-        self.navigationItem.leftBarButtonItem = spaceBarButtonItem;
-    }
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -99,8 +80,7 @@ enum MTESettingsViewSections {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    switch (section)
-    {
+    switch (section) {
         case MTESettingsViewSectionReminders:
             return 2;
         case MTESettingsViewSectionSyncNow:
@@ -115,12 +95,9 @@ enum MTESettingsViewSections {
 {
     UITableViewCell *cell = nil;
     
-    switch (indexPath.section)
-    {
-        case MTESettingsViewSectionReminders:
-        {
-            switch (indexPath.row)
-            {
+    switch (indexPath.section) {
+        case MTESettingsViewSectionReminders: {
+            switch (indexPath.row) {
                 case 0:
                     cell = [tableView dequeueReusableCellWithIdentifier:@"MTESettingsReminderSwitchCell" forIndexPath:indexPath];
                     ((MTESettingSwitchCell *)cell).switchControl.on = [MTESettingsManager isRemindersActive];
@@ -137,14 +114,16 @@ enum MTESettingsViewSections {
             }
             break;
         }
-        case MTESettingsViewSectionSyncNow:
+        case MTESettingsViewSectionSyncNow: {
             cell = [tableView dequeueReusableCellWithIdentifier:@"MTESettingsActionCell" forIndexPath:indexPath];
             cell.textLabel.text = @"Sync Now";
             break;
-        case MTESettingsViewSectionLogOut:
+        }
+        case MTESettingsViewSectionLogOut: {
             cell = [tableView dequeueReusableCellWithIdentifier:@"MTESettingsActionCell" forIndexPath:indexPath];
             cell.textLabel.text = @"Log Out";
             break;
+        }
     }
     
     return cell;
@@ -154,8 +133,7 @@ enum MTESettingsViewSections {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.section)
-    {
+    switch (indexPath.section) {
         case MTESettingsViewSectionReminders:
             break;
             

@@ -27,8 +27,6 @@
 - (void)syncFinished:(id)sender;
 - (void)syncFailed:(id)sender;
 
-- (IBAction)didPressSettingsBarButtonItem:(id)sender;
-
 - (IBAction)showFilterViewController:(id)sender;
 - (IBAction)showSettingsViewController:(id)sender;
 
