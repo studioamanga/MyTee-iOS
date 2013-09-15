@@ -20,8 +20,6 @@
 #import "MTESettingsViewController.h"
 #import "MTELoginViewController.h"
 #import "MTETShirtsFilterViewController.h"
-#import "ECSlidingViewController.h"
-#import "KSCustomPopoverBackgroundView.h"
 
 #import <AFNetworking.h>
 #import <QuartzCore/QuartzCore.h>
@@ -64,33 +62,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
- 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    {
-        if (![self.slidingViewController.underRightViewController isKindOfClass:[UIViewController class]])
-        {
-            UINavigationController *settingsNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"MTESettingsNavigationController"];
-            MTESettingsViewController *settingsViewController = (MTESettingsViewController *)settingsNavigationController.topViewController;
-            settingsViewController.delegate = self;
-            self.slidingViewController.underRightViewController = settingsNavigationController;
-        }
-        
-        if (![self.slidingViewController.underLeftViewController isKindOfClass:[UIViewController class]])
-        {
-            UINavigationController *filterNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"MTEFilterNavigationController"];
-            ((MTETShirtsFilterViewController *)filterNavigationController.topViewController).delegate = self;
-            self.slidingViewController.underLeftViewController  = filterNavigationController;
-        }
-    
-        [self.navigationController.view addGestureRecognizer:self.slidingViewController.panGesture];
-        [self.slidingViewController setAnchorLeftRevealAmount:280];
-        [self.slidingViewController setAnchorRightRevealAmount:280];
-        
-        self.navigationController.view.clipsToBounds = NO;
-        self.navigationController.view.layer.shadowOpacity = 0.75;
-        self.navigationController.view.layer.shadowRadius = 10;
-        self.navigationController.view.layer.shadowColor = [UIColor blackColor].CGColor;
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -128,18 +99,18 @@
             viewController.delegate = self;
             UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
             self.filterPopoverController = [[UIPopoverController alloc] initWithContentViewController:navigationController];
-            self.filterPopoverController.popoverBackgroundViewClass = [KSCustomPopoverBackgroundView class];
             self.filterPopoverController.delegate = self;
             [self.filterPopoverController presentPopoverFromRect:CGRectMake(0, 0, 44, 44) inView:self.navigationController.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }
     }
-    else
-        [self.slidingViewController anchorTopViewTo:ECRight];
+    else {
+//        [self.slidingViewController anchorTopViewTo:ECRight];
+    }
 }
 
 - (IBAction)showSettingsViewController:(id)sender
 {
-    [self.slidingViewController anchorTopViewTo:ECLeft];
+//    [self.slidingViewController anchorTopViewTo:ECLeft];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -300,8 +271,7 @@
     
     [self.collectionView reloadData];
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         [self.detailViewController.navigationController popToRootViewControllerAnimated:NO];
         self.detailViewController.tshirt = nil;
         
@@ -309,12 +279,9 @@
             [self performSegueWithIdentifier:@"MTELoginSegue" sender:nil];
         }];
     }
-    else
-    {
+    else {
         [self.navigationController popToRootViewControllerAnimated:YES];
-        [self.slidingViewController resetTopViewWithAnimations:nil onComplete:^{
-            [self performSegueWithIdentifier:@"MTELoginSegue" sender:nil];
-        }];
+        [self performSegueWithIdentifier:@"MTELoginSegue" sender:nil];
     }
 }
 

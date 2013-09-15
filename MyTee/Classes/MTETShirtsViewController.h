@@ -9,7 +9,6 @@
 #import "MTESettingsViewController.h"
 #import "MTELoginViewController.h"
 #import "MTETShirtsFilterViewController.h"
-#import <ECSlidingViewController.h>
 
 @class MTETShirtExplorer;
 @class MTETShirtViewController;

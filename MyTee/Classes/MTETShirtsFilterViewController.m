@@ -8,7 +8,6 @@
 
 #import "MTETShirtsFilterViewController.h"
 
-#import "ECSlidingViewController.h"
 #import "MTETShirtExplorer.h"
 
 @interface MTETShirtsFilterViewController ()
@@ -98,8 +97,6 @@
     [userDefaults synchronize];
     
     [self.delegate tshirtsFilterViewControllerDidChangeFilter:self];
-    
-    [self.slidingViewController resetTopView];
 }
 
 @end

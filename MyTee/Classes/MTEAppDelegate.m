@@ -11,7 +11,6 @@
 #import <AFNetworkActivityIndicatorManager.h>
 #import "MTETShirtsViewController.h"
 #import "MTESettingsViewController.h"
-#import "ECSlidingViewController.h"
 #import "MTESyncManager.h"
 #import "MTEMyTeeAPIClient.h"
 
@@ -31,16 +30,17 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
-    
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"linen-nav-bar"]
-                                       forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"linen-nav-bar-landscape"]
-                                       forBarMetrics:UIBarMetricsLandscapePhone];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor whiteColor], UITextAttributeTextShadowColor: [UIColor blackColor]}];
-    [[UINavigationBar appearanceWhenContainedIn:[UIPopoverController class], nil] setBackgroundImage:nil
-                                                                                       forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearanceWhenContainedIn:[UIPopoverController class], nil] setBackgroundImage:nil
-                                                                                       forBarMetrics:UIBarMetricsLandscapePhone];
+
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackOpaque];
+//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"linen-nav-bar"]
+//                                       forBarMetrics:UIBarMetricsDefault];
+//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"linen-nav-bar-landscape"]
+//                                       forBarMetrics:UIBarMetricsLandscapePhone];
+//    [[UINavigationBar appearance] setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor whiteColor], UITextAttributeTextShadowColor: [UIColor blackColor]}];
+//    [[UINavigationBar appearanceWhenContainedIn:[UIPopoverController class], nil] setBackgroundImage:nil
+//                                                                                       forBarMetrics:UIBarMetricsDefault];
+//    [[UINavigationBar appearanceWhenContainedIn:[UIPopoverController class], nil] setBackgroundImage:nil
+//                                                                                       forBarMetrics:UIBarMetricsLandscapePhone];
     
     //[[UIBarButtonItem appearance] setTintColor:[UIColor darkGrayColor]];
     
@@ -48,20 +48,11 @@
     [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageNamed:@"selection-tab"]];
     [[UITabBar appearance] setSelectedImageTintColor:[UIColor grayColor]];
     
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
-        MTETShirtsViewController * tshirtsViewController = (MTETShirtsViewController*)navController.topViewController;
+    
+    UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
+    MTETShirtsViewController * tshirtsViewController = (MTETShirtsViewController*)navController.topViewController;
         
-        tshirtsViewController.managedObjectContext = self.managedObjectContext;
-    }
-    else {
-        ECSlidingViewController *slidingViewController = (ECSlidingViewController *)self.window.rootViewController;
-        UINavigationController *tshirtsNavController = (UINavigationController *)[slidingViewController.storyboard instantiateViewControllerWithIdentifier:@"MTETShirtsNavigationController"];
-        MTETShirtsViewController * tshirtsViewController = (MTETShirtsViewController *)tshirtsNavController.topViewController;
-        slidingViewController.topViewController = tshirtsNavController;
-        
-        tshirtsViewController.managedObjectContext = self.managedObjectContext;
-    }
+    tshirtsViewController.managedObjectContext = self.managedObjectContext;
     
     self.syncManager = [MTESyncManager syncManagerWithClient:[MTEMyTeeAPIClient sharedClient]
                                                      context:self.managedObjectContext];
