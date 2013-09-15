@@ -25,6 +25,7 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *tshirtImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *noteIconImageView;
 @property (weak, nonatomic) IBOutlet UIButton *storeButton;
 @property (weak, nonatomic) IBOutlet UIButton *wearButton;
 @property (weak, nonatomic) IBOutlet UIButton *washButton;
@@ -32,7 +33,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *sizeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *tagsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *noteLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *noteIconImageView;
 @property (strong, nonatomic) NSDateFormatter * dateFormatter;
 @property (strong, nonatomic) UIActionSheet * wearWashActionSheet;
 @property (strong, nonatomic) UIPopoverController * masterPopoverController;
@@ -50,8 +50,7 @@
 
 - (void)setTshirt:(MTETShirt *)newTShirt
 {
-    if (_tshirt != newTShirt)
-    {
+    if (_tshirt != newTShirt) {
         _tshirt = newTShirt;
         
         // Update the view.
@@ -64,13 +63,11 @@
 
 - (void)configureView
 {
-    if (!self.tshirt)
-    {
+    if (!self.tshirt) {
         for (UIView *view in self.view.subviews)
             view.hidden = YES;
     }
-    else
-    {
+    else {
         for (UIView *view in self.view.subviews)
             view.hidden = NO;
         
@@ -90,15 +87,13 @@
             [ratingString appendString:@"☆"];
         self.ratingLabel.text = ratingString;
         
-        if (self.tshirt.note.length > 0)
-        {
+        if (self.tshirt.note.length > 0) {
             CGSize noteSize = [self.tshirt.note sizeWithFont:self.noteLabel.font constrainedToSize:CGSizeMake(self.noteLabel.frame.size.width, 9999)];
             self.noteLabel.frame = CGRectMake(self.noteLabel.frame.origin.x, self.noteLabel.frame.origin.y, self.noteLabel.frame.size.width, noteSize.height);
             self.noteLabel.text = self.tshirt.note;
             self.noteIconImageView.hidden = NO;
         }
-        else
-        {
+        else {
             self.noteLabel.text = @"";
             self.noteIconImageView.hidden = YES;
         }
@@ -149,16 +144,13 @@
 
 - (IBAction)presentStoreController:(id)sender
 {
-    if ([self.tshirt.store.type isEqualToString:@"Retail"])
-    {
+    if ([self.tshirt.store.type isEqualToString:@"Retail"]) {
         [self performSegueWithIdentifier:@"MTEStoreRetailSegue" sender:nil];
     }
-    else if ([self.tshirt.store.type isEqualToString:@"Web"])
-    {
+    else if ([self.tshirt.store.type isEqualToString:@"Web"]) {
         [self performSegueWithIdentifier:@"MTEStoreOnlineSegue" sender:nil];
     }
-    else
-    {
+    else {
         [self performSegueWithIdentifier:@"MTEStoreSegue" sender:nil];
     }
 }
@@ -179,34 +171,31 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    NSDictionary * params = @{@"login":[MTEAuthenticationManager emailFromKeychain], @"password":[MTEAuthenticationManager passwordFromKeychain]};
+    NSString *path;
+    
     switch (buttonIndex)
     {
         case 0:
-        {
             // Wear
-            MTEWear *wear = [[MTEWear alloc] initInManagedObjectContext:self.tshirt.managedObjectContext];
-            [self.tshirt.managedObjectContext insertObject:wear];
-            wear.date   = [NSDate date];
-            wear.tshirt = self.tshirt;
+            path = [NSString stringWithFormat:@"tshirt/%@/wear", self.tshirt.identifier];
             break;
-        }
         case 1:
-        {
             // Wash
-            MTEWash *wash = [[MTEWash alloc] initInManagedObjectContext:self.tshirt.managedObjectContext];
-            [self.tshirt.managedObjectContext insertObject:wash];
-            wash.date   = [NSDate date];
-            wash.tshirt = self.tshirt;
+            path = [NSString stringWithFormat:@"tshirt/%@/wash", self.tshirt.identifier];
             break;
-        }
     }
     
-    NSError *error = nil;
-    if (![self.tshirt.managedObjectContext save:&error]) {
-        NSLog(@"Error: %@", error);
-    }
+    [[MTEMyTeeAPIClient sharedClient] postPath:path
+                                    parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+                                        [self dismissViewControllerAnimated:YES completion:nil];
+                                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                        [[[UIAlertView alloc] initWithTitle:@"Error"
+                                                                    message:[NSString stringWithFormat:@"%@ (%@)", [error localizedDescription], [error localizedRecoverySuggestion]]
+                                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                                    }];
     
-    [self configureView];
     self.wearWashActionSheet = nil;
 }
 
@@ -230,20 +219,17 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"MTEWearSegue"])
-    {
+    if ([segue.identifier isEqualToString:@"MTEWearSegue"]) {
         MTEWearWashViewController *viewController = segue.destinationViewController;
         viewController.datesObjects = [self.tshirt wearsSortedByDate];
     }
-    else if ([segue.identifier isEqualToString:@"MTEWashSegue"])
-    {
+    else if ([segue.identifier isEqualToString:@"MTEWashSegue"]) {
         MTEWearWashViewController *viewController = segue.destinationViewController;
         viewController.datesObjects = [self.tshirt washsSortedByDate];
     }
     else if ([segue.identifier isEqualToString:@"MTEStoreSegue"] ||
              [segue.identifier isEqualToString:@"MTEStoreRetailSegue"] ||
-             [segue.identifier isEqualToString:@"MTEStoreOnlineSegue"])
-    {
+             [segue.identifier isEqualToString:@"MTEStoreOnlineSegue"]) {
         MTEStoreViewController *viewController = segue.destinationViewController;
         viewController.store = self.tshirt.store;
     }
