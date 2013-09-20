@@ -19,7 +19,10 @@
 @property (nonatomic, strong) MTESyncManager * syncManager;
 @property (strong, nonatomic, readonly) NSURL *storeURL;
 
+- (void)removeObjectsInManagedObjectContextForEntityName:(NSString *)entityName;
+
 @end
+
 
 @implementation MTEAppDelegate
 
@@ -32,30 +35,21 @@
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackOpaque];
-//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"linen-nav-bar"]
-//                                       forBarMetrics:UIBarMetricsDefault];
-//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"linen-nav-bar-landscape"]
-//                                       forBarMetrics:UIBarMetricsLandscapePhone];
-//    [[UINavigationBar appearance] setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor whiteColor], UITextAttributeTextShadowColor: [UIColor blackColor]}];
-//    [[UINavigationBar appearanceWhenContainedIn:[UIPopoverController class], nil] setBackgroundImage:nil
-//                                                                                       forBarMetrics:UIBarMetricsDefault];
-//    [[UINavigationBar appearanceWhenContainedIn:[UIPopoverController class], nil] setBackgroundImage:nil
-//                                                                                       forBarMetrics:UIBarMetricsLandscapePhone];
     
-    //[[UIBarButtonItem appearance] setTintColor:[UIColor darkGrayColor]];
-    
-    [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"tabbar"]];
+    [[UITabBar appearance] setBackgroundImage:        [UIImage imageNamed:@"tabbar"]];
     [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageNamed:@"selection-tab"]];
-    [[UITabBar appearance] setSelectedImageTintColor:[UIColor grayColor]];
+    [[UITabBar appearance] setSelectedImageTintColor: [UIColor grayColor]];
     
     
     UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
     MTETShirtsViewController * tshirtsViewController = (MTETShirtsViewController*)navController.topViewController;
-        
-    tshirtsViewController.managedObjectContext = self.managedObjectContext;
     
     self.syncManager = [MTESyncManager syncManagerWithClient:[MTEMyTeeAPIClient sharedClient]
                                                      context:self.managedObjectContext];
+    
+    tshirtsViewController.managedObjectContext = self.managedObjectContext;
+    tshirtsViewController.syncManager = self.syncManager;
+    
     [self.syncManager sync];
     
     return YES;
@@ -127,12 +121,21 @@
     return __persistentStoreCoordinator;
 }
 
+- (void)removeObjectsInManagedObjectContextForEntityName:(NSString *)entityName
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:entityName];
+    NSArray *objects = [self.managedObjectContext executeFetchRequest:request error:nil];
+    for (NSManagedObject *object in objects) {
+        [self.managedObjectContext deleteObject:object];
+    }
+}
+
 - (void)resetManagedObjectContext
 {
-    __managedObjectContext = nil;
+    [self removeObjectsInManagedObjectContextForEntityName:@"MTETShirt"];
+    [self removeObjectsInManagedObjectContextForEntityName:@"MTEStore"];
     
-    NSURL *storeURL = [self storeURL];
-    [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+    [self.managedObjectContext save:nil];
 }
 
 - (NSURL *)storeURL

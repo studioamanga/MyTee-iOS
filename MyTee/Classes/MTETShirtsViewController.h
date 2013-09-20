@@ -12,15 +12,17 @@
 
 @class MTETShirtExplorer;
 @class MTETShirtViewController;
+@class MTESyncManager;
 
 @interface MTETShirtsViewController : UICollectionViewController <MTESettingsViewDelegate, MTELoginViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, MTETShirtsFilterViewDelegate>
 
-@property (weak, nonatomic) NSManagedObjectContext * managedObjectContext;
-@property (strong, nonatomic) MTETShirtExplorer * tshirtExplorer;
+@property (weak, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) MTESyncManager *syncManager;
+@property (strong, nonatomic) MTETShirtExplorer *tshirtExplorer;
 
-@property (strong, nonatomic) MTETShirtViewController * detailViewController;
+@property (strong, nonatomic) MTETShirtViewController *detailViewController;
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem * settingsBarButtonItem;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsBarButtonItem;
 
 - (void)shouldSyncNow:(id)sender;
 - (void)syncStarted:(id)sender;

@@ -12,6 +12,7 @@
 #import "MTETShirtExplorer.h"
 #import "MTEAuthenticationManager.h"
 #import "MTEAppDelegate.h"
+#import "MTESyncManager.h"
 
 #import "MBProgressHUD.h"
 #import "MTEConstView.h"
@@ -223,6 +224,7 @@
 - (void)loginViewControllerDidLoggedIn:(MTELoginViewController *)loginViewController
 {
     [self.tshirtExplorer fetchData];
+    [self.syncManager sync];
 }
 
 #pragma mark - Sync
