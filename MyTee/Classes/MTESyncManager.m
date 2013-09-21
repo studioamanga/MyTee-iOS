@@ -16,7 +16,7 @@
 
 @property (strong, nonatomic) MTEMyTeeAPIClient *client;
 @property (strong, nonatomic) NSManagedObjectContext *context;
-
+@property (assign, nonatomic, getter = isSyncing) BOOL syncing;
 @end
 
 
@@ -31,8 +31,18 @@
     return syncManager;
 }
 
-- (void)sync
+- (void)syncSuccess:(void (^)())success
+            failure:(void (^)(NSError *error))failure
 {
+    if (self.isSyncing) {
+        if (failure) {
+            failure(nil);
+        }
+        return;
+    }
+    
+    self.syncing = YES;
+    
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"MTETShirt"];
     NSURLRequest *request = [self.client requestForFetchRequest:fetchRequest
                                                     withContext:self.context];
@@ -90,9 +100,17 @@
                     [tshirt setValue:obj forKey:key];
                 }
             }];
+            
+            [self.context save:nil];
+            
+            self.syncing = NO;
+            if (success)
+                success();
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+        self.syncing = NO;
+        if (failure)
+            failure(error);
     }];
     
     [self.client enqueueHTTPRequestOperation:operation];

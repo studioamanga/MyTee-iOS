@@ -29,6 +29,8 @@
 
 @property (nonatomic, strong) UIPopoverController *filterPopoverController;
 
+- (void)startRefresh:(id)sender;
+
 @end
 
 
@@ -59,6 +61,13 @@
         woodTexture = [UIImage imageNamed:@"shelves"];
     UIColor *woodColor = [UIColor colorWithPatternImage:woodTexture];
     self.collectionView.backgroundColor = woodColor;
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(startRefresh:)
+             forControlEvents:UIControlEventValueChanged];
+    [self.collectionView addSubview:refreshControl];
+    
+    [self.tshirtExplorer fetchData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -76,6 +85,20 @@
 }
 
 #pragma mark - Actions
+
+- (void)startRefresh:(id)sender
+{
+    [self.syncManager syncSuccess:^{
+        if ([sender isKindOfClass:[UIRefreshControl class]])
+            [(UIRefreshControl *)sender endRefreshing];
+        
+        [self.tshirtExplorer fetchData];
+        [self.collectionView reloadData];
+    } failure:^(NSError *error) {
+        if ([sender isKindOfClass:[UIRefreshControl class]])
+            [(UIRefreshControl *)sender endRefreshing];
+    }];
+}
 
 - (IBAction)showFilterViewController:(id)sender
 {
@@ -224,7 +247,7 @@
 - (void)loginViewControllerDidLoggedIn:(MTELoginViewController *)loginViewController
 {
     [self.tshirtExplorer fetchData];
-    [self.syncManager sync];
+    [self.syncManager syncSuccess:nil failure:nil];
 }
 
 #pragma mark - Sync

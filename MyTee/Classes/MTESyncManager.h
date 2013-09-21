@@ -14,6 +14,8 @@
 
 + (MTESyncManager *)syncManagerWithClient:(MTEMyTeeAPIClient *)client
                                   context:(NSManagedObjectContext *)context;
-- (void)sync;
+
+- (void)syncSuccess:(void (^)())success
+            failure:(void (^)(NSError *error))failure;
 
 @end

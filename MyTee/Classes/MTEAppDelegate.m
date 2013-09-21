@@ -40,6 +40,7 @@
     [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageNamed:@"selection-tab"]];
     [[UITabBar appearance] setSelectedImageTintColor: [UIColor grayColor]];
     
+    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
     UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
     MTETShirtsViewController * tshirtsViewController = (MTETShirtsViewController*)navController.topViewController;
@@ -49,8 +50,6 @@
     
     tshirtsViewController.managedObjectContext = self.managedObjectContext;
     tshirtsViewController.syncManager = self.syncManager;
-    
-    [self.syncManager sync];
     
     return YES;
 }
@@ -72,6 +71,18 @@
             abort();
         }
     }
+}
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    [self.syncManager syncSuccess:^{
+        completionHandler(UIBackgroundFetchResultNewData);
+    } failure:^(NSError *error) {
+        if (error)
+            completionHandler(UIBackgroundFetchResultFailed);
+        else
+            completionHandler(UIBackgroundFetchResultNoData);
+    }];
 }
 
 #pragma mark - Core Data
