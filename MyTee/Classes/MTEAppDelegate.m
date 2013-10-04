@@ -54,6 +54,11 @@
     return YES;
 }
 
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    [application setApplicationIconBadgeNumber:0];
+}
+
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     [self saveContext];
@@ -76,6 +81,7 @@
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     [self.syncManager syncSuccess:^{
+        [application setApplicationIconBadgeNumber:1];
         completionHandler(UIBackgroundFetchResultNewData);
     } failure:^(NSError *error) {
         if (error)

@@ -63,6 +63,7 @@
     self.collectionView.backgroundColor = woodColor;
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    refreshControl.tintColor = [UIColor blackColor];
     [refreshControl addTarget:self action:@selector(startRefresh:)
              forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:refreshControl];
@@ -115,9 +116,6 @@
             self.filterPopoverController.delegate = self;
             [self.filterPopoverController presentPopoverFromRect:CGRectMake(0, 0, 44, 44) inView:self.navigationController.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }
-    }
-    else {
-//        [self.slidingViewController anchorTopViewTo:ECRight];
     }
 }
 

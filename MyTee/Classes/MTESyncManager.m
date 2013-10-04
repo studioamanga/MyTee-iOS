@@ -68,10 +68,10 @@
                 
                 NSFetchRequest *wearFetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"MTEWear"];
                 wearFetchRequest.predicate = [NSPredicate predicateWithFormat:@"identifier == %@", wearIdentifier];
-                MTEWear *wear = [[self.context executeFetchRequest:wearFetchRequest error:nil] lastObject];
+                NSUInteger numberOfExistingWear = [self.context countForFetchRequest:wearFetchRequest error:nil];
                 
-                if (!wear) {
-                    wear = [NSEntityDescription insertNewObjectForEntityForName:@"MTEWear" inManagedObjectContext:self.context];
+                if (numberOfExistingWear == 0) {
+                    MTEWear *wear = [NSEntityDescription insertNewObjectForEntityForName:@"MTEWear" inManagedObjectContext:self.context];
                     wear.tshirt = tshirt;
                     
                     NSDictionary *wearAttributes = [self.client attributesForRepresentation:wearObject ofEntity:wear.entity fromResponse:operation.response];
@@ -84,10 +84,10 @@
                 
                 NSFetchRequest *washFetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"MTEWash"];
                 washFetchRequest.predicate = [NSPredicate predicateWithFormat:@"identifier == %@", washIdentifier];
-                MTEWash *wash = [[self.context executeFetchRequest:washFetchRequest error:nil] lastObject];
+                NSUInteger numberOfExistingWash = [self.context countForFetchRequest:washFetchRequest error:nil];
                 
-                if (!wash) {
-                    wash = [NSEntityDescription insertNewObjectForEntityForName:@"MTEWash" inManagedObjectContext:self.context];
+                if (numberOfExistingWash == 0) {
+                    MTEWash *wash = [NSEntityDescription insertNewObjectForEntityForName:@"MTEWash" inManagedObjectContext:self.context];
                     wash.tshirt = tshirt;
                     
                     NSDictionary *washAttributes = [self.client attributesForRepresentation:washObject ofEntity:wash.entity fromResponse:operation.response];
