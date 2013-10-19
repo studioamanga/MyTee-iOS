@@ -73,6 +73,7 @@
                 if (numberOfExistingWear == 0) {
                     MTEWear *wear = [NSEntityDescription insertNewObjectForEntityForName:@"MTEWear" inManagedObjectContext:self.context];
                     wear.tshirt = tshirt;
+                    wear.identifier = wearIdentifier;
                     
                     NSDictionary *wearAttributes = [self.client attributesForRepresentation:wearObject ofEntity:wear.entity fromResponse:operation.response];
                     wear.date   = wearAttributes[@"date"];
@@ -89,6 +90,7 @@
                 if (numberOfExistingWash == 0) {
                     MTEWash *wash = [NSEntityDescription insertNewObjectForEntityForName:@"MTEWash" inManagedObjectContext:self.context];
                     wash.tshirt = tshirt;
+                    wash.identifier = washIdentifier;
                     
                     NSDictionary *washAttributes = [self.client attributesForRepresentation:washObject ofEntity:wash.entity fromResponse:operation.response];
                     wash.date   = washAttributes[@"date"];
