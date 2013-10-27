@@ -13,6 +13,7 @@ DEPENDENCIES:
   - AFIncrementalStore
   - KeychainItemWrapper
   - MBProgressHUD
+  - TransformerKit
 
 SPEC CHECKSUMS:
   AFIncrementalStore: 4b5033a6a5045be8c9985740e8a563b17db9eb68
@@ -22,4 +23,4 @@ SPEC CHECKSUMS:
   MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
   TransformerKit: 3c60759694b70d41b833dfe4005b031762d54e7f
 
-COCOAPODS: 0.25.0
+COCOAPODS: 0.26.2

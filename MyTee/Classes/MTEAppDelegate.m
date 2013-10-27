@@ -34,7 +34,7 @@
 {
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 
-    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackOpaque];
+    //[[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     
     [[UITabBar appearance] setBackgroundImage:        [UIImage imageNamed:@"tabbar"]];
     [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageNamed:@"selection-tab"]];
@@ -81,7 +81,6 @@
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     [self.syncManager syncSuccess:^{
-        [application setApplicationIconBadgeNumber:1];
         completionHandler(UIBackgroundFetchResultNewData);
     } failure:^(NSError *error) {
         if (error)

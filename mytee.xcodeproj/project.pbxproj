@@ -70,7 +70,7 @@
 
 /* Begin PBXFileReference section */
 		15A5273C9C654B3A99350E1E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
-		1F01259517FEF50A006812FA /* mytee 3 indexed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "mytee 3 indexed.xcdatamodel"; sourceTree = "<group>"; };
+		1F01259517FEF50A006812FA /* mytee 3 indexed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "mytee 3 indexed.xcdatamodel"; sourceTree = "<group>"; };
 		1F01F15814DB464700D6EF0C /* MTETShirtCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTETShirtCell.h; path = MyTee/Classes/MTETShirtCell.h; sourceTree = SOURCE_ROOT; };
 		1F01F15914DB464700D6EF0C /* MTETShirtCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTETShirtCell.m; path = MyTee/Classes/MTETShirtCell.m; sourceTree = SOURCE_ROOT; };
 		1F01F15B14DC055900D6EF0C /* ShadowedTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShadowedTableView.h; path = Libraries/ShadowedTableView/ShadowedTableView.h; sourceTree = SOURCE_ROOT; };

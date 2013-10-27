@@ -54,13 +54,14 @@
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
         self.detailViewController = (MTETShirtViewController*)[[self.splitViewController.viewControllers lastObject] topViewController];
     
-    UIImage *woodTexture;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        woodTexture = [UIImage imageNamed:(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) ? @"shelves-portrait" : @"shelves-landscape"];
-    else
-        woodTexture = [UIImage imageNamed:@"shelves"];
-    UIColor *woodColor = [UIColor colorWithPatternImage:woodTexture];
-    self.collectionView.backgroundColor = woodColor;
+//    UIImage *woodTexture;
+//    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+//        woodTexture = [UIImage imageNamed:(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) ? @"shelves-portrait" : @"shelves-landscape"];
+//    else
+//        woodTexture = [UIImage imageNamed:@"shelves"];
+//    UIColor *woodColor = [UIColor colorWithPatternImage:woodTexture];
+//    self.collectionView.backgroundColor = woodColor;
+    self.collectionView.backgroundColor = [UIColor whiteColor];
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     refreshControl.tintColor = [UIColor blackColor];
@@ -200,18 +201,15 @@
     if ([[cell.contentView.subviews lastObject] isMemberOfClass:[UIImageView class]])
         tshirtImageView = [cell.contentView.subviews lastObject];
     
-    if (!tshirtImageView)
-    {
+    if (!tshirtImageView) {
         tshirtImageView = [[UIImageView alloc] init];
         tshirtImageView.contentMode = UIViewContentModeScaleAspectFit;
         
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             CGFloat tshirtSize = cell.bounds.size.width - 2*20;
             tshirtImageView.frame = CGRectMake(10, (cell.bounds.size.height - tshirtSize)/2 + 8, tshirtSize, tshirtSize);
         }
-        else
-        {
+        else {
             CGFloat tshirtSize = cell.bounds.size.width - 2*8;
             tshirtImageView.frame = CGRectMake(8, (cell.bounds.size.height - tshirtSize)/2 + 8, tshirtSize, tshirtSize);
         }
@@ -231,8 +229,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
-    {
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
         [self.detailViewController.navigationController popToRootViewControllerAnimated:YES];
         
         MTETShirt *tshirt = [self.tshirtExplorer tshirtAtIndex:indexPath.row];

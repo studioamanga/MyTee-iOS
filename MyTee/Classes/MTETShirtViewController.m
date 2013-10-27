@@ -88,7 +88,10 @@
         self.ratingLabel.text = ratingString;
         
         if (self.tshirt.note.length > 0) {
-            CGSize noteSize = [self.tshirt.note sizeWithFont:self.noteLabel.font constrainedToSize:CGSizeMake(self.noteLabel.frame.size.width, 9999)];
+            CGSize noteSize = [self.tshirt.note boundingRectWithSize:CGSizeMake(self.noteLabel.frame.size.width, CGFLOAT_MAX)
+                                                             options:kNilOptions
+                                                          attributes:@{NSFontAttributeName: self.noteLabel.font}
+                                                             context:nil].size;
             self.noteLabel.frame = CGRectMake(self.noteLabel.frame.origin.x, self.noteLabel.frame.origin.y, self.noteLabel.frame.size.width, noteSize.height);
             self.noteLabel.text = self.tshirt.note;
             self.noteIconImageView.hidden = NO;
@@ -125,9 +128,9 @@
         self.mainScrollView.contentSize = CGSizeMake((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 540 : self.view.frame.size.width, self.noteLabel.frame.origin.y+self.noteLabel.frame.size.height+50);
     }
     
-    UIImage *woodTexture = [UIImage imageNamed:(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? @"shelves-free-form" : @"shelves-closeup"];
-    UIColor *woodColor = [UIColor colorWithPatternImage:woodTexture];
-    self.mainScrollView.backgroundColor = woodColor;
+//    UIImage *woodTexture = [UIImage imageNamed:(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? @"shelves-free-form" : @"shelves-closeup"];
+//    UIColor *woodColor = [UIColor colorWithPatternImage:woodTexture];
+//    self.mainScrollView.backgroundColor = woodColor;
 }
 
 - (NSString*)relativeDescriptionForDate:(NSDate*)date
