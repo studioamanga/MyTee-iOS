@@ -12,6 +12,9 @@
 #import "MTEWear.h"
 #import "MTEWash.h"
 
+NSString *const kMTETShirtsFilterType = @"kMTETShirtsFilterType";
+NSString *const kMTETShirtsFilterParameter = @"kMTETShirtsFilterParameter";
+
 @interface MTESyncManager ()
 
 @property (strong, nonatomic) MTEMyTeeAPIClient *client;
@@ -103,12 +106,14 @@
                 }
             }];
             
-            [self.context save:nil];
-            
-            self.syncing = NO;
-            if (success)
-                success();
+            [tshirt updateNumberOfWearsSinceLastWash];
         }
+        
+        [self.context save:nil];
+        
+        self.syncing = NO;
+        if (success)
+            success();
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         self.syncing = NO;
         if (failure)

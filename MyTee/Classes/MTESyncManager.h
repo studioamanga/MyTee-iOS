@@ -8,6 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+FOUNDATION_EXPORT NSString *const kMTETShirtsFilterType;
+FOUNDATION_EXPORT NSString *const kMTETShirtsFilterParameter;
+
+typedef NS_ENUM (NSUInteger, MTETShirtsFilterType)
+{
+    MTETShirtsFilterAll = 0,
+    MTETShirtsFilterWear,
+    MTETShirtsFilterWash
+};
+
 @class MTEMyTeeAPIClient;
 
 @interface MTESyncManager : NSObject

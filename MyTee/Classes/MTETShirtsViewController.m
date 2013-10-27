@@ -19,17 +19,16 @@
 #import "MTETShirtViewController.h"
 #import "MTESettingsViewController.h"
 #import "MTELoginViewController.h"
-#import "MTETShirtsFilterViewController.h"
 
 #import <AFNetworking.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface MTETShirtsViewController () <UIPopoverControllerDelegate, NSFetchedResultsControllerDelegate>
+@interface MTETShirtsViewController () <UIPopoverControllerDelegate, NSFetchedResultsControllerDelegate, UIActionSheetDelegate>
 
-@property (nonatomic, strong) UIPopoverController *filterPopoverController;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 - (void)startRefresh:(id)sender;
+- (void)configureForFilterType:(MTETShirtsFilterType)filterType;
 
 @end
 
@@ -44,13 +43,32 @@
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([MTETShirt class])];
     
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"color" ascending:YES];
-    [fetchRequest setSortDescriptors:@[sort]];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    MTETShirtsFilterType filterType = [userDefaults integerForKey:kMTETShirtsFilterType];
+    NSSortDescriptor *sortDescriptor;
+    NSString *sectionNameKeyPath;
     
+    switch (filterType) {
+        case MTETShirtsFilterAll:
+            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"color" ascending:YES];
+            sectionNameKeyPath = @"color";
+            break;
+            
+        case MTETShirtsFilterWash:
+            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"numberOfWearsSinceLastWash" ascending:NO];
+            sectionNameKeyPath = @"numberOfWearsSinceLastWash";
+            break;
+            
+        case MTETShirtsFilterWear:
+            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"color" ascending:YES];
+            break;
+    }
+    
+    fetchRequest.sortDescriptors = @[sortDescriptor];
     self.fetchedResultsController = [[NSFetchedResultsController alloc]
                                      initWithFetchRequest:fetchRequest
                                      managedObjectContext:managedObjectContext
-                                     sectionNameKeyPath:nil
+                                     sectionNameKeyPath:sectionNameKeyPath
                                      cacheName:nil];
     
     self.fetchedResultsController.delegate = self;
@@ -75,6 +93,10 @@
     [refreshControl addTarget:self action:@selector(startRefresh:)
              forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:refreshControl];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    MTETShirtsFilterType filterType = [userDefaults integerForKey:kMTETShirtsFilterType];
+    [self configureForFilterType:filterType];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -89,6 +111,33 @@
     NSString *email = [MTEAuthenticationManager emailFromKeychain];
     if (!email)
         [self performSegueWithIdentifier:@"MTELoginSegue" sender:nil];
+}
+
+- (void)configureForFilterType:(MTETShirtsFilterType)filterType
+{
+    NSString *filterIconName;
+    switch (filterType) {
+        case MTETShirtsFilterAll:
+            self.title     = @"My T-Shirts";
+            filterIconName = @"33-cabinet-b";
+            break;
+            
+        case MTETShirtsFilterWash:
+            self.title     = @"T-Shirts to Wash";
+            filterIconName = @"wash-b";
+            break;
+            
+        case MTETShirtsFilterWear:
+            self.title     = @"T-Shirt to Wear";
+            filterIconName = @"118-coat-hanger";
+            break;
+    }
+    
+    UIBarButtonItem *filterBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:filterIconName]
+                                                                            style:UIBarButtonItemStylePlain
+                                                                           target:self
+                                                                           action:@selector(showFilterViewController:)];
+    self.navigationItem.leftBarButtonItem = filterBarButtonItem;
 }
 
 #pragma mark - Actions
@@ -106,20 +155,12 @@
 
 - (IBAction)showFilterViewController:(id)sender
 {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        if (self.filterPopoverController) {
-            [self.filterPopoverController dismissPopoverAnimated:YES];
-            self.filterPopoverController = nil;
-        }
-        else {
-            MTETShirtsFilterViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MTETShirtsFilterViewController"];
-            viewController.delegate = self;
-            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-            self.filterPopoverController = [[UIPopoverController alloc] initWithContentViewController:navigationController];
-            self.filterPopoverController.delegate = self;
-            [self.filterPopoverController presentPopoverFromRect:CGRectMake(0, 0, 44, 44) inView:self.navigationController.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        }
-    }
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"All", @"Wear", @"Wash", nil];
+    [actionSheet showFromBarButtonItem:(id)sender animated:YES];
 }
 
 - (IBAction)showSettingsViewController:(id)sender
@@ -158,17 +199,6 @@
         MTETShirt *tshirt      = [self.fetchedResultsController objectAtIndexPath:indexPath];
         viewController.tshirt = tshirt;
     }
-    else if ([segue.identifier isEqualToString:@"MTEFilterSegue"])
-    {
-        UINavigationController *navigationController = segue.destinationViewController;
-        MTETShirtsFilterViewController *viewController = (MTETShirtsFilterViewController*)navigationController.topViewController;
-        viewController.delegate = self;
-    }
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
@@ -191,6 +221,7 @@
 - (int)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
+    NSLog(@"%@ (%d objects)", sectionInfo.name, sectionInfo.numberOfObjects);
     return sectionInfo.numberOfObjects;
 }
 
@@ -292,35 +323,35 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - Filter view delegate
-
-- (void)tshirtsFilterViewControllerDidChangeFilter:(MTETShirtsFilterViewController *)filterController
-{
-    [self.collectionView reloadData];
-    
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        [self.filterPopoverController dismissPopoverAnimated:YES];
-        self.filterPopoverController = nil;
-    }
-    else {
-        [self.navigationController popToRootViewControllerAnimated:NO];
-    }
-    
-    [self.collectionView setContentOffset:CGPointZero animated:NO];
-}
-
 #pragma mark - Popover controller
 
-- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
-{
-    self.filterPopoverController = nil;
-}
+#pragma mark - Action sheet delegate
 
-#pragma mark - TShirt explorer delegate
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    [self.collectionView reloadData];
+    MTETShirtsFilterType filterType;
+    switch (buttonIndex) {
+        case 0:
+            filterType = MTETShirtsFilterAll;
+            break;
+        case 1:
+            filterType = MTETShirtsFilterWear;
+            break;
+        case 2:
+            filterType = MTETShirtsFilterWash;
+            break;
+    }
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([userDefaults integerForKey:kMTETShirtsFilterType] != filterType) {
+        [userDefaults setInteger:filterType forKey:kMTETShirtsFilterType];
+        [userDefaults synchronize];
+        
+        [self configureForFilterType:filterType];
+        [self setManagedObjectContext:self.managedObjectContext];
+        [self.collectionView reloadData];
+    }
 }
 
 @end

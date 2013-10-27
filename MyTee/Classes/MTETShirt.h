@@ -15,20 +15,22 @@
 
 @interface MTETShirt : NSManagedObject
 
-@property (nonatomic, retain) NSString * identifier;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSString * size;
-@property (nonatomic, retain) NSString * color;
-@property (nonatomic, retain) NSString * condition;
-@property (nonatomic, retain) NSString * location;
-@property (nonatomic, retain) NSString * rating;
-@property (nonatomic, retain) NSString * tags;
-@property (nonatomic, retain) NSString * note;
-@property (nonatomic, retain) NSString * image_url;
+@property (nonatomic, strong) NSString *identifier;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *size;
+@property (nonatomic, strong) NSString *color;
+@property (nonatomic, strong) NSString *condition;
+@property (nonatomic, strong) NSString *location;
+@property (nonatomic, strong) NSString *rating;
+@property (nonatomic, strong) NSString *tags;
+@property (nonatomic, strong) NSString *note;
+@property (nonatomic, strong) NSString *image_url;
+@property (nonatomic, strong) NSNumber *numberOfDaysSinceLastWear;
+@property (nonatomic, strong) NSNumber *numberOfWearsSinceLastWash;
 
-@property (nonatomic, retain) MTEStore * store;
-@property (nonatomic, retain) NSSet * wears;
-@property (nonatomic, retain) NSSet * washs;
+@property (nonatomic, strong) MTEStore *store;
+@property (nonatomic, strong) NSSet *wears;
+@property (nonatomic, strong) NSSet *washs;
 
 + (NSString*)pathToLocalImageWithIdentifier:(NSString*)identifier;
 + (NSString*)pathToMiniatureLocalImageWithIdentifier:(NSString*)identifier;
@@ -38,6 +40,6 @@
 - (NSArray*)washsSortedByDate;
 - (MTEWash*)mostRecentWash;
 
-- (NSUInteger)numberOfWearsSinceLastWash;
+- (NSUInteger)updateNumberOfWearsSinceLastWash;
 
 @end

@@ -8,13 +8,12 @@
 
 #import "MTESettingsViewController.h"
 #import "MTELoginViewController.h"
-#import "MTETShirtsFilterViewController.h"
 
 @class MTETShirtViewController;
 @class MTESyncManager;
 
 @interface MTETShirtsViewController : UICollectionViewController
- <MTESettingsViewDelegate, MTELoginViewDelegate, MTETShirtsFilterViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
+ <MTESettingsViewDelegate, MTELoginViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) MTESyncManager *syncManager;

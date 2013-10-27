@@ -87,6 +87,7 @@
 		1F294E1614D7515A00A24AED /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1F294E1914D7558600A24AED /* MTESyncManagerSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MTESyncManagerSpec.mm; path = MyTeeTests/Specs/MTESyncManagerSpec.mm; sourceTree = SOURCE_ROOT; };
 		1F39732A17E5B2350061FF16 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		1F5570FE181D5542001A706D /* mytee 4 factors.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "mytee 4 factors.xcdatamodel"; sourceTree = "<group>"; };
 		1F6AC78614D9FE890040A06A /* MTETShirtViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTETShirtViewController.h; path = MyTee/Classes/MTETShirtViewController.h; sourceTree = SOURCE_ROOT; };
 		1F6AC78714D9FE890040A06A /* MTETShirtViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTETShirtViewController.m; path = MyTee/Classes/MTETShirtViewController.m; sourceTree = SOURCE_ROOT; };
 		1F6AC78A14DA03E00040A06A /* MTEWearWashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEWearWashViewController.h; path = MyTee/Classes/MTEWearWashViewController.h; sourceTree = SOURCE_ROOT; };
@@ -1009,9 +1010,10 @@
 			children = (
 				1F230B2B14DC981A00B65E7E /* mytee 2.xcdatamodel */,
 				1F01259517FEF50A006812FA /* mytee 3 indexed.xcdatamodel */,
+				1F5570FE181D5542001A706D /* mytee 4 factors.xcdatamodel */,
 				1F7BF9F714D4543A00D7F4A3 /* mytee.xcdatamodel */,
 			);
-			currentVersion = 1F01259517FEF50A006812FA /* mytee 3 indexed.xcdatamodel */;
+			currentVersion = 1F5570FE181D5542001A706D /* mytee 4 factors.xcdatamodel */;
 			name = mytee.xcdatamodeld;
 			path = ../MyTee/Resources/Model/mytee.xcdatamodeld;
 			sourceTree = "<group>";
