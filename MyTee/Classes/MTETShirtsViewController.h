@@ -10,15 +10,14 @@
 #import "MTELoginViewController.h"
 #import "MTETShirtsFilterViewController.h"
 
-@class MTETShirtExplorer;
 @class MTETShirtViewController;
 @class MTESyncManager;
 
-@interface MTETShirtsViewController : UICollectionViewController <MTESettingsViewDelegate, MTELoginViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, MTETShirtsFilterViewDelegate>
+@interface MTETShirtsViewController : UICollectionViewController
+ <MTESettingsViewDelegate, MTELoginViewDelegate, MTETShirtsFilterViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) MTESyncManager *syncManager;
-@property (strong, nonatomic) MTETShirtExplorer *tshirtExplorer;
 
 @property (strong, nonatomic) MTETShirtViewController *detailViewController;
 

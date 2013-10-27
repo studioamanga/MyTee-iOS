@@ -9,7 +9,6 @@
 #import "MTETShirtsViewController.h"
 
 #import "MTETShirt.h"
-#import "MTETShirtExplorer.h"
 #import "MTEAuthenticationManager.h"
 #import "MTEAppDelegate.h"
 #import "MTESyncManager.h"
@@ -25,9 +24,10 @@
 #import <AFNetworking.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface MTETShirtsViewController () <UIPopoverControllerDelegate, MTETShirtExplorerDelegate>
+@interface MTETShirtsViewController () <UIPopoverControllerDelegate, NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) UIPopoverController *filterPopoverController;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 - (void)startRefresh:(id)sender;
 
@@ -42,25 +42,32 @@
 {
     _managedObjectContext = managedObjectContext;
     
-    self.tshirtExplorer = [MTETShirtExplorer new];
-    self.tshirtExplorer.delegate = self;
-    [self.tshirtExplorer setupFetchedResultsControllerWithContext:managedObjectContext];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([MTETShirt class])];
+    
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"color" ascending:YES];
+    [fetchRequest setSortDescriptors:@[sort]];
+    
+    self.fetchedResultsController = [[NSFetchedResultsController alloc]
+                                     initWithFetchRequest:fetchRequest
+                                     managedObjectContext:managedObjectContext
+                                     sectionNameKeyPath:nil
+                                     cacheName:nil];
+    
+    self.fetchedResultsController.delegate = self;
+    
+    NSError *error = nil;
+    BOOL result = [self.fetchedResultsController performFetch:&error];
+    if(!result)
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         self.detailViewController = (MTETShirtViewController*)[[self.splitViewController.viewControllers lastObject] topViewController];
     
-//    UIImage *woodTexture;
-//    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-//        woodTexture = [UIImage imageNamed:(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) ? @"shelves-portrait" : @"shelves-landscape"];
-//    else
-//        woodTexture = [UIImage imageNamed:@"shelves"];
-//    UIColor *woodColor = [UIColor colorWithPatternImage:woodTexture];
-//    self.collectionView.backgroundColor = woodColor;
     self.collectionView.backgroundColor = [UIColor whiteColor];
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -68,8 +75,6 @@
     [refreshControl addTarget:self action:@selector(startRefresh:)
              forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:refreshControl];
-    
-    [self.tshirtExplorer fetchData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -93,9 +98,6 @@
     [self.syncManager syncSuccess:^{
         if ([sender isKindOfClass:[UIRefreshControl class]])
             [(UIRefreshControl *)sender endRefreshing];
-        
-        [self.tshirtExplorer fetchData];
-        [self.collectionView reloadData];
     } failure:^(NSError *error) {
         if ([sender isKindOfClass:[UIRefreshControl class]])
             [(UIRefreshControl *)sender endRefreshing];
@@ -153,7 +155,7 @@
         }
         
         NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] lastObject];
-        MTETShirt *tshirt      = [self.tshirtExplorer tshirtAtIndex:indexPath.row];
+        MTETShirt *tshirt      = [self.fetchedResultsController objectAtIndexPath:indexPath];
         viewController.tshirt = tshirt;
     }
     else if ([segue.identifier isEqualToString:@"MTEFilterSegue"])
@@ -183,19 +185,20 @@
 
 - (int)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 1;
+    return self.fetchedResultsController.sections.count;
 }
 
 - (int)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self.tshirtExplorer numberOfTShirts];
+    id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
+    return sectionInfo.numberOfObjects;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MTETShirtCellID" forIndexPath:indexPath];
     
-    MTETShirt *tshirt = [self.tshirtExplorer tshirtAtIndex:indexPath.row];
+    MTETShirt *tshirt = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     UIImageView *tshirtImageView = nil;
     if ([[cell.contentView.subviews lastObject] isMemberOfClass:[UIImageView class]])
@@ -229,10 +232,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         [self.detailViewController.navigationController popToRootViewControllerAnimated:YES];
         
-        MTETShirt *tshirt = [self.tshirtExplorer tshirtAtIndex:indexPath.row];
+        MTETShirt *tshirt = [self.fetchedResultsController objectAtIndexPath:indexPath];
         self.detailViewController.tshirt = tshirt;
     }
 }
@@ -241,7 +244,6 @@
 
 - (void)loginViewControllerDidLoggedIn:(MTELoginViewController *)loginViewController
 {
-    [self.tshirtExplorer fetchData];
     [self.syncManager syncSuccess:nil failure:nil];
 }
 
@@ -286,8 +288,6 @@
     [MTEAuthenticationManager resetKeychain];
     [((MTEAppDelegate *)[UIApplication sharedApplication].delegate) resetManagedObjectContext];
     
-    [self.tshirtExplorer fetchData];
-    
     [self.navigationController popToRootViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -318,7 +318,7 @@
 
 #pragma mark - TShirt explorer delegate
 
-- (void)tshirtExplorerDidUpdateData:(MTETShirtExplorer *)tshirtExplorer
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     [self.collectionView reloadData];
 }

@@ -53,7 +53,6 @@
 		1FF7D5E414D88E58000BDE04 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF7D5E314D88E58000BDE04 /* SystemConfiguration.framework */; };
 		1FF7D5E914D8936E000BDE04 /* MTETShirtsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF7D5E814D8936E000BDE04 /* MTETShirtsViewController.m */; };
 		1FF7D5EF14D89D2B000BDE04 /* MTETShirt.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF7D5EE14D89D2B000BDE04 /* MTETShirt.m */; };
-		1FF7D5F214D8A20A000BDE04 /* MTETShirtExplorer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF7D5F114D8A20A000BDE04 /* MTETShirtExplorer.m */; };
 		1FFAB03314F1D44A00851D81 /* MTESettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFAB03214F1D44A00851D81 /* MTESettingCell.m */; };
 		32C3C5BB663E40998C1481E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26E53B393D6747B38F80051E /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -144,8 +143,6 @@
 		1FF7D5EB14D89B61000BDE04 /* MTEConstView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MTEConstView.h; path = MyTee/Classes/MTEConstView.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1FF7D5ED14D89D2B000BDE04 /* MTETShirt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTETShirt.h; path = MyTee/Classes/MTETShirt.h; sourceTree = SOURCE_ROOT; };
 		1FF7D5EE14D89D2B000BDE04 /* MTETShirt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTETShirt.m; path = MyTee/Classes/MTETShirt.m; sourceTree = SOURCE_ROOT; };
-		1FF7D5F014D8A20A000BDE04 /* MTETShirtExplorer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTETShirtExplorer.h; path = MyTee/Classes/MTETShirtExplorer.h; sourceTree = SOURCE_ROOT; };
-		1FF7D5F114D8A20A000BDE04 /* MTETShirtExplorer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTETShirtExplorer.m; path = MyTee/Classes/MTETShirtExplorer.m; sourceTree = SOURCE_ROOT; };
 		1FFAB03114F1D44A00851D81 /* MTESettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MTESettingCell.h; path = MyTee/Classes/MTESettingCell.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1FFAB03214F1D44A00851D81 /* MTESettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MTESettingCell.m; path = MyTee/Classes/MTESettingCell.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		26E53B393D6747B38F80051E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -601,8 +598,6 @@
 			children = (
 				1FF7D5ED14D89D2B000BDE04 /* MTETShirt.h */,
 				1FF7D5EE14D89D2B000BDE04 /* MTETShirt.m */,
-				1FF7D5F014D8A20A000BDE04 /* MTETShirtExplorer.h */,
-				1FF7D5F114D8A20A000BDE04 /* MTETShirtExplorer.m */,
 				1F6AC79014DA05DC0040A06A /* MTEWear.h */,
 				1F6AC79114DA05DC0040A06A /* MTEWear.m */,
 				1F6AC78D14DA05DB0040A06A /* MTEWash.h */,
@@ -753,7 +748,6 @@
 				1F294DFE14D73EE300A24AED /* NSString+NSStringURL.m in Sources */,
 				1FF7D5E914D8936E000BDE04 /* MTETShirtsViewController.m in Sources */,
 				1FF7D5EF14D89D2B000BDE04 /* MTETShirt.m in Sources */,
-				1FF7D5F214D8A20A000BDE04 /* MTETShirtExplorer.m in Sources */,
 				1F6AC78814D9FE890040A06A /* MTETShirtViewController.m in Sources */,
 				1F6AC78C14DA03E00040A06A /* MTEWearWashViewController.m in Sources */,
 				1F6AC78F14DA05DB0040A06A /* MTEWash.m in Sources */,
