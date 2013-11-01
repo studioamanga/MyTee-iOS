@@ -80,8 +80,8 @@
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-    [self.syncManager syncSuccess:^{
-        completionHandler(UIBackgroundFetchResultNewData);
+    [self.syncManager syncSuccess:^(UIBackgroundFetchResult result){
+        completionHandler(result);
     } failure:^(NSError *error) {
         if (error)
             completionHandler(UIBackgroundFetchResultFailed);

@@ -144,11 +144,11 @@
 
 - (void)startRefresh:(id)sender
 {
-    [self.syncManager syncSuccess:^{
-        if ([sender isKindOfClass:[UIRefreshControl class]])
+    [self.syncManager syncSuccess:^(UIBackgroundFetchResult result){
+        if ([sender isKindOfClass:UIRefreshControl.class])
             [(UIRefreshControl *)sender endRefreshing];
     } failure:^(NSError *error) {
-        if ([sender isKindOfClass:[UIRefreshControl class]])
+        if ([sender isKindOfClass:UIRefreshControl.class])
             [(UIRefreshControl *)sender endRefreshing];
     }];
 }
@@ -221,7 +221,6 @@
 - (int)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
-    NSLog(@"%@ (%d objects)", sectionInfo.name, sectionInfo.numberOfObjects);
     return sectionInfo.numberOfObjects;
 }
 

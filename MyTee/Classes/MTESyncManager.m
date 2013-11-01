@@ -34,7 +34,7 @@ NSString *const kMTETShirtsFilterParameter = @"kMTETShirtsFilterParameter";
     return syncManager;
 }
 
-- (void)syncSuccess:(void (^)())success
+- (void)syncSuccess:(void (^)(UIBackgroundFetchResult result))success
             failure:(void (^)(NSError *error))failure
 {
     if (self.isSyncing) {
@@ -47,9 +47,12 @@ NSString *const kMTETShirtsFilterParameter = @"kMTETShirtsFilterParameter";
     self.syncing = YES;
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"MTETShirt"];
+    
     NSURLRequest *request = [self.client requestForFetchRequest:fetchRequest
                                                     withContext:self.context];
     AFHTTPRequestOperation *operation = [self.client HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        BOOL newData = NO;
+        
         for (NSDictionary *tshirtObject in (NSArray *)responseObject) {
             MTETShirt *tshirt;
             NSString *identifier = tshirtObject[@"identifier"];
@@ -60,6 +63,7 @@ NSString *const kMTETShirtsFilterParameter = @"kMTETShirtsFilterParameter";
             
             if (!tshirt) {
                 tshirt = [NSEntityDescription insertNewObjectForEntityForName:@"MTETShirt" inManagedObjectContext:self.context];
+                newData = YES;
             }
             
             NSDictionary *attributes = [self.client attributesForRepresentation:tshirtObject
@@ -80,6 +84,8 @@ NSString *const kMTETShirtsFilterParameter = @"kMTETShirtsFilterParameter";
                     
                     NSDictionary *wearAttributes = [self.client attributesForRepresentation:wearObject ofEntity:wear.entity fromResponse:operation.response];
                     wear.date   = wearAttributes[@"date"];
+                    
+                    newData = YES;
                 }
             }
             
@@ -97,6 +103,8 @@ NSString *const kMTETShirtsFilterParameter = @"kMTETShirtsFilterParameter";
                     
                     NSDictionary *washAttributes = [self.client attributesForRepresentation:washObject ofEntity:wash.entity fromResponse:operation.response];
                     wash.date   = washAttributes[@"date"];
+                    
+                    newData = YES;
                 }
             }
             
@@ -113,7 +121,7 @@ NSString *const kMTETShirtsFilterParameter = @"kMTETShirtsFilterParameter";
         
         self.syncing = NO;
         if (success)
-            success();
+            success(newData ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         self.syncing = NO;
         if (failure)

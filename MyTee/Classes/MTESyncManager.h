@@ -25,7 +25,7 @@ typedef NS_ENUM (NSUInteger, MTETShirtsFilterType)
 + (MTESyncManager *)syncManagerWithClient:(MTEMyTeeAPIClient *)client
                                   context:(NSManagedObjectContext *)context;
 
-- (void)syncSuccess:(void (^)())success
+- (void)syncSuccess:(void (^)(UIBackgroundFetchResult result))success
             failure:(void (^)(NSError *error))failure;
 
 @end
