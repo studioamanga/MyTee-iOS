@@ -8,27 +8,24 @@
 
 #import "MTESettingsViewController.h"
 #import "MTELoginViewController.h"
-#import "MTETShirtsFilterViewController.h"
-#import <ECSlidingViewController.h>
 
-@class MTETShirtExplorer;
 @class MTETShirtViewController;
+@class MTESyncManager;
 
-@interface MTETShirtsViewController : UICollectionViewController <MTESettingsViewDelegate, MTELoginViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, MTETShirtsFilterViewDelegate>
+@interface MTETShirtsViewController : UICollectionViewController
+ <MTESettingsViewDelegate, MTELoginViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (weak, nonatomic) NSManagedObjectContext * managedObjectContext;
-@property (strong, nonatomic) MTETShirtExplorer * tshirtExplorer;
+@property (weak, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) MTESyncManager *syncManager;
 
-@property (strong, nonatomic) MTETShirtViewController * detailViewController;
+@property (strong, nonatomic) MTETShirtViewController *detailViewController;
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem * settingsBarButtonItem;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsBarButtonItem;
 
 - (void)shouldSyncNow:(id)sender;
 - (void)syncStarted:(id)sender;
 - (void)syncFinished:(id)sender;
 - (void)syncFailed:(id)sender;
-
-- (IBAction)didPressSettingsBarButtonItem:(id)sender;
 
 - (IBAction)showFilterViewController:(id)sender;
 - (IBAction)showSettingsViewController:(id)sender;

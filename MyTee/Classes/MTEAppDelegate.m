@@ -8,17 +8,21 @@
 
 #import "MTEAppDelegate.h"
 
-#import "MTEMyTeeIncrementalStore.h"
+#import <AFNetworkActivityIndicatorManager.h>
 #import "MTETShirtsViewController.h"
 #import "MTESettingsViewController.h"
-#import "ECSlidingViewController.h"
+#import "MTESyncManager.h"
+#import "MTEMyTeeAPIClient.h"
 
 @interface MTEAppDelegate ()
 
 @property (nonatomic, strong) MTESyncManager * syncManager;
 @property (strong, nonatomic, readonly) NSURL *storeURL;
 
+- (void)removeObjectsInManagedObjectContextForEntityName:(NSString *)entityName;
+
 @end
+
 
 @implementation MTEAppDelegate
 
@@ -29,41 +33,30 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+
+    [UINavigationBar.appearance setTintColor:UIColor.orangeColor];
     
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"linen-nav-bar"]
-                                       forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"linen-nav-bar-landscape"]
-                                       forBarMetrics:UIBarMetricsLandscapePhone];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor whiteColor], UITextAttributeTextShadowColor: [UIColor blackColor]}];
-    [[UINavigationBar appearanceWhenContainedIn:[UIPopoverController class], nil] setBackgroundImage:nil
-                                                                                       forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearanceWhenContainedIn:[UIPopoverController class], nil] setBackgroundImage:nil
-                                                                                       forBarMetrics:UIBarMetricsLandscapePhone];
-    
-    [[UIBarButtonItem appearance] setTintColor:[UIColor darkGrayColor]];
-    
-    [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"tabbar"]];
+    [[UITabBar appearance] setBackgroundImage:        [UIImage imageNamed:@"tabbar"]];
     [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageNamed:@"selection-tab"]];
-    [[UITabBar appearance] setSelectedImageTintColor:[UIColor grayColor]];
+    [[UITabBar appearance] setSelectedImageTintColor: [UIColor grayColor]];
     
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) 
-    {
-        UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
-        MTETShirtsViewController * tshirtsViewController = (MTETShirtsViewController*)navController.topViewController;
-        
-        tshirtsViewController.managedObjectContext = self.managedObjectContext;
-    }
-    else 
-    {
-        ECSlidingViewController *slidingViewController = (ECSlidingViewController *)self.window.rootViewController;
-        UINavigationController *tshirtsNavController = (UINavigationController *)[slidingViewController.storyboard instantiateViewControllerWithIdentifier:@"MTETShirtsNavigationController"];
-        MTETShirtsViewController * tshirtsViewController = (MTETShirtsViewController *)tshirtsNavController.topViewController;
-        slidingViewController.topViewController = tshirtsNavController;
-        
-        tshirtsViewController.managedObjectContext = self.managedObjectContext;
-    }
+    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    
+    UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
+    MTETShirtsViewController * tshirtsViewController = (MTETShirtsViewController*)navController.topViewController;
+    
+    self.syncManager = [MTESyncManager syncManagerWithClient:[MTEMyTeeAPIClient sharedClient]
+                                                     context:self.managedObjectContext];
+    
+    tshirtsViewController.managedObjectContext = self.managedObjectContext;
+    tshirtsViewController.syncManager = self.syncManager;
     
     return YES;
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    [application setApplicationIconBadgeNumber:0];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -85,6 +78,18 @@
     }
 }
 
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    [self.syncManager syncSuccess:^(UIBackgroundFetchResult result){
+        completionHandler(result);
+    } failure:^(NSError *error) {
+        if (error)
+            completionHandler(UIBackgroundFetchResultFailed);
+        else
+            completionHandler(UIBackgroundFetchResultNoData);
+    }];
+}
+
 #pragma mark - Core Data
 
 - (NSManagedObjectContext *)managedObjectContext {
@@ -94,7 +99,7 @@
     
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
-        __managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        __managedObjectContext = [[NSManagedObjectContext alloc] init];
         [__managedObjectContext setPersistentStoreCoordinator:coordinator];
     }
     
@@ -119,19 +124,12 @@
         return __persistentStoreCoordinator;
     }
     
-    __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    
-    AFIncrementalStore *incrementalStore = (AFIncrementalStore *)[__persistentStoreCoordinator addPersistentStoreWithType:[MTEMyTeeIncrementalStore type] configuration:nil URL:nil options:nil error:nil];
-    
-    NSURL *storeURL = [self storeURL];
-    
-    NSDictionary *options = @{
-    NSInferMappingModelAutomaticallyOption : @(YES),
-NSMigratePersistentStoresAutomaticallyOption: @(YES)
-    };
-    
     NSError *error = nil;
-    if (![incrementalStore.backingPersistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"mytee.sqlite"];
+    NSDictionary *options = @{NSInferMappingModelAutomaticallyOption: @(YES), NSMigratePersistentStoresAutomaticallyOption: @(YES)};
+    
+    __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
@@ -139,12 +137,21 @@ NSMigratePersistentStoresAutomaticallyOption: @(YES)
     return __persistentStoreCoordinator;
 }
 
+- (void)removeObjectsInManagedObjectContextForEntityName:(NSString *)entityName
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:entityName];
+    NSArray *objects = [self.managedObjectContext executeFetchRequest:request error:nil];
+    for (NSManagedObject *object in objects) {
+        [self.managedObjectContext deleteObject:object];
+    }
+}
+
 - (void)resetManagedObjectContext
 {
-    __managedObjectContext = nil;
+    [self removeObjectsInManagedObjectContextForEntityName:@"MTETShirt"];
+    [self removeObjectsInManagedObjectContextForEntityName:@"MTEStore"];
     
-    NSURL *storeURL = [self storeURL];
-    [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+    [self.managedObjectContext save:nil];
 }
 
 - (NSURL *)storeURL

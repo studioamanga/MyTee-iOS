@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @class MTESettingsViewController;
-@class MTESyncManager;
 
 @protocol MTESettingsViewDelegate <NSObject>
 
@@ -25,8 +24,6 @@
 @property (weak, nonatomic) IBOutlet UILabel * emailLabel;
 
 @property (weak, nonatomic) id <MTESettingsViewDelegate> delegate;
-
-@property (strong, nonatomic) MTESyncManager * syncManager;
 
 - (IBAction)didPressDone:(id)sender;
 - (IBAction)didPressCancel:(id)sender;

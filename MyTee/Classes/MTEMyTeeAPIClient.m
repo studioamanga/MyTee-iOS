@@ -62,8 +62,7 @@ static NSString * const kMTEMyTeeAPIAuthenticationPath = @"user/me";
                              withContext:(NSManagedObjectContext *)context
 {
     NSMutableURLRequest *mutableURLRequest = nil;
-    if ([fetchRequest.entityName isEqualToString:@"MTETShirt"])
-    {
+    if ([fetchRequest.entityName isEqualToString:@"MTETShirt"]) {
         NSDictionary *parameters = [MTEAuthenticationManager emailFromKeychain] ? @{@"login" : [MTEAuthenticationManager emailFromKeychain], @"password" : [MTEAuthenticationManager passwordFromKeychain]} : nil;
         mutableURLRequest = [self requestWithMethod:@"GET" path:@"tshirt/all" parameters:parameters];
     }
@@ -90,11 +89,9 @@ static NSString * const kMTEMyTeeAPIAuthenticationPath = @"user/me";
                                  fromResponse:(NSHTTPURLResponse *)response
 {
     NSMutableDictionary *mutablePropertyValues = [[super attributesForRepresentation:representation ofEntity:entity fromResponse:response] mutableCopy];
-    if ([entity.name isEqualToString:@"MTETShirt"])
-    {
+    if ([entity.name isEqualToString:@"MTETShirt"]) {
     }
-    if ([entity.name isEqualToString:@"MTEWear"] || [entity.name isEqualToString:@"MTEWash"])
-    {
+    if ([entity.name isEqualToString:@"MTEWear"] || [entity.name isEqualToString:@"MTEWash"]) {
         NSDateFormatter *formatter = [NSDateFormatter new];
         formatter.dateFormat = @"yyyy-MM-dd";
         if ([representation[@"date"] isKindOfClass:[NSString class]])

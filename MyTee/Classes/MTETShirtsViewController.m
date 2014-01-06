@@ -8,10 +8,15 @@
 
 #import "MTETShirtsViewController.h"
 
+@import QuartzCore;
+
+#import <AFNetworking.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+
 #import "MTETShirt.h"
-#import "MTETShirtExplorer.h"
 #import "MTEAuthenticationManager.h"
 #import "MTEAppDelegate.h"
+#import "MTESyncManager.h"
 
 #import "MBProgressHUD.h"
 #import "MTEConstView.h"
@@ -19,18 +24,16 @@
 #import "MTETShirtViewController.h"
 #import "MTESettingsViewController.h"
 #import "MTELoginViewController.h"
-#import "MTETShirtsFilterViewController.h"
-#import "ECSlidingViewController.h"
-#import "KSCustomPopoverBackgroundView.h"
 
-#import <AFNetworking.h>
-#import <QuartzCore/QuartzCore.h>
+@interface MTETShirtsViewController () <UIPopoverControllerDelegate, NSFetchedResultsControllerDelegate, UIActionSheetDelegate>
 
-@interface MTETShirtsViewController () <UIPopoverControllerDelegate, MTETShirtExplorerDelegate>
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
-@property (nonatomic, strong) UIPopoverController *filterPopoverController;
+- (void)startRefresh:(id)sender;
+- (void)configureForFilterType:(MTETShirtsFilterType)filterType;
 
 @end
+
 
 @implementation MTETShirtsViewController
 
@@ -40,57 +43,67 @@
 {
     _managedObjectContext = managedObjectContext;
     
-    self.tshirtExplorer = [MTETShirtExplorer new];
-    self.tshirtExplorer.delegate = self;
-    [self.tshirtExplorer setupFetchedResultsControllerWithContext:managedObjectContext];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([MTETShirt class])];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    MTETShirtsFilterType filterType = [userDefaults integerForKey:kMTETShirtsFilterType];
+    NSSortDescriptor *sortDescriptor;
+    NSString *sectionNameKeyPath;
+    
+    switch (filterType) {
+        case MTETShirtsFilterAll:
+            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"color" ascending:YES];
+            sectionNameKeyPath = @"color";
+            break;
+            
+        case MTETShirtsFilterWash:
+            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"numberOfWearsSinceLastWash" ascending:NO];
+            sectionNameKeyPath = @"numberOfWearsSinceLastWash";
+            break;
+            
+        case MTETShirtsFilterWear:
+            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"color" ascending:YES];
+            break;
+    }
+    
+    fetchRequest.sortDescriptors = @[sortDescriptor];
+    self.fetchedResultsController = [[NSFetchedResultsController alloc]
+                                     initWithFetchRequest:fetchRequest
+                                     managedObjectContext:managedObjectContext
+                                     sectionNameKeyPath:sectionNameKeyPath
+                                     cacheName:nil];
+    
+    self.fetchedResultsController.delegate = self;
+    
+    NSError *error = nil;
+    BOOL result = [self.fetchedResultsController performFetch:&error];
+    if(!result)
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         self.detailViewController = (MTETShirtViewController*)[[self.splitViewController.viewControllers lastObject] topViewController];
     
-    UIImage *woodTexture;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        woodTexture = [UIImage imageNamed:(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) ? @"shelves-portrait" : @"shelves-landscape"];
-    else
-        woodTexture = [UIImage imageNamed:@"shelves"];
-    UIColor *woodColor = [UIColor colorWithPatternImage:woodTexture];
-    self.collectionView.backgroundColor = woodColor;
+    self.collectionView.backgroundColor = [UIColor whiteColor];
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    refreshControl.tintColor = [UIColor blackColor];
+    [refreshControl addTarget:self action:@selector(startRefresh:)
+             forControlEvents:UIControlEventValueChanged];
+    [self.collectionView addSubview:refreshControl];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    MTETShirtsFilterType filterType = [userDefaults integerForKey:kMTETShirtsFilterType];
+    [self configureForFilterType:filterType];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
- 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    {
-        if (![self.slidingViewController.underRightViewController isKindOfClass:[UIViewController class]])
-        {
-            UINavigationController *settingsNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"MTESettingsNavigationController"];
-            MTESettingsViewController *settingsViewController = (MTESettingsViewController *)settingsNavigationController.topViewController;
-            settingsViewController.delegate = self;
-            self.slidingViewController.underRightViewController = settingsNavigationController;
-        }
-        
-        if (![self.slidingViewController.underLeftViewController isKindOfClass:[UIViewController class]])
-        {
-            UINavigationController *filterNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"MTEFilterNavigationController"];
-            ((MTETShirtsFilterViewController *)filterNavigationController.topViewController).delegate = self;
-            self.slidingViewController.underLeftViewController  = filterNavigationController;
-        }
-    
-        [self.navigationController.view addGestureRecognizer:self.slidingViewController.panGesture];
-        [self.slidingViewController setAnchorLeftRevealAmount:280];
-        [self.slidingViewController setAnchorRightRevealAmount:280];
-        
-        self.navigationController.view.clipsToBounds = NO;
-        self.navigationController.view.layer.shadowOpacity = 0.75;
-        self.navigationController.view.layer.shadowRadius = 10;
-        self.navigationController.view.layer.shadowColor = [UIColor blackColor].CGColor;
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -102,88 +115,99 @@
         [self performSegueWithIdentifier:@"MTELoginSegue" sender:nil];
 }
 
-- (IBAction)didPressSettingsBarButtonItem:(id)sender
+- (void)configureForFilterType:(MTETShirtsFilterType)filterType
 {
-    UIStoryboard *iPhoneStoryboard = [UIStoryboard storyboardWithName:@"Storyboard_iPhone"
-                                                               bundle:[NSBundle mainBundle]];
-    UINavigationController *settingsNavigationController = [iPhoneStoryboard instantiateViewControllerWithIdentifier:@"MTESettingsNavigationController"];
+    NSString *filterIconName;
+    switch (filterType) {
+        case MTETShirtsFilterAll:
+            self.title     = @"My T-Shirts";
+            filterIconName = @"33-cabinet-b";
+            break;
+            
+        case MTETShirtsFilterWash:
+            self.title     = @"T-Shirts to Wash";
+            filterIconName = @"wash-b";
+            break;
+            
+        case MTETShirtsFilterWear:
+            self.title     = @"T-Shirt to Wear";
+            filterIconName = @"118-coat-hanger";
+            break;
+    }
+    
+    UIBarButtonItem *filterBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:filterIconName]
+                                                                            style:UIBarButtonItemStylePlain
+                                                                           target:self
+                                                                           action:@selector(showFilterViewController:)];
+    self.navigationItem.leftBarButtonItem = filterBarButtonItem;
+}
+
+#pragma mark - Actions
+
+- (void)startRefresh:(id)sender
+{
+    [self.syncManager syncSuccess:^(UIBackgroundFetchResult result){
+        if ([sender isKindOfClass:UIRefreshControl.class])
+            [(UIRefreshControl *)sender endRefreshing];
+    } failure:^(NSError *error) {
+        if ([sender isKindOfClass:UIRefreshControl.class])
+            [(UIRefreshControl *)sender endRefreshing];
+    }];
+}
+
+- (IBAction)showFilterViewController:(id)sender
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"All", @"Wear", @"Wash", nil];
+    [actionSheet showFromBarButtonItem:(id)sender animated:YES];
+}
+
+- (IBAction)showSettingsViewController:(id)sender
+{
+    UIStoryboard *storyboard;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        storyboard = [UIStoryboard storyboardWithName:@"Storyboard_iPhone" bundle:[NSBundle mainBundle]];
+    else
+        storyboard = self.storyboard;
+    
+    UINavigationController *settingsNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"MTESettingsNavigationController"];
     settingsNavigationController.modalPresentationStyle = UIModalPresentationFormSheet;
     MTESettingsViewController *viewController = (MTESettingsViewController*)settingsNavigationController.topViewController;
     viewController.delegate = self;
     [self presentViewController:settingsNavigationController animated:YES completion:nil];
 }
 
-- (IBAction)showFilterViewController:(id)sender
-{
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        if (self.filterPopoverController)
-        {
-            [self.filterPopoverController dismissPopoverAnimated:YES];
-            self.filterPopoverController = nil;
-        }
-        else
-        {
-            MTETShirtsFilterViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MTETShirtsFilterViewController"];
-            viewController.delegate = self;
-            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-            self.filterPopoverController = [[UIPopoverController alloc] initWithContentViewController:navigationController];
-            self.filterPopoverController.popoverBackgroundViewClass = [KSCustomPopoverBackgroundView class];
-            self.filterPopoverController.delegate = self;
-            [self.filterPopoverController presentPopoverFromRect:CGRectMake(0, 0, 44, 44) inView:self.navigationController.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        }
-    }
-    else
-        [self.slidingViewController anchorTopViewTo:ECRight];
-}
-
-- (IBAction)showSettingsViewController:(id)sender
-{
-    [self.slidingViewController anchorTopViewTo:ECLeft];
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"MTELoginSegue"])
-    {
+    if ([segue.identifier isEqualToString:@"MTELoginSegue"]) {
         UINavigationController *navigationController = segue.destinationViewController;
         MTELoginViewController *viewController = (MTELoginViewController*)navigationController.topViewController;
         viewController.delegate = self;
     }
-    else if ([segue.identifier isEqualToString:@"MTETShirtSegue"])
-    {
+    else if ([segue.identifier isEqualToString:@"MTETShirtSegue"]) {
         MTETShirtViewController *viewController = nil;
-        if ([segue.destinationViewController isMemberOfClass:[MTETShirtViewController class]])
+        if ([segue.destinationViewController isMemberOfClass:[MTETShirtViewController class]]) {
              viewController = segue.destinationViewController;
-        else if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]])
-        {
+        }
+        else if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
             UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
             viewController = (MTETShirtViewController *)navigationController.topViewController;
         }
         
         NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] lastObject];
-        MTETShirt *tshirt = [self.tshirtExplorer tshirtAtIndex:indexPath.row];
+        MTETShirt *tshirt      = [self.fetchedResultsController objectAtIndexPath:indexPath];
         viewController.tshirt = tshirt;
     }
-    else if ([segue.identifier isEqualToString:@"MTEFilterSegue"])
-    {
-        UINavigationController *navigationController = segue.destinationViewController;
-        MTETShirtsFilterViewController *viewController = (MTETShirtsFilterViewController*)navigationController.topViewController;
-        viewController.delegate = self;
-    }
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         UIImage *woodTexture = [UIImage imageNamed:(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) ? @"shelves-portrait" : @"shelves-landscape"];
-        UIColor *woodColor = [UIColor colorWithPatternImage:woodTexture];
+        UIColor *woodColor   = [UIColor colorWithPatternImage:woodTexture];
         self.collectionView.backgroundColor = woodColor;
     }
 }
@@ -192,60 +216,57 @@
 
 - (int)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 1;
+    return self.fetchedResultsController.sections.count;
 }
 
 - (int)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self.tshirtExplorer numberOfTShirts];
+    id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
+    return sectionInfo.numberOfObjects;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MTETShirtCellID" forIndexPath:indexPath];
     
-    MTETShirt *tshirt = [self.tshirtExplorer tshirtAtIndex:indexPath.row];
+    MTETShirt *tshirt = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     UIImageView *tshirtImageView = nil;
     if ([[cell.contentView.subviews lastObject] isMemberOfClass:[UIImageView class]])
         tshirtImageView = [cell.contentView.subviews lastObject];
     
-    if (!tshirtImageView)
-    {
+    if (!tshirtImageView) {
         tshirtImageView = [[UIImageView alloc] init];
         tshirtImageView.contentMode = UIViewContentModeScaleAspectFit;
         
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             CGFloat tshirtSize = cell.bounds.size.width - 2*20;
             tshirtImageView.frame = CGRectMake(10, (cell.bounds.size.height - tshirtSize)/2 + 8, tshirtSize, tshirtSize);
         }
-        else
-        {
+        else {
             CGFloat tshirtSize = cell.bounds.size.width - 2*8;
             tshirtImageView.frame = CGRectMake(8, (cell.bounds.size.height - tshirtSize)/2 + 8, tshirtSize, tshirtSize);
         }
         
-        tshirtImageView.layer.borderColor = [[UIColor blackColor] CGColor];
-        tshirtImageView.layer.borderWidth = 1;
+        tshirtImageView.layer.borderColor  = UIColor.blackColor.CGColor;
+        tshirtImageView.layer.borderWidth  = 1;
         tshirtImageView.layer.cornerRadius = 4;
         tshirtImageView.clipsToBounds = YES;
         
         [cell.contentView addSubview:tshirtImageView];
     }
     
-    [tshirtImageView setImageWithURL:[NSURL URLWithString:tshirt.image_url]];
+    [tshirtImageView setImageWithURL:[NSURL URLWithString:tshirt.image_url] placeholderImage:nil options:kNilOptions];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
-    {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         [self.detailViewController.navigationController popToRootViewControllerAnimated:YES];
         
-        MTETShirt *tshirt = [self.tshirtExplorer tshirtAtIndex:indexPath.row];
+        MTETShirt *tshirt = [self.fetchedResultsController objectAtIndexPath:indexPath];
         self.detailViewController.tshirt = tshirt;
     }
 }
@@ -254,7 +275,7 @@
 
 - (void)loginViewControllerDidLoggedIn:(MTELoginViewController *)loginViewController
 {
-    [self.tshirtExplorer fetchData];
+    [self.syncManager syncSuccess:nil failure:nil];
 }
 
 #pragma mark - Sync
@@ -296,58 +317,42 @@
 - (void)settingsViewControllerShouldLogOut:(MTESettingsViewController *)settingsViewController
 {   
     [MTEAuthenticationManager resetKeychain];
-    [((MTEAppDelegate *)[UIApplication sharedApplication].delegate) resetManagedObjectContext];
+    MTEAppDelegate *appDelegate = (MTEAppDelegate *)[UIApplication sharedApplication].delegate;
+    [appDelegate resetManagedObjectContext];
     
-    [self.collectionView reloadData];
-    
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        [self.detailViewController.navigationController popToRootViewControllerAnimated:NO];
-        self.detailViewController.tshirt = nil;
-        
-        [self dismissViewControllerAnimated:YES completion:^{
-            [self performSegueWithIdentifier:@"MTELoginSegue" sender:nil];
-        }];
-    }
-    else
-    {
-        [self.navigationController popToRootViewControllerAnimated:YES];
-        [self.slidingViewController resetTopViewWithAnimations:nil onComplete:^{
-            [self performSegueWithIdentifier:@"MTELoginSegue" sender:nil];
-        }];
-    }
-}
-
-#pragma mark - Filter view delegate
-
-- (void)tshirtsFilterViewControllerDidChangeFilter:(MTETShirtsFilterViewController *)filterController
-{
-    [self.collectionView reloadData];
-    
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        [self.filterPopoverController dismissPopoverAnimated:YES];
-        self.filterPopoverController = nil;
-    }
-    else
-    {
-        [self.navigationController popToRootViewControllerAnimated:NO];
-    }
-    [self.collectionView setContentOffset:CGPointZero animated:NO];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Popover controller
 
-- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
-{
-    self.filterPopoverController = nil;
-}
+#pragma mark - Action sheet delegate
 
-#pragma mark - TShirt explorer delegate
-
-- (void)tshirtExplorerDidUpdateData:(MTETShirtExplorer *)tshirtExplorer
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    [self.collectionView reloadData];
+    MTETShirtsFilterType filterType;
+    switch (buttonIndex) {
+        case 0:
+            filterType = MTETShirtsFilterAll;
+            break;
+        case 1:
+            filterType = MTETShirtsFilterWear;
+            break;
+        case 2:
+            filterType = MTETShirtsFilterWash;
+            break;
+    }
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([userDefaults integerForKey:kMTETShirtsFilterType] != filterType) {
+        [userDefaults setInteger:filterType forKey:kMTETShirtsFilterType];
+        [userDefaults synchronize];
+        
+        [self configureForFilterType:filterType];
+        [self setManagedObjectContext:self.managedObjectContext];
+        [self.collectionView reloadData];
+    }
 }
 
 @end

@@ -23,10 +23,10 @@
 @dynamic tags;
 @dynamic note;
 @dynamic image_url;
+@dynamic numberOfDaysSinceLastWear;
+@dynamic numberOfWearsSinceLastWash;
 
-@dynamic store;
-@dynamic wears;
-@dynamic washs;
+@dynamic store, wears, washs;
 
 #pragma mark - Image paths
 
@@ -69,12 +69,15 @@
     return ([washs count] == 0) ? nil : washs[0];
 }
 
-- (NSUInteger)numberOfWearsSinceLastWash
+- (NSUInteger)updateNumberOfWearsSinceLastWash
 {
     NSDate *mostRecentWashDate = [self mostRecentWash].date;
-    return [[[NSSet setWithArray:[self wearsSortedByDate]] objectsPassingTest:^BOOL(MTEWear *wear, BOOL *stop) {
-        return [wear.date compare:mostRecentWashDate];
+    NSUInteger numberOfDays = [[[NSSet setWithArray:[self wearsSortedByDate]] objectsPassingTest:^BOOL(MTEWear *wear, BOOL *stop) {
+        return ([wear.date compare:mostRecentWashDate] == NSOrderedDescending);
     }] count];
+    self.numberOfWearsSinceLastWash = @(numberOfDays);
+    
+    return numberOfDays;
 }
 
 @end

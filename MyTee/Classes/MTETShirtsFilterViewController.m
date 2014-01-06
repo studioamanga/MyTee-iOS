@@ -8,13 +8,9 @@
 
 #import "MTETShirtsFilterViewController.h"
 
-#import "ECSlidingViewController.h"
-#import "MTETShirtExplorer.h"
-
 @interface MTETShirtsFilterViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (assign, nonatomic) MTETShirtsFilterType filterType;
 @property (assign, nonatomic) NSUInteger filterWashParameter;
 
 @end
@@ -34,11 +30,11 @@
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"linen-darker-bar-landscape"] forBarMetrics:UIBarMetricsLandscapePhone];
     }
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    self.filterType = [userDefaults integerForKey:kMTETShirtsFilterType];
-    self.filterWashParameter = [userDefaults integerForKey:kMTETShirtsFilterParameter];
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    self.filterType = [userDefaults integerForKey:kMTETShirtsFilterType];
+//    self.filterWashParameter = [userDefaults integerForKey:kMTETShirtsFilterParameter];
     
-    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForItem:self.filterType inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+//    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForItem:self.filterType inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
@@ -68,38 +64,36 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MTEFilterCell"];
     
-    switch (indexPath.row)
-    {
-        case MTETShirtsFilterAll:
-            cell.textLabel.text = @"All My T-Shirts";
-            cell.imageView.image = [UIImage imageNamed:@"33-cabinet-w"];
-            cell.imageView.highlightedImage = [UIImage imageNamed:@"33-cabinet-b"];
-            break;
-        case MTETShirtsFilterWear:
-            cell.textLabel.text = @"Wear";
-            cell.imageView.image = [UIImage imageNamed:@"67-tshirt-w"];
-            cell.imageView.highlightedImage = [UIImage imageNamed:@"67-tshirt-b"];
-            break;
-        case MTETShirtsFilterWash:
-            cell.textLabel.text = @"Wash";
-            cell.imageView.image = [UIImage imageNamed:@"wash-w"];
-            cell.imageView.highlightedImage = [UIImage imageNamed:@"wash-b"];
-            break;
-    }
+//    switch (indexPath.row)
+//    {
+//        case MTETShirtsFilterAll:
+//            cell.textLabel.text = @"All My T-Shirts";
+//            cell.imageView.image = [UIImage imageNamed:@"33-cabinet-w"];
+//            cell.imageView.highlightedImage = [UIImage imageNamed:@"33-cabinet-b"];
+//            break;
+//        case MTETShirtsFilterWear:
+//            cell.textLabel.text = @"Wear";
+//            cell.imageView.image = [UIImage imageNamed:@"67-tshirt-w"];
+//            cell.imageView.highlightedImage = [UIImage imageNamed:@"67-tshirt-b"];
+//            break;
+//        case MTETShirtsFilterWash:
+//            cell.textLabel.text = @"Wash";
+//            cell.imageView.image = [UIImage imageNamed:@"wash-w"];
+//            cell.imageView.highlightedImage = [UIImage imageNamed:@"wash-b"];
+//            break;
+//    }
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.filterType = indexPath.row;
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setInteger:self.filterType forKey:kMTETShirtsFilterType];
-    [userDefaults synchronize];
+//    self.filterType = indexPath.row;
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    [userDefaults setInteger:self.filterType forKey:kMTETShirtsFilterType];
+//    [userDefaults synchronize];
     
     [self.delegate tshirtsFilterViewControllerDidChangeFilter:self];
-    
-    [self.slidingViewController resetTopView];
 }
 
 @end
