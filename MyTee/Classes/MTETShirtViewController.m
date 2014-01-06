@@ -8,6 +8,11 @@
 
 #import "MTETShirtViewController.h"
 
+@import QuartzCore;
+
+#import <AFNetworking.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+
 #import "MTETShirt.h"
 #import "MTEStore.h"
 #import "MTEWash.h"
@@ -17,9 +22,6 @@
 #import "MTEStoreViewController.h"
 #import "MTEAuthenticationManager.h"
 #import "MTEMyTeeAPIClient.h"
-
-#import <AFNetworking.h>
-#import <QuartzCore/QuartzCore.h>
 
 @interface MTETShirtViewController ()
 
@@ -119,19 +121,15 @@
         else
             [self.washButton setTitle:@"Never washed before" forState:UIControlStateNormal];
         
-        [self.tshirtImageView setImageWithURL:[NSURL URLWithString:self.tshirt.image_url]];
+        [self.tshirtImageView setImageWithURL:[NSURL URLWithString:self.tshirt.image_url] placeholderImage:nil options:kNilOptions];
         
-        self.tshirtImageView.layer.borderColor = [[UIColor blackColor] CGColor];
-        self.tshirtImageView.layer.borderWidth = 1;
+        self.tshirtImageView.layer.borderColor  = [UIColor blackColor].CGColor;
+        self.tshirtImageView.layer.borderWidth  = 1;
         self.tshirtImageView.layer.cornerRadius = 6;
         self.tshirtImageView.clipsToBounds = YES;
         
         self.mainScrollView.contentSize = CGSizeMake((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 540 : self.view.frame.size.width, self.noteLabel.frame.origin.y+self.noteLabel.frame.size.height+50);
     }
-    
-//    UIImage *woodTexture = [UIImage imageNamed:(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? @"shelves-free-form" : @"shelves-closeup"];
-//    UIColor *woodColor = [UIColor colorWithPatternImage:woodTexture];
-//    self.mainScrollView.backgroundColor = woodColor;
 }
 
 - (NSString*)relativeDescriptionForDate:(NSDate*)date

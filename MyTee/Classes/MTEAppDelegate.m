@@ -34,7 +34,7 @@
 {
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 
-    [[UINavigationBar appearance] setTintColor:[UIColor orangeColor]];
+    [UINavigationBar.appearance setTintColor:UIColor.orangeColor];
     
     [[UITabBar appearance] setBackgroundImage:        [UIImage imageNamed:@"tabbar"]];
     [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageNamed:@"selection-tab"]];

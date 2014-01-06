@@ -8,6 +8,11 @@
 
 #import "MTETShirtsViewController.h"
 
+@import QuartzCore;
+
+#import <AFNetworking.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+
 #import "MTETShirt.h"
 #import "MTEAuthenticationManager.h"
 #import "MTEAppDelegate.h"
@@ -19,9 +24,6 @@
 #import "MTETShirtViewController.h"
 #import "MTESettingsViewController.h"
 #import "MTELoginViewController.h"
-
-#import <AFNetworking.h>
-#import <QuartzCore/QuartzCore.h>
 
 @interface MTETShirtsViewController () <UIPopoverControllerDelegate, NSFetchedResultsControllerDelegate, UIActionSheetDelegate>
 
@@ -203,10 +205,9 @@
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         UIImage *woodTexture = [UIImage imageNamed:(UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) ? @"shelves-portrait" : @"shelves-landscape"];
-        UIColor *woodColor = [UIColor colorWithPatternImage:woodTexture];
+        UIColor *woodColor   = [UIColor colorWithPatternImage:woodTexture];
         self.collectionView.backgroundColor = woodColor;
     }
 }
@@ -247,15 +248,15 @@
             tshirtImageView.frame = CGRectMake(8, (cell.bounds.size.height - tshirtSize)/2 + 8, tshirtSize, tshirtSize);
         }
         
-        tshirtImageView.layer.borderColor = [[UIColor blackColor] CGColor];
-        tshirtImageView.layer.borderWidth = 1;
+        tshirtImageView.layer.borderColor  = UIColor.blackColor.CGColor;
+        tshirtImageView.layer.borderWidth  = 1;
         tshirtImageView.layer.cornerRadius = 4;
         tshirtImageView.clipsToBounds = YES;
         
         [cell.contentView addSubview:tshirtImageView];
     }
     
-    [tshirtImageView setImageWithURL:[NSURL URLWithString:tshirt.image_url]];
+    [tshirtImageView setImageWithURL:[NSURL URLWithString:tshirt.image_url] placeholderImage:nil options:kNilOptions];
     
     return cell;
 }
@@ -316,7 +317,8 @@
 - (void)settingsViewControllerShouldLogOut:(MTESettingsViewController *)settingsViewController
 {   
     [MTEAuthenticationManager resetKeychain];
-    [((MTEAppDelegate *)[UIApplication sharedApplication].delegate) resetManagedObjectContext];
+    MTEAppDelegate *appDelegate = (MTEAppDelegate *)[UIApplication sharedApplication].delegate;
+    [appDelegate resetManagedObjectContext];
     
     [self.navigationController popToRootViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
