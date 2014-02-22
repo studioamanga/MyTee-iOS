@@ -3,7 +3,7 @@
 //  mytee
 //
 //  Created by Vincent Tourraine on 2/2/12.
-//  Copyright (c) 2012 Studio AMANgA. All rights reserved.
+//  Copyright (c) 2012-2014 Studio AMANgA. All rights reserved.
 //
 
 #import "MTEWearWashViewController.h"
@@ -46,7 +46,7 @@
 
     id object = self.datesObjects[indexPath.row];
     cell.textLabel.text  = [[self.dateFormatter stringFromDate:[object date]] capitalizedString];
-    cell.imageView.image = [UIImage imageNamed:@"83-calendar-b"];
+    cell.imageView.image = [UIImage imageNamed:@"IconCalendar"];
     cell.selectionStyle  = UITableViewCellSelectionStyleNone;
 
     return cell;

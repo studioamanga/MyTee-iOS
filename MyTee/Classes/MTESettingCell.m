@@ -10,13 +10,4 @@
 
 @implementation MTESettingCell
 
-- (void)layoutSubviews
-{  
-    [super layoutSubviews];     
-    
-    UIImage * lightTexture = [UIImage imageNamed:@"linen-light-cell"];
-    UIColor * lightColor = [UIColor colorWithPatternImage:lightTexture];
-    [self setBackgroundColor:lightColor];
-}
-
 @end

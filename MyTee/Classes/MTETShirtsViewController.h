@@ -18,8 +18,6 @@
 @property (weak, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) MTESyncManager *syncManager;
 
-@property (strong, nonatomic) MTETShirtViewController *detailViewController;
-
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsBarButtonItem;
 
 - (void)shouldSyncNow:(id)sender;
@@ -29,5 +27,6 @@
 
 - (IBAction)showFilterViewController:(id)sender;
 - (IBAction)showSettingsViewController:(id)sender;
+- (IBAction)showLoginViewController:(id)sender;
 
 @end

@@ -76,7 +76,9 @@
         
         self.title = self.tshirt.name;
         
-        self.sizeLabel.layer.cornerRadius = 6;
+        self.sizeLabel.layer.borderWidth  = 1;
+        self.sizeLabel.layer.borderColor  = [UIColor blackColor].CGColor;
+        self.sizeLabel.layer.cornerRadius = CGRectGetWidth(self.sizeLabel.frame)/2;
         self.sizeLabel.text = self.tshirt.size;
         
         self.tagsLabel.text = self.tshirt.tags;
@@ -212,6 +214,12 @@
     self.dateFormatter.dateStyle = NSDateFormatterShortStyle;
     self.dateFormatter.doesRelativeDateFormatting = YES;
     
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Dismiss", nil)
+                                                                                 style:UIBarButtonItemStylePlain
+                                                                                target:self
+                                                                                action:@selector(dismissViewController:)];
+    }
     [self configureView];
 }
 

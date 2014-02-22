@@ -3,7 +3,7 @@
 //  mytee
 //
 //  Created by Vincent Tourraine on 2/5/12.
-//  Copyright (c) 2012 Studio AMANgA. All rights reserved.
+//  Copyright (c) 2012-2014 Studio AMANgA. All rights reserved.
 //
 
 #import "MTEStoreViewController.h"
@@ -32,25 +32,14 @@
     self.nameLabel.text = self.store.name;
     self.typeLabel.text = self.store.type;
     
-    if ([self.store.type isEqualToString:@"Web"])
-    {
+    if ([self.store.type isEqualToString:@"Web"]) {
         self.addressLabel.text = self.store.url;
     }
-    else
-    {
+    else {
         self.addressLabel.text = self.store.address;
     }
     
     ((UIScrollView*)self.view).alwaysBounceVertical = YES;
-    
-    UIImage * woodTexture = [UIImage imageNamed:(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? @"shelves-free-form" : @"shelves-free"];
-    UIColor * woodColor = [UIColor colorWithPatternImage:woodTexture];
-    [self.view setBackgroundColor:woodColor];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
 }
 
 #pragma mark - Actions

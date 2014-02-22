@@ -160,12 +160,13 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="MyTee" id="AHQ-p6-7Au">
-                        <barButtonItem key="leftBarButtonItem" image="lines-w" id="Aw0-zL-XZS"/>
-                        <barButtonItem key="rightBarButtonItem" image="19-gear" id="PLd-Ve-iHj"/>
+                        <barButtonItem key="leftBarButtonItem" image="IconTShirt" id="Aw0-zL-XZS"/>
+                        <barButtonItem key="rightBarButtonItem" image="IconGear" id="PLd-Ve-iHj">
+                            <connections>
+                                <action selector="showSettingsViewController:" destination="vn9-qM-SGA" id="rS3-64-NRd"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <segue destination="Snp-cF-hnH" kind="modal" identifier="MTELoginSegue" id="FSi-cH-zCW"/>
-                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pj9-hp-Gq0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -174,13 +175,13 @@
         <!--Shirt View Controller-->
         <scene sceneID="l1x-rs-sz2">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="jcc-0K-vuV" customClass="MTETShirtViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MTETShirtViewController" hidesBottomBarWhenPushed="YES" id="jcc-0K-vuV" customClass="MTETShirtViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JDy-SB-qIX">
-                        <rect key="frame" x="0.0" y="64" width="320" height="1788"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" id="bay-ue-cYB">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="1788"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="pZB-kh-iHJ">
@@ -190,15 +191,12 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ONz-ct-5C9">
                                         <rect key="frame" x="20" y="421" width="273" height="44"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <inset key="contentEdgeInsets" minX="7" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Wear History" image="67-tshirt-b">
+                                        <state key="normal" title="Wear History" image="IconTShirt">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="presentWearViewController:" destination="jcc-0K-vuV" eventType="touchUpInside" id="YDJ-Ey-MAj"/>
@@ -207,15 +205,12 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xgu-SI-fbE">
                                         <rect key="frame" x="20" y="465" width="273" height="44"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <inset key="contentEdgeInsets" minX="7" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Wash History" image="wash-b">
+                                        <state key="normal" title="Wash History" image="IconWash">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="presentWashViewController:" destination="jcc-0K-vuV" eventType="touchUpInside" id="ikv-4p-jYM"/>
@@ -224,45 +219,39 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VPA-Hw-1eE">
                                         <rect key="frame" x="20" y="377" width="273" height="44"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <inset key="titleEdgeInsets" minX="9" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Store" image="80-shopping-cart-b">
+                                        <state key="normal" title="Store" image="IconStore">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="presentStoreController:" destination="jcc-0K-vuV" eventType="touchUpInside" id="J9e-r5-cGM"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="★★★★☆" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" id="yy0-mO-8QP">
-                                        <rect key="frame" x="20" y="335" width="116" height="38"/>
+                                        <rect key="frame" x="20" y="319" width="116" height="38"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="XS" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" id="oWm-w4-Jrb">
-                                        <rect key="frame" x="251" y="343" width="42" height="22"/>
+                                        <rect key="frame" x="264" y="320" width="36" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="highlightedColor"/>
-                                        <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Labels" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" id="QMr-Nf-OQK">
                                         <rect key="frame" x="62" y="509" width="231" height="44"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" image="14-tag-b" id="iCl-r5-SiM">
+                                    <imageView userInteractionEnabled="NO" contentMode="center" image="IconTag" id="iCl-r5-SiM">
                                         <rect key="frame" x="25" y="519" width="30" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
@@ -271,11 +260,11 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <string key="text">Notes
 Etc...</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" image="179-notepad-b" id="57o-1J-cRg">
+                                    <imageView userInteractionEnabled="NO" contentMode="center" image="IconNotepad" id="57o-1J-cRg">
                                         <rect key="frame" x="25" y="556" width="30" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
@@ -311,14 +300,14 @@ Etc...</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vu4-st-5UE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1974" y="-139"/>
+            <point key="canvasLocation" x="1912" y="-107"/>
         </scene>
         <!--Store Online View Controller - Online Store-->
         <scene sceneID="8v5-VQ-cmJ">
             <objects>
                 <viewController id="6ts-Sx-A3s" customClass="MTEStoreOnlineViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dBr-Dd-IjO" customClass="UIScrollView">
-                        <rect key="frame" x="0.0" y="64" width="320" height="1724"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Store Name" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" id="R3F-Q6-Qca">
@@ -329,7 +318,7 @@ Etc...</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <webView clipsSubviews="YES" contentMode="scaleToFill" id="0e0-zl-eMj">
-                                <rect key="frame" x="20" y="114" width="280" height="1331"/>
+                                <rect key="frame" x="20" y="114" width="280" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
@@ -340,7 +329,7 @@ Etc...</string>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="center" image="71-compass-b.png" id="UTb-2c-qH9">
+                            <imageView userInteractionEnabled="NO" contentMode="center" image="IconCompass" id="UTb-2c-qH9">
                                 <rect key="frame" x="20" y="65" width="26" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -355,6 +344,7 @@ Etc...</string>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="addressLabel" destination="OOY-MH-3rE" id="yZN-hN-keA"/>
                         <outlet property="nameLabel" destination="R3F-Q6-Qca" id="uhb-Ul-O2L"/>
@@ -363,24 +353,24 @@ Etc...</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9WQ-pH-9jE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3003" y="764"/>
+            <point key="canvasLocation" x="2781" y="604"/>
         </scene>
         <!--Store Retail View Controller - Retail Store-->
         <scene sceneID="Pgz-AM-1EV">
             <objects>
                 <viewController id="rHP-re-8vL" customClass="MTEStoreRetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="q33-ye-wdl" customClass="UIScrollView">
-                        <rect key="frame" x="0.0" y="64" width="320" height="1724"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="NkQ-QB-oOd">
-                                <rect key="frame" x="20" y="114" width="280" height="1331"/>
+                                <rect key="frame" x="20" y="114" width="280" height="370"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="rHP-re-8vL" id="8W9-jc-5Bu"/>
                                 </connections>
                             </mapView>
-                            <imageView userInteractionEnabled="NO" contentMode="center" image="72-pin-b.png" id="Uu4-4b-XDo">
+                            <imageView userInteractionEnabled="NO" contentMode="center" image="IconPin" id="Uu4-4b-XDo">
                                 <rect key="frame" x="20" y="65" width="26" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -409,6 +399,7 @@ Etc...</string>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="addressLabel" destination="J0B-Mf-kQD" id="9OK-Jz-St8"/>
                         <outlet property="mapView" destination="NkQ-QB-oOd" id="Ikv-VV-qOG"/>
@@ -417,14 +408,14 @@ Etc...</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IBi-bl-wBb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3599" y="852"/>
+            <point key="canvasLocation" x="3174" y="604"/>
         </scene>
         <!--Store View Controller - Store-->
         <scene sceneID="x6A-Cm-Vwz">
             <objects>
                 <viewController id="9VM-uu-YyO" customClass="MTEStoreViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zuq-r2-poB" customClass="UIScrollView">
-                        <rect key="frame" x="0.0" y="64" width="320" height="1724"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Store Name" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" id="PTL-Fa-UcH">
@@ -434,7 +425,7 @@ Etc...</string>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="center" image="72-pin-b.png" id="LMD-1T-wsF">
+                            <imageView userInteractionEnabled="NO" contentMode="center" image="IconPin" id="LMD-1T-wsF">
                                 <rect key="frame" x="20" y="96" width="26" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -457,6 +448,7 @@ Etc...</string>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Store" id="C0w-TM-1rR"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="addressIconImageView" destination="LMD-1T-wsF" id="ISB-of-9AB"/>
                         <outlet property="addressLabel" destination="O14-bB-NQh" id="rg8-yb-Bw5"/>
@@ -466,12 +458,12 @@ Etc...</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0rd-GX-wOu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4043" y="757"/>
+            <point key="canvasLocation" x="3560" y="604"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="auR-ws-a1u">
             <objects>
-                <navigationController storyboardIdentifier="MTELoginViewController" id="Snp-cF-hnH" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MTELoginNavigationController" id="Snp-cF-hnH" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="g9s-K1-mpp">
@@ -498,23 +490,20 @@ Etc...</string>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Qaj-93-k0o">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="0.20000000000000001" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="separatorColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="qzF-rg-cSQ">
                                     <rect key="frame" x="0.0" y="197" width="320" height="105"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Hello #email#" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" id="I9h-jM-tt4">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="35"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
-                                            <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <size key="shadowOffset" width="0.0" height="1"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MTESettingsReminderSwitchCell" id="AOS-xm-rmh" customClass="MTESettingSwitchCell">
@@ -526,7 +515,7 @@ Etc...</string>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Reminders" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="owS-aN-MHg">
                                                     <rect key="frame" x="10" y="11" width="88" height="21"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -548,14 +537,14 @@ Etc...</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Everyday at 8 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dpw-jg-Mwh">
-                                                    <rect key="frame" x="55" y="0.0" width="250" height="43"/>
+                                                    <rect key="frame" x="58" y="0.0" width="247" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="11-clock-b" id="QuF-Yj-Por">
-                                                    <rect key="frame" x="15" y="9" width="25" height="25"/>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="IconClock" id="QuF-Yj-Por">
+                                                    <rect key="frame" x="15" y="7" width="28" height="28"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -574,7 +563,7 @@ Etc...</string>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Sync Now" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wOY-qT-WLg">
                                                     <rect key="frame" x="15" y="0.0" width="290" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -589,7 +578,6 @@ Etc...</string>
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="0.20000000000000001" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Settings" id="ZHD-Lc-bgH">
@@ -608,61 +596,6 @@ Etc...</string>
             </objects>
             <point key="canvasLocation" x="1627" y="1441"/>
         </scene>
-        <!--Shirts Filter View Controller - Wardrobe-->
-        <scene sceneID="Azs-5T-tRA">
-            <objects>
-                <viewController id="dhp-jS-pOM" customClass="MTETShirtsFilterViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="VIk-ti-3gf">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="t5s-GU-1zB">
-                                <rect key="frame" x="0.0" y="0.0" width="280" height="416"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="separatorColor" white="0.10609603102189782" alpha="1" colorSpace="calibratedWhite"/>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="alK-MJ-z5s">
-                                    <rect key="frame" x="0.0" y="66" width="280" height="1"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </view>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MTEFilterCell" textLabel="hDl-eF-b0C" style="IBUITableViewCellStyleDefault" id="fjI-Ho-PWU">
-                                        <rect key="frame" x="0.0" y="22" width="280" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fjI-Ho-PWU" id="klw-FH-atF">
-                                            <rect key="frame" x="0.0" y="0.0" width="247" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="All my T-Shirts" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hDl-eF-b0C">
-                                                    <rect key="frame" x="15" y="0.0" width="230" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <size key="shadowOffset" width="0.0" height="1"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="dhp-jS-pOM" id="VkQ-U8-pvb"/>
-                                    <outlet property="delegate" destination="dhp-jS-pOM" id="elm-ud-6UU"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.20000000000000001" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" title="Wardrobe" id="Zjj-fB-LM0"/>
-                    <connections>
-                        <outlet property="tableView" destination="t5s-GU-1zB" id="1br-W7-CmZ"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TBG-ez-2jz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1627" y="2052"/>
-        </scene>
         <!--Navigation Controller - Settings-->
         <scene sceneID="JO5-7f-hmO">
             <objects>
@@ -670,7 +603,7 @@ Etc...</string>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Settings" image="19-gear.png" id="5Y7-NI-w9A"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" id="lhg-j6-jVl">
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="lhg-j6-jVl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -683,38 +616,18 @@ Etc...</string>
             </objects>
             <point key="canvasLocation" x="1101" y="1441"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="kp3-41-zuh">
-            <objects>
-                <navigationController storyboardIdentifier="MTEFilterNavigationController" id="SZQ-ZO-m9A" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="sne-uH-Epb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="dhp-jS-pOM" kind="relationship" relationship="rootViewController" id="04P-U4-BYw"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="oji-1T-QAE" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1101" y="2052"/>
-        </scene>
     </scenes>
     <resources>
-        <image name="11-clock-b" width="25" height="25"/>
-        <image name="14-tag-b" width="22" height="22"/>
-        <image name="179-notepad-b" width="22" height="28"/>
-        <image name="19-gear" width="26" height="26"/>
         <image name="19-gear.png" width="26" height="26"/>
-        <image name="67-tshirt-b" width="26" height="26"/>
-        <image name="71-compass-b.png" width="24" height="24"/>
-        <image name="72-pin-b.png" width="10" height="20"/>
-        <image name="80-shopping-cart-b" width="26" height="19"/>
-        <image name="lines-w" width="22" height="16"/>
-        <image name="wash-b" width="26" height="26"/>
+        <image name="IconClock" width="28" height="28"/>
+        <image name="IconCompass" width="28" height="28"/>
+        <image name="IconGear" width="28" height="28"/>
+        <image name="IconNotepad" width="24" height="28"/>
+        <image name="IconPin" width="19" height="28"/>
+        <image name="IconStore" width="28" height="24"/>
+        <image name="IconTShirt" width="28" height="22"/>
+        <image name="IconTag" width="28" height="28"/>
+        <image name="IconWash" width="22" height="28"/>
     </resources>
     <color key="tintColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
