@@ -14,5 +14,7 @@
 
 - (void)configureView;
 - (IBAction)dismissViewController:(id)sender;
+- (IBAction)presentWearViewController:(id)sender;
+- (IBAction)presentWashViewController:(id)sender;
 
 @end

@@ -215,24 +215,11 @@
     [self configureView];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
-
 #pragma mark - Segue
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"MTEWearSegue"]) {
-        MTEWearWashViewController *viewController = segue.destinationViewController;
-        viewController.datesObjects = [self.tshirt wearsSortedByDate];
-    }
-    else if ([segue.identifier isEqualToString:@"MTEWashSegue"]) {
-        MTEWearWashViewController *viewController = segue.destinationViewController;
-        viewController.datesObjects = [self.tshirt washsSortedByDate];
-    }
-    else if ([segue.identifier isEqualToString:@"MTEStoreSegue"] ||
+    if ([segue.identifier isEqualToString:@"MTEStoreSegue"] ||
              [segue.identifier isEqualToString:@"MTEStoreRetailSegue"] ||
              [segue.identifier isEqualToString:@"MTEStoreOnlineSegue"]) {
         MTEStoreViewController *viewController = segue.destinationViewController;
@@ -245,6 +232,22 @@
     if (self.wearWashActionSheet)
         [self.wearWashActionSheet dismissWithClickedButtonIndex:self.wearWashActionSheet.cancelButtonIndex animated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)presentWearViewController:(id)sender
+{
+    MTEWearWashViewController *viewController = [[MTEWearWashViewController alloc] init];
+    viewController.datesObjects = self.tshirt.wearsSortedByDate;
+    viewController.title = NSLocalizedString(@"Wear", nil);
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (IBAction)presentWashViewController:(id)sender
+{
+    MTEWearWashViewController *viewController = [[MTEWearWashViewController alloc] init];
+    viewController.datesObjects = self.tshirt.washsSortedByDate;
+    viewController.title = NSLocalizedString(@"Wash", nil);
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 @end

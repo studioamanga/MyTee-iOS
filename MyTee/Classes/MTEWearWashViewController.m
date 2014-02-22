@@ -12,45 +12,43 @@
 
 #pragma mark - View lifecycle
 
+- (id)init
+{
+    self = [super initWithStyle:UITableViewStylePlain];
+    if (self) {
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    UIImage * woodTexture = [UIImage imageNamed:(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? @"shelves-free-form" : @"shelves-free"];
-    UIColor * woodColor = [UIColor colorWithPatternImage:woodTexture];
-    self.view.backgroundColor = woodColor;
-    
+
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    
+    [self.tableView registerClass:UITableViewCell.class
+           forCellReuseIdentifier:@"MTEDateCell"];
+
     self.dateFormatter = [NSDateFormatter new];
     self.dateFormatter.dateStyle = NSDateFormatterFullStyle;
     self.dateFormatter.doesRelativeDateFormatting = YES;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
-
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.datesObjects count];
+    return self.datesObjects.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MTEDateCell"];
-    
+
     id object = self.datesObjects[indexPath.row];
-    cell.textLabel.text = [[self.dateFormatter stringFromDate:[object date]] capitalizedString];
-    
+    cell.textLabel.text  = [[self.dateFormatter stringFromDate:[object date]] capitalizedString];
+    cell.imageView.image = [UIImage imageNamed:@"83-calendar-b"];
+    cell.selectionStyle  = UITableViewCellSelectionStyleNone;
+
     return cell;
 }
 

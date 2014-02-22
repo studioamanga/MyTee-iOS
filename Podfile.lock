@@ -7,10 +7,10 @@ PODS:
   - InflectorKit (0.0.1)
   - KeychainItemWrapper (1.2)
   - MBProgressHUD (0.8)
-  - SDWebImage (3.5.1):
+  - SDWebImage (3.5.2):
     - SDWebImage/Core
-  - SDWebImage/Core (3.5.1)
-  - TransformerKit (0.2.4)
+  - SDWebImage/Core (3.5.2)
+  - TransformerKit (0.3.1)
 
 DEPENDENCIES:
   - AFIncrementalStore
@@ -25,7 +25,7 @@ SPEC CHECKSUMS:
   InflectorKit: 9dccab02f95541093995adac639342c9eb9e6c12
   KeychainItemWrapper: b532e85de8792ea70dad237e7ead90993af763cf
   MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
-  SDWebImage: a408b548a634b792372e07e753fc1079aff5032a
-  TransformerKit: 3c60759694b70d41b833dfe4005b031762d54e7f
+  SDWebImage: fe7ce01ae4e0a884d168f59c9dd82d35baf8429e
+  TransformerKit: 612d3966b31e345f2abc8221fe6657379bb5d8b6
 
 COCOAPODS: 0.29.0
