@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Studio AMANgA. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface NSString (NSStringURL)
 

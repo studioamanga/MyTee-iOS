@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Studio AMANgA. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface MTEAppDelegate : UIResponder <UIApplicationDelegate>
 

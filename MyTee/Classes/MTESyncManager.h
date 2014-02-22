@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Studio AMANgA. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 FOUNDATION_EXPORT NSString *const kMTETShirtsFilterType;
 FOUNDATION_EXPORT NSString *const kMTETShirtsFilterParameter;
