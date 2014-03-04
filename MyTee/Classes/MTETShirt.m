@@ -37,46 +37,55 @@
 
 + (NSString *)pathToLocalImageWithIdentifier:(NSString*)identifier
 {
-    return [[self pathToLocalImageDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"MTE_%@.jpg", identifier]];
+    NSString *fileName = [NSString stringWithFormat:@"MTE_%@.jpg", identifier];
+    return [self.pathToLocalImageDirectory stringByAppendingPathComponent:fileName];
 }
 
 + (NSString *)pathToMiniatureLocalImageWithIdentifier:(NSString*)identifier
 {
-    return [[self pathToLocalImageDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"MTE_%@_mini.jpg", identifier]];
+    NSString *fileName = [NSString stringWithFormat:@"MTE_%@_mini.jpg", identifier];
+    return [self.pathToLocalImageDirectory stringByAppendingPathComponent:fileName];
 }
 
 #pragma mark - Wear/Wash
 
 - (NSArray *)wearsSortedByDate
 {
-    return [self.wears sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]]];
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
+    return [self.wears sortedArrayUsingDescriptors:@[descriptor]];
 }
 
 - (MTEWear *)mostRecentWear
 {
-    NSArray * wears = [self wearsSortedByDate];
-    return ([wears count] == 0) ? nil : wears[0];
+    return self.wearsSortedByDate.firstObject;
 }
 
 - (NSArray *)washsSortedByDate
 {
-    return [self.washs sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]]];
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
+    return [self.washs sortedArrayUsingDescriptors:@[descriptor]];
 }
 
 - (MTEWash *)mostRecentWash
 {
-    NSArray * washs = [self washsSortedByDate];
-    return ([washs count] == 0) ? nil : washs[0];
+    return self.washsSortedByDate.firstObject;
 }
 
 - (NSUInteger)updateNumberOfWearsSinceLastWash
 {
-    NSDate *mostRecentWashDate = [self mostRecentWash].date;
-    NSUInteger numberOfDays = [[[NSSet setWithArray:[self wearsSortedByDate]] objectsPassingTest:^BOOL(MTEWear *wear, BOOL *stop) {
+    NSDate *mostRecentWashDate = self.mostRecentWash.date;
+
+    if (!mostRecentWashDate) {
+        self.numberOfWearsSinceLastWash = @(self.wears.count);
+        return self.wears.count;
+    }
+
+    NSUInteger numberOfDays = [[[NSSet setWithArray:self.wearsSortedByDate] objectsPassingTest:^BOOL(MTEWear *wear, BOOL *stop) {
         return ([wear.date compare:mostRecentWashDate] == NSOrderedDescending);
     }] count];
+
     self.numberOfWearsSinceLastWash = @(numberOfDays);
-    
+
     return numberOfDays;
 }
 

@@ -55,7 +55,6 @@
     if (_tshirt != newTShirt) {
         _tshirt = newTShirt;
         
-        NSLog(@"%@ number of wear since last wash", newTShirt.numberOfWearsSinceLastWash);
         // Update the view.
         [self configureView];
     }
