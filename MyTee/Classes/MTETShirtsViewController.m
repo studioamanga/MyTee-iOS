@@ -11,7 +11,9 @@
 @import QuartzCore;
 
 #import <AFNetworking.h>
+
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/SDImageCache.h>
 
 #import "MTETShirt.h"
 #import "MTEAuthenticationManager.h"
@@ -172,10 +174,12 @@
     }
 
     UIStoryboard *storyboard;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         storyboard = [UIStoryboard storyboardWithName:@"Storyboard_iPhone" bundle:[NSBundle mainBundle]];
-    else
+    }
+    else {
         storyboard = self.storyboard;
+    }
     
     UINavigationController *settingsNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"MTESettingsNavigationController"];
     settingsNavigationController.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -249,19 +253,25 @@
             tshirtImageView.frame = CGRectMake(10, (cell.bounds.size.height - tshirtSize)/2 + 8, tshirtSize, tshirtSize);
         }
         else {
-            CGFloat tshirtSize = cell.bounds.size.width - 2*8;
-            tshirtImageView.frame = CGRectMake(8, (cell.bounds.size.height - tshirtSize)/2 + 8, tshirtSize, tshirtSize);
+            CGFloat margin = 6;
+            CGFloat tshirtSize = cell.bounds.size.width - 2*margin;
+            tshirtImageView.frame = CGRectMake(margin, (cell.bounds.size.height - tshirtSize)/2 + margin,
+                                               tshirtSize, tshirtSize);
         }
-        
-        tshirtImageView.layer.borderColor  = UIColor.blackColor.CGColor;
-        tshirtImageView.layer.borderWidth  = 1;
-        tshirtImageView.layer.cornerRadius = 4;
-        tshirtImageView.clipsToBounds = YES;
-        
+
         [cell.contentView addSubview:tshirtImageView];
     }
     
-    [tshirtImageView setImageWithURL:[NSURL URLWithString:tshirt.image_url] placeholderImage:nil options:kNilOptions];
+    NSURL   *imageURL = [NSURL URLWithString:tshirt.image_url];
+    UIImage *image    = [[SDImageCache sharedImageCache] imageFromMemoryCacheForKey:tshirt.image_url];
+    if (image) {
+        tshirtImageView.image = image;
+    }
+    else {
+        [tshirtImageView setImageWithURL:imageURL
+                        placeholderImage:nil
+                                 options:kNilOptions];
+    }
     
     return cell;
 }

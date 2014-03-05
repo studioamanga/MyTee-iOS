@@ -11,6 +11,7 @@
 @import QuartzCore;
 
 #import <AFNetworking.h>
+
 #import <SDWebImage/UIImageView+WebCache.h>
 
 #import "MTETShirt.h"
@@ -123,12 +124,7 @@
             [self.washButton setTitle:@"Never washed before" forState:UIControlStateNormal];
         
         [self.tshirtImageView setImageWithURL:[NSURL URLWithString:self.tshirt.image_url] placeholderImage:nil options:kNilOptions];
-        
-        self.tshirtImageView.layer.borderColor  = [UIColor blackColor].CGColor;
-        self.tshirtImageView.layer.borderWidth  = 1;
-        self.tshirtImageView.layer.cornerRadius = 6;
-        self.tshirtImageView.clipsToBounds = YES;
-        
+
         self.mainScrollView.contentSize = CGSizeMake((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 540 : self.view.frame.size.width, self.noteLabel.frame.origin.y+self.noteLabel.frame.size.height+50);
     }
 }

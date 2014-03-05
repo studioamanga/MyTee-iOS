@@ -18,10 +18,9 @@
 
 @end
 
-@interface MTESettingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface MTESettingsViewController : UITableViewController
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UILabel * emailLabel;
+@property (weak, nonatomic) IBOutlet UILabel *emailLabel;
 
 @property (weak, nonatomic) id <MTESettingsViewDelegate> delegate;
 

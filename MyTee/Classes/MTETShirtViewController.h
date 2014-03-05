@@ -8,7 +8,8 @@
 
 @class MTETShirt;
 
-@interface MTETShirtViewController : UIViewController <UISplitViewControllerDelegate, UIActionSheetDelegate>
+@interface MTETShirtViewController : UIViewController
+<UISplitViewControllerDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) MTETShirt *tshirt;
 

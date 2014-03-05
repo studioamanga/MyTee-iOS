@@ -9,6 +9,9 @@
 #import "MTEAppDelegate.h"
 
 #import <AFNetworkActivityIndicatorManager.h>
+
+#import <Colours.h>
+
 #import "MTETShirtsViewController.h"
 #import "MTESettingsViewController.h"
 #import "MTESyncManager.h"
@@ -32,24 +35,20 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    AFNetworkActivityIndicatorManager.sharedManager.enabled = YES;
 
-    [UINavigationBar.appearance setTintColor:UIColor.orangeColor];
-    
-    [[UITabBar appearance] setBackgroundImage:        [UIImage imageNamed:@"tabbar"]];
-    [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageNamed:@"selection-tab"]];
-    [[UITabBar appearance] setSelectedImageTintColor: [UIColor grayColor]];
-    
+    self.window.tintColor = UIColor.coolPurpleColor;
+
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-    
-    UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
-    MTETShirtsViewController * tshirtsViewController = (MTETShirtsViewController*)navController.topViewController;
+
+    UINavigationController   *navController         = (UINavigationController *)self.window.rootViewController;
+    MTETShirtsViewController *tshirtsViewController = (MTETShirtsViewController *)navController.topViewController;
     
     self.syncManager = [MTESyncManager syncManagerWithClient:[MTEMyTeeAPIClient sharedClient]
                                                      context:self.managedObjectContext];
     
     tshirtsViewController.managedObjectContext = self.managedObjectContext;
-    tshirtsViewController.syncManager = self.syncManager;
+    tshirtsViewController.syncManager          = self.syncManager;
     
     return YES;
 }

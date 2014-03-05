@@ -40,10 +40,6 @@ enum MTESettingsViewSections {
         self.emailLabel.textColor   = [UIColor blackColor];
         self.emailLabel.shadowColor = [UIColor clearColor];
         
-        self.tableView.backgroundColor  = [UIColor colorWithWhite:0.9 alpha:1];
-        self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self.tableView.frame = self.view.bounds;
-        
         UIBarButtonItem *closeBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close"
                                                                                style:UIBarButtonItemStyleBordered
                                                                               target:self
@@ -55,20 +51,9 @@ enum MTESettingsViewSections {
     self.emailLabel.text = (email) ? email : @"You are not logged in";
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-//    self.tableView.frame = self.view.bounds;
-}
-
 - (NSUInteger)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskPortrait;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Table view data source
@@ -83,6 +68,7 @@ enum MTESettingsViewSections {
     switch (section) {
         case MTESettingsViewSectionReminders:
             return 2;
+
         case MTESettingsViewSectionSyncNow:
         case MTESettingsViewSectionLogOut:
             return 1;

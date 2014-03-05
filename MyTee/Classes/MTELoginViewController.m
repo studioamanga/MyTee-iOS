@@ -19,27 +19,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.tableView.backgroundView = nil;
-    self.tableView.backgroundColor = [UIColor colorWithWhite:0.85 alpha:1];
-    
-    self.emailTextField.text = [MTEAuthenticationManager emailFromKeychain];
+
+    self.emailTextField.text    = [MTEAuthenticationManager emailFromKeychain];
     self.passwordTextField.text = [MTEAuthenticationManager passwordFromKeychain];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+
     [self.emailTextField becomeFirstResponder];
 }
 
 #pragma mark - Table view delegate
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
