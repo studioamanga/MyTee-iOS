@@ -11,7 +11,10 @@
 @interface MTETShirtViewController : UIViewController
 <UISplitViewControllerDelegate, UIActionSheetDelegate>
 
-@property (strong, nonatomic) MTETShirt *tshirt;
+@property (nonatomic, strong) MTETShirt *tshirt;
+
+@property (nonatomic, weak) IBOutlet UIScrollView *mainScrollView;
+@property (nonatomic, weak) IBOutlet UIImageView  *tshirtImageView;
 
 - (void)configureView;
 - (IBAction)dismissViewController:(id)sender;

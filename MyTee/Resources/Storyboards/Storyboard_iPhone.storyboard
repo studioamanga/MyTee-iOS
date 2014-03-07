@@ -129,7 +129,7 @@
         <!--Shirts View Controller - MyTee-->
         <scene sceneID="Xag-4c-rbY">
             <objects>
-                <collectionViewController autoresizesArchivedViewToFullSize="NO" id="vn9-qM-SGA" customClass="MTETShirtsViewController" sceneMemberID="viewController">
+                <collectionViewController autoresizesArchivedViewToFullSize="NO" clearsSelectionOnViewWillAppear="NO" id="vn9-qM-SGA" customClass="MTETShirtsViewController" sceneMemberID="viewController">
                     <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="7LQ-3c-cpY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -149,9 +149,6 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <connections>
-                                    <segue destination="jcc-0K-vuV" kind="push" identifier="MTETShirtSegue" id="gaL-bY-QDn"/>
-                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -281,6 +278,7 @@ Etc...</string>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="mainScrollView" destination="bay-ue-cYB" id="NYh-sQ-S9N"/>

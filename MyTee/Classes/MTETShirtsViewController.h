@@ -15,10 +15,11 @@
 @interface MTETShirtsViewController : UICollectionViewController
  <MTESettingsViewDelegate, MTELoginViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (weak, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) MTESyncManager *syncManager;
+@property (nonatomic, weak)   NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) MTESyncManager         *syncManager;
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsBarButtonItem;
+@property (nonatomic, strong) NSIndexPath              *selectedCellIndexPath;
+@property (nonatomic, weak)   IBOutlet UIBarButtonItem *settingsBarButtonItem;
 
 - (void)shouldSyncNow:(id)sender;
 - (void)syncStarted:(id)sender;

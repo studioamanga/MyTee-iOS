@@ -26,8 +26,6 @@
 
 @interface MTETShirtViewController ()
 
-@property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
-@property (weak, nonatomic) IBOutlet UIImageView *tshirtImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *noteIconImageView;
 @property (weak, nonatomic) IBOutlet UIButton *storeButton;
 @property (weak, nonatomic) IBOutlet UIButton *wearButton;

@@ -10,7 +10,7 @@
 
 @interface MTEWearWashViewController : UITableViewController
 
-@property (strong, nonatomic) NSArray * datesObjects;
-@property (strong, nonatomic) NSDateFormatter * dateFormatter;
+@property (strong, nonatomic) NSArray *datesObjects;
+@property (strong, nonatomic) NSDateFormatter *dateFormatter;
 
 @end

@@ -110,8 +110,9 @@
 {
     [super viewDidAppear:animated];
 
-    if (![MTEAuthenticationManager emailFromKeychain])
+    if (![MTEAuthenticationManager emailFromKeychain]) {
         [self showLoginViewController:nil];
+    }
 }
 
 - (void)configureForFilterType:(MTETShirtsFilterType)filterType
@@ -241,8 +242,8 @@
     MTETShirt *tshirt = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     UIImageView *tshirtImageView = nil;
-    if ([[cell.contentView.subviews lastObject] isMemberOfClass:[UIImageView class]])
-        tshirtImageView = [cell.contentView.subviews lastObject];
+    if ([cell.contentView.subviews.lastObject isMemberOfClass:UIImageView.class])
+        tshirtImageView = cell.contentView.subviews.lastObject;
     
     if (!tshirtImageView) {
         tshirtImageView = [[UIImageView alloc] init];
@@ -278,18 +279,21 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.selectedCellIndexPath = indexPath;
+
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        UIStoryboard *storyboard;
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-            storyboard = [UIStoryboard storyboardWithName:@"Storyboard_iPhone" bundle:[NSBundle mainBundle]];
-        else
-            storyboard = self.storyboard;
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Storyboard_iPhone" bundle:[NSBundle mainBundle]];
         
         MTETShirtViewController *tshirtViewController = [storyboard instantiateViewControllerWithIdentifier:@"MTETShirtViewController"];
         tshirtViewController.tshirt = [self.fetchedResultsController objectAtIndexPath:indexPath];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:tshirtViewController];
         navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentViewController:navigationController animated:YES completion:nil];
+    }
+    else {
+        MTETShirtViewController *tshirtViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MTETShirtViewController"];
+        tshirtViewController.tshirt = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        [self.navigationController pushViewController:tshirtViewController animated:YES];
     }
 }
 

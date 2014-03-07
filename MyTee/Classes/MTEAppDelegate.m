@@ -14,12 +14,14 @@
 
 #import "MTETShirtsViewController.h"
 #import "MTESettingsViewController.h"
+#import "MTENavigationControllerDelegate.h"
 #import "MTESyncManager.h"
 #import "MTEMyTeeAPIClient.h"
 
 @interface MTEAppDelegate ()
 
-@property (nonatomic, strong) MTESyncManager * syncManager;
+@property (nonatomic, strong) MTESyncManager *syncManager;
+@property (nonatomic, strong) MTENavigationControllerDelegate *navigationControllerDelegate;
 @property (strong, nonatomic, readonly) NSURL *storeURL;
 
 - (void)removeObjectsInManagedObjectContextForEntityName:(NSString *)entityName;
@@ -29,8 +31,8 @@
 
 @implementation MTEAppDelegate
 
-@synthesize managedObjectContext = __managedObjectContext;
-@synthesize managedObjectModel = __managedObjectModel;
+@synthesize managedObjectContext       = __managedObjectContext;
+@synthesize managedObjectModel         = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -38,12 +40,20 @@
     AFNetworkActivityIndicatorManager.sharedManager.enabled = YES;
 
     self.window.tintColor = UIColor.coolPurpleColor;
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
+    [[UINavigationBar appearance] setBarTintColor:UIColor.coolPurpleColor]; // #8C5DE4
+    [[UINavigationBar appearance] setTintColor:UIColor.whiteColor];
 
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-
-    UINavigationController   *navController         = (UINavigationController *)self.window.rootViewController;
-    MTETShirtsViewController *tshirtsViewController = (MTETShirtsViewController *)navController.topViewController;
     
+    self.navigationControllerDelegate = [MTENavigationControllerDelegate new];
+
+    UINavigationController   *navigationController  = (UINavigationController *)self.window.rootViewController;
+    MTETShirtsViewController *tshirtsViewController = (MTETShirtsViewController *)navigationController.topViewController;
+    
+    navigationController.delegate = self.navigationControllerDelegate;
+    [self.navigationControllerDelegate configureWithNavigationController:navigationController];
+
     self.syncManager = [MTESyncManager syncManagerWithClient:[MTEMyTeeAPIClient sharedClient]
                                                      context:self.managedObjectContext];
     
@@ -70,22 +80,23 @@
     if (managedObjectContext != nil) {
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
+            NSLog(@"Unresolved error %@, %@", error, error.userInfo);
+            // abort();
         }
     }
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-    [self.syncManager syncSuccess:^(UIBackgroundFetchResult result){
+    [self.syncManager syncSuccess:^(UIBackgroundFetchResult result) {
         completionHandler(result);
     } failure:^(NSError *error) {
-        if (error)
+        if (error) {
             completionHandler(UIBackgroundFetchResultFailed);
-        else
+        }
+        else {
             completionHandler(UIBackgroundFetchResultNoData);
+        }
     }];
 }
 
