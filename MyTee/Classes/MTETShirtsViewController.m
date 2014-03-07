@@ -15,12 +15,13 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/SDImageCache.h>
 
+#import <SVProgressHUD.h>
+
 #import "MTETShirt.h"
 #import "MTEAuthenticationManager.h"
 #import "MTEAppDelegate.h"
 #import "MTESyncManager.h"
 
-#import "MBProgressHUD.h"
 #import "MTEConstView.h"
 
 #import "MTETShirtViewController.h"
@@ -321,12 +322,7 @@
 
 - (void)syncFailed:(id)sender
 {
-    MBProgressHUD *progressHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    progressHUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:MTE_HUD_IMAGE_ERROR]];
-    progressHUD.mode = MBProgressHUDModeCustomView;
-    progressHUD.labelText = @"Sync Failed";
-    
-    [progressHUD hide:YES afterDelay:MTE_HUD_HIDE_DELAY];
+    [SVProgressHUD showErrorWithStatus:@"Sync Failed"];
 }
 
 #pragma mark - Settings view controller delegate

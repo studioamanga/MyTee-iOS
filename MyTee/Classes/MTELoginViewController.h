@@ -6,16 +6,13 @@
 //  Copyright (c) 2012 Studio AMANgA. All rights reserved.
 //
 
-#import "MBProgressHUD.h"
-
 @protocol MTELoginViewDelegate;
 
-@interface MTELoginViewController : UITableViewController <UITextFieldDelegate, MBProgressHUDDelegate>
+@interface MTELoginViewController : UITableViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField * emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField * passwordTextField;
 @property (weak, nonatomic) id <MTELoginViewDelegate> delegate;
-@property BOOL authenticationSuccessful;
 
 - (void)startAuthenticatingWithEmail:(NSString*)email password:(NSString*)password;
 

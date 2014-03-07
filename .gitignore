@@ -3,6 +3,3 @@
 *.pbxuser
 xcuserdata
 
-db_parameters.json
-
-Pods/

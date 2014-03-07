@@ -8,6 +8,8 @@
 
 #import "MTELoginViewController.h"
 
+#import <SVProgressHUD.h>
+
 #import "MTEConstView.h"
 #import "MTEMyTeeAPIClient.h"
 #import "MTEAuthenticationManager.h"
@@ -35,38 +37,37 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0)
-    {
-        switch (indexPath.row)
-        {
+    if (indexPath.section == 0) {
+        switch (indexPath.row) {
             case 0:
                 [self.emailTextField becomeFirstResponder];
                 break;
+
             case 1:
                 [self.passwordTextField becomeFirstResponder];
                 break;
         }
     }
-    else if (indexPath.section == 1)
-    {
+    else if (indexPath.section == 1) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
-        if (![self.emailTextField text] || [[self.emailTextField text] isEqualToString:@""])
-        {
+        if (![self.emailTextField text] || [[self.emailTextField text] isEqualToString:@""]) {
             [self.emailTextField becomeFirstResponder];
         }
-        else if (![self.passwordTextField text] || [[self.passwordTextField text] isEqualToString:@""])
-        {
+        else if (![self.passwordTextField text] || [[self.passwordTextField text] isEqualToString:@""]) {
             [self.passwordTextField becomeFirstResponder];
         }
-        else
-        {
-            if ([self.emailTextField isFirstResponder])
+        else {
+            if ([self.emailTextField isFirstResponder]) {
                 [self.emailTextField resignFirstResponder];
-            if ([self.passwordTextField isFirstResponder])
+            }
+
+            if ([self.passwordTextField isFirstResponder]) {
                 [self.passwordTextField resignFirstResponder];
-        
-            [self startAuthenticatingWithEmail:[self.emailTextField text] password:[self.passwordTextField text]];
+            }
+
+            [self startAuthenticatingWithEmail:[self.emailTextField text]
+                                      password:[self.passwordTextField text]];
         }
     }
 }
@@ -75,11 +76,13 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    if (textField == self.emailTextField)
+    if (textField == self.emailTextField) {
         [self.passwordTextField becomeFirstResponder];
-    else
+    }
+    else {
         [textField resignFirstResponder];
-    
+    }
+
     return NO;
 }
 
@@ -87,43 +90,18 @@
 
 - (void)startAuthenticatingWithEmail:(NSString *)email password:(NSString *)password
 {
-    __block MBProgressHUD * progressHUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    progressHUD.delegate = self;
-    
-    progressHUD.dimBackground = YES;
-    progressHUD.labelText = @"Authenticating...";
-    
-    self.authenticationSuccessful = NO;
-    
+    [SVProgressHUD showWithStatus:@"Authenticating..." maskType:SVProgressHUDMaskTypeClear];
+
     [[MTEMyTeeAPIClient sharedClient] sendAuthenticationRequestWithUsername:email password:password success:^{
-        self.authenticationSuccessful = YES;
         [MTEAuthenticationManager storeEmail:email password:password];
-        
-        progressHUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:MTE_HUD_IMAGE_SUCCESS]];
-        progressHUD.mode = MBProgressHUDModeCustomView;
-        progressHUD.labelText = @"Authentication Successful!";
-        progressHUD.detailsLabelText = nil;
-        
-        [progressHUD hide:YES afterDelay:MTE_HUD_HIDE_DELAY];
-    } failure:^{
-        progressHUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:MTE_HUD_IMAGE_ERROR]];
-        progressHUD.mode = MBProgressHUDModeCustomView;
-        progressHUD.labelText = @"Authentication Error";
-        progressHUD.detailsLabelText = @"Please check your credentials";
-        
-        [progressHUD hide:YES afterDelay:MTE_HUD_HIDE_DELAY];
-    }];
-}
 
-#pragma mark - Progress HUD delegate
+        [SVProgressHUD showSuccessWithStatus:@"Authentication Successful!"];
 
-- (void)hudWasHidden:(MBProgressHUD *)hud
-{
-    if (self.authenticationSuccessful)
-    {
         [self dismissViewControllerAnimated:YES completion:nil];
         [self.delegate loginViewControllerDidLoggedIn:self];
-    }
+    } failure:^{
+        [SVProgressHUD showErrorWithStatus:@"Authentication Error\nPlease check your credentials"];
+    }];
 }
 
 @end
