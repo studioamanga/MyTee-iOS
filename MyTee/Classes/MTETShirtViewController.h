@@ -9,7 +9,7 @@
 @class MTETShirt;
 
 @interface MTETShirtViewController : UIViewController
-<UISplitViewControllerDelegate, UIActionSheetDelegate>
+<UISplitViewControllerDelegate>
 
 @property (nonatomic, strong) MTETShirt *tshirt;
 

@@ -14,6 +14,9 @@
 
 #import <SDWebImage/UIImageView+WebCache.h>
 
+#import <RNGridMenu.h>
+#import <Colours.h>
+
 #import "MTETShirt.h"
 #import "MTEStore.h"
 #import "MTEWash.h"
@@ -24,7 +27,7 @@
 #import "MTEAuthenticationManager.h"
 #import "MTEMyTeeAPIClient.h"
 
-@interface MTETShirtViewController ()
+@interface MTETShirtViewController () <RNGridMenuDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *noteIconImageView;
 @property (weak, nonatomic) IBOutlet UIButton *storeButton;
@@ -35,7 +38,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *tagsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *noteLabel;
 @property (strong, nonatomic) NSDateFormatter * dateFormatter;
-@property (strong, nonatomic) UIActionSheet * wearWashActionSheet;
 @property (strong, nonatomic) UIPopoverController * masterPopoverController;
 
 - (IBAction)didPressAction:(id)sender;
@@ -154,49 +156,20 @@
 
 - (IBAction)didPressAction:(id)sender
 {
-    if (self.wearWashActionSheet)
-        return;
-    
-    self.wearWashActionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                           delegate:self
-                                                  cancelButtonTitle:@"Cancel"
-                                             destructiveButtonTitle:nil
-                                                  otherButtonTitles:@"Wear today", @"Wash today", nil];
-    
-    [self.wearWashActionSheet showFromBarButtonItem:self.navigationItem.rightBarButtonItem animated:YES];
-}
+    UIImage *wearImage = [[UIImage imageNamed:@"IconTShirt"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImage *washImage = [[UIImage imageNamed:@"IconWash"]   imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    NSDictionary * params = @{@"login":   [MTEAuthenticationManager emailFromKeychain],
-                              @"password":[MTEAuthenticationManager passwordFromKeychain]};
-    NSString *path;
-    
-    switch (buttonIndex) {
-        case 0:
-            // Wear
-            path = [NSString stringWithFormat:@"tshirt/%@/wear", self.tshirt.identifier];
-            break;
-            
-        case 1:
-            // Wash
-            path = [NSString stringWithFormat:@"tshirt/%@/wash", self.tshirt.identifier];
-            break;
-    }
-    
-    if (path) {
-        [[MTEMyTeeAPIClient sharedClient] postPath:path
-                                        parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-                                            [self dismissViewControllerAnimated:YES completion:nil];
-                                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                            [[[UIAlertView alloc] initWithTitle:@"Error"
-                                                                        message:[NSString stringWithFormat:@"%@ (%@)", [error localizedDescription], [error localizedRecoverySuggestion]]
-                                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-                                        }];
-    }
-    
-    self.wearWashActionSheet = nil;
+    RNGridMenuItem *wearItem = [[RNGridMenuItem alloc] initWithImage:wearImage
+                                                               title:@"Wear Today"];
+    RNGridMenuItem *washItem = [[RNGridMenuItem alloc] initWithImage:washImage
+                                                               title:@"Wash Today"];
+
+    RNGridMenu *menu = [[RNGridMenu alloc] initWithItems:@[wearItem, washItem]];
+    menu.menuView.tintColor = [UIColor palePurpleColor];
+    menu.highlightColor     = [UIColor coolPurpleColor];
+    menu.delegate           = self;
+
+    [menu showInViewController:self center:self.tshirtImageView.center];
 }
 
 - (void)viewDidLoad
@@ -220,9 +193,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"MTEStoreSegue"] ||
-             [segue.identifier isEqualToString:@"MTEStoreRetailSegue"] ||
-             [segue.identifier isEqualToString:@"MTEStoreOnlineSegue"]) {
+    if ([segue.identifier isEqualToString:@"MTEStoreSegue"]
+        || [segue.identifier isEqualToString:@"MTEStoreRetailSegue"]
+        || [segue.identifier isEqualToString:@"MTEStoreOnlineSegue"]) {
         MTEStoreViewController *viewController = segue.destinationViewController;
         viewController.store = self.tshirt.store;
     }
@@ -230,8 +203,6 @@
 
 - (IBAction)dismissViewController:(id)sender
 {
-    if (self.wearWashActionSheet)
-        [self.wearWashActionSheet dismissWithClickedButtonIndex:self.wearWashActionSheet.cancelButtonIndex animated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -249,6 +220,39 @@
     viewController.datesObjects = self.tshirt.washsSortedByDate;
     viewController.title = NSLocalizedString(@"Wash", nil);
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+#pragma mark - Grid menu delegate
+
+- (void)gridMenu:(RNGridMenu *)gridMenu willDismissWithSelectedItem:(RNGridMenuItem *)item atIndex:(NSInteger)itemIndex
+{
+    NSDictionary * params = @{@"login":   [MTEAuthenticationManager emailFromKeychain],
+                              @"password":[MTEAuthenticationManager passwordFromKeychain]};
+    NSString *path;
+    
+    switch (itemIndex) {
+        case 0:
+            // Wear
+            path = [NSString stringWithFormat:@"tshirt/%@/wear", self.tshirt.identifier];
+            break;
+            
+        case 1:
+            // Wash
+            path = [NSString stringWithFormat:@"tshirt/%@/wash", self.tshirt.identifier];
+            break;
+    }
+    
+    if (path) {
+        [[MTEMyTeeAPIClient sharedClient] postPath:path
+                                        parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+                                            [self dismissViewControllerAnimated:YES completion:nil];
+                                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                            [[[UIAlertView alloc] initWithTitle:@"Error"
+                                                                        message:[NSString stringWithFormat:@"%@ (%@)", [error localizedDescription], [error localizedRecoverySuggestion]]
+                                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                                        }];
+    }
 }
 
 @end

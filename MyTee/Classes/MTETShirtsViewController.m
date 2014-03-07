@@ -16,6 +16,8 @@
 #import <SDWebImage/SDImageCache.h>
 
 #import <SVProgressHUD.h>
+#import <RNGridMenu.h>
+#import <Colours.h>
 
 #import "MTETShirt.h"
 #import "MTEAuthenticationManager.h"
@@ -28,7 +30,8 @@
 #import "MTESettingsViewController.h"
 #import "MTELoginViewController.h"
 
-@interface MTETShirtsViewController () <UIPopoverControllerDelegate, NSFetchedResultsControllerDelegate, UIActionSheetDelegate>
+@interface MTETShirtsViewController ()
+<UIPopoverControllerDelegate, NSFetchedResultsControllerDelegate, RNGridMenuDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
@@ -160,12 +163,24 @@
 
 - (IBAction)showFilterViewController:(id)sender
 {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                             delegate:self
-                                                    cancelButtonTitle:@"Cancel"
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"All", @"Wear", @"Wash", nil];
-    [actionSheet showFromBarButtonItem:(id)sender animated:YES];
+    UIImage *allImage  = [[UIImage imageNamed:@"IconCabinet"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImage *wearImage = [[UIImage imageNamed:@"IconTShirt"]  imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImage *washImage = [[UIImage imageNamed:@"IconWash"]    imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    
+    RNGridMenuItem *allItem  = [[RNGridMenuItem alloc] initWithImage:allImage
+                                                               title:@"All"];
+    RNGridMenuItem *wearItem = [[RNGridMenuItem alloc] initWithImage:wearImage
+                                                               title:@"Wear"];
+    RNGridMenuItem *washItem = [[RNGridMenuItem alloc] initWithImage:washImage
+                                                               title:@"Wash"];
+    
+    NSArray    *items = @[wearItem, washItem, allItem];
+    RNGridMenu *menu  = [[RNGridMenu alloc] initWithItems:items];
+    menu.menuView.tintColor = [UIColor palePurpleColor];
+    menu.highlightColor     = [UIColor coolPurpleColor];
+    menu.delegate           = self;
+    
+    [menu showInViewController:self center:self.view.center];
 }
 
 - (IBAction)showSettingsViewController:(id)sender
@@ -348,32 +363,29 @@
 
 #pragma mark - Popover controller
 
-#pragma mark - Action sheet delegate
+#pragma mark - Grid menu delegate
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)gridMenu:(RNGridMenu *)gridMenu willDismissWithSelectedItem:(RNGridMenuItem *)item atIndex:(NSInteger)itemIndex
 {
-    if (buttonIndex == actionSheet.cancelButtonIndex)
-        return;
-
     MTETShirtsFilterType filterType;
-    switch (buttonIndex) {
+    switch (itemIndex) {
         case 0:
-            filterType = MTETShirtsFilterAll;
-            break;
-        case 1:
             filterType = MTETShirtsFilterWear;
             break;
-        case 2:
+        case 1:
             filterType = MTETShirtsFilterWash;
             break;
+        case 2:
+            filterType = MTETShirtsFilterAll;
+            break;
     }
-    
+
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
+
     if ([userDefaults integerForKey:kMTETShirtsFilterType] != filterType) {
         [userDefaults setInteger:filterType forKey:kMTETShirtsFilterType];
         [userDefaults synchronize];
-        
+
         [self configureForFilterType:filterType];
         [self setManagedObjectContext:self.managedObjectContext];
         [self.collectionView reloadData];
