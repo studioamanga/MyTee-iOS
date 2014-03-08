@@ -278,7 +278,7 @@
 
         [cell.contentView addSubview:tshirtImageView];
     }
-    
+
     NSURL   *imageURL = [NSURL URLWithString:tshirt.image_url];
     UIImage *image    = [[SDImageCache sharedImageCache] imageFromMemoryCacheForKey:tshirt.image_url];
     if (image) {
@@ -289,7 +289,7 @@
                         placeholderImage:nil
                                  options:kNilOptions];
     }
-    
+
     return cell;
 }
 
@@ -299,7 +299,7 @@
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Storyboard_iPhone" bundle:[NSBundle mainBundle]];
-        
+
         MTETShirtViewController *tshirtViewController = [storyboard instantiateViewControllerWithIdentifier:@"MTETShirtViewController"];
         tshirtViewController.tshirt = [self.fetchedResultsController objectAtIndexPath:indexPath];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:tshirtViewController];
