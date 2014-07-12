@@ -10,9 +10,9 @@
 
 @interface MTEAuthenticationManager : NSObject
 
-+ (void)storeEmail:(NSString*)email password:(NSString*)password;
-+ (NSString*)emailFromKeychain;
-+ (NSString*)passwordFromKeychain;
++ (void)storeEmail:(NSString *)email password:(NSString *)password;
++ (NSString *)emailFromKeychain;
++ (NSString *)passwordFromKeychain;
 + (void)resetKeychain;
 
 @end

@@ -1,6 +1,7 @@
 platform :ios, '7.0'
 
-pod 'KeychainItemWrapper'
+pod 'PDKeychainBindingsController'
+
 pod 'SVProgressHUD'
 pod 'TransformerKit'
 pod 'AFIncrementalStore'

@@ -7,56 +7,55 @@
 //
 
 #import "MTEAuthenticationManager.h"
-#import <KeychainItemWrapper.h>
 
-#define MTE_KEYCHAIN_IDENTIFIER @"MyTee credentials"
+#import <PDKeychainBindingsController.h>
 
 @interface MTEAuthenticationManager ()
 
-+ (KeychainItemWrapper*)keychainWrapper;
-+ (NSString*)valueFromKeychainWithKey:(NSString*)key;
++ (PDKeychainBindingsController *)keychainWrapper;
++ (NSString *)valueFromKeychainWithKey:(NSString *)key;
 
 @end
 
 
 @implementation MTEAuthenticationManager
 
-+ (KeychainItemWrapper*)keychainWrapper
++ (PDKeychainBindingsController *)keychainWrapper
 {
-    return [[KeychainItemWrapper alloc] initWithIdentifier:MTE_KEYCHAIN_IDENTIFIER accessGroup:nil];
+    return [PDKeychainBindingsController sharedKeychainBindingsController];
 }
 
 + (void)resetKeychain
 {
-    KeychainItemWrapper * keychainWrapper = [self keychainWrapper];
-    [keychainWrapper resetKeychainItem];
+    [self storeEmail:nil password:nil];
 }
 
-+ (void)storeEmail:(NSString*)email password:(NSString*)password
++ (void)storeEmail:(NSString *)email password:(NSString *)password
 {
-    KeychainItemWrapper * keychainWrapper = [self keychainWrapper];
-    
-    [keychainWrapper setObject:email forKey:(__bridge NSString*)kSecAttrAccount];
-    [keychainWrapper setObject:password forKey:(__bridge NSString*)kSecValueData];
+    PDKeychainBindingsController *keychainWrapper = [self keychainWrapper];
+
+    [keychainWrapper storeString:email forKey:(__bridge NSString *)kSecAttrAccount];
+    [keychainWrapper storeString:password forKey:(__bridge NSString*)kSecValueData];
 }
 
-+ (NSString*)valueFromKeychainWithKey:(NSString*)key
++ (NSString *)valueFromKeychainWithKey:(NSString *)key
 {
-    KeychainItemWrapper * keychainWrapper = [self keychainWrapper];
-    
-    NSString * keychainValue = [keychainWrapper objectForKey:key];
-    if ([keychainValue isEqualToString:@""])
+    PDKeychainBindingsController *keychainWrapper = [self keychainWrapper];
+
+    NSString *keychainValue = [keychainWrapper stringForKey:key];
+    if ([keychainValue isEqualToString:@""]) {
         return nil;
-    
+    }
+
     return keychainValue;
 }
 
-+ (NSString*)emailFromKeychain
++ (NSString *)emailFromKeychain
 {
     return [self valueFromKeychainWithKey:(__bridge NSString*)kSecAttrAccount];
 }
 
-+ (NSString*)passwordFromKeychain
++ (NSString *)passwordFromKeychain
 {
     return [self valueFromKeychainWithKey:(__bridge NSString*)kSecValueData];
 }

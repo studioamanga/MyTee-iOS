@@ -16,7 +16,7 @@
 #define COCOAPODS_POD_AVAILABLE_AFNetworking
 #define COCOAPODS_VERSION_MAJOR_AFNetworking 1
 #define COCOAPODS_VERSION_MINOR_AFNetworking 3
-#define COCOAPODS_VERSION_PATCH_AFNetworking 3
+#define COCOAPODS_VERSION_PATCH_AFNetworking 4
 
 // Colours
 #define COCOAPODS_POD_AVAILABLE_Colours
@@ -30,11 +30,11 @@
 #define COCOAPODS_VERSION_MINOR_InflectorKit 0
 #define COCOAPODS_VERSION_PATCH_InflectorKit 1
 
-// KeychainItemWrapper
-#define COCOAPODS_POD_AVAILABLE_KeychainItemWrapper
-#define COCOAPODS_VERSION_MAJOR_KeychainItemWrapper 1
-#define COCOAPODS_VERSION_MINOR_KeychainItemWrapper 2
-#define COCOAPODS_VERSION_PATCH_KeychainItemWrapper 0
+// PDKeychainBindingsController
+#define COCOAPODS_POD_AVAILABLE_PDKeychainBindingsController
+#define COCOAPODS_VERSION_MAJOR_PDKeychainBindingsController 0
+#define COCOAPODS_VERSION_MINOR_PDKeychainBindingsController 0
+#define COCOAPODS_VERSION_PATCH_PDKeychainBindingsController 1
 
 // RNGridMenu
 #define COCOAPODS_POD_AVAILABLE_RNGridMenu
