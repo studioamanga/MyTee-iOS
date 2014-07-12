@@ -7,54 +7,54 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F01F15A14DB464800D6EF0C /* MTETShirtCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F01F15914DB464700D6EF0C /* MTETShirtCell.m */; };
-		1F01F15D14DC055900D6EF0C /* ShadowedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F01F15C14DC055900D6EF0C /* ShadowedTableView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1F01F15F14DC05FC00D6EF0C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F01F15E14DC05FC00D6EF0C /* QuartzCore.framework */; };
-		1F02F4AD14F12915005F738B /* MTESettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F02F4AC14F12915005F738B /* MTESettingsManager.m */; };
-		1F0D48A416AB51520076D60F /* MTEMyTeeAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D48A316AB51520076D60F /* MTEMyTeeAPIClient.m */; };
-		1F140EBB18C9198C008923FA /* MTENavigationControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F140EBA18C9198C008923FA /* MTENavigationControllerDelegate.m */; };
-		1F140EBE18C91A75008923FA /* MTEAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F140EBD18C91A75008923FA /* MTEAnimator.m */; };
-		1F230B2F14DC98D500B65E7E /* MTEStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F230B2E14DC98D500B65E7E /* MTEStore.m */; };
-		1F294DFE14D73EE300A24AED /* NSString+NSStringURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F294DFD14D73EE300A24AED /* NSString+NSStringURL.m */; };
 		1F294E1714D7515A00A24AED /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F294E1614D7515A00A24AED /* Security.framework */; };
 		1F294E1A14D7558600A24AED /* MTESyncManagerSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F294E1914D7558600A24AED /* MTESyncManagerSpec.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		1F39732B17E5B2350061FF16 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F39732A17E5B2350061FF16 /* Images.xcassets */; };
-		1F6AC78814D9FE890040A06A /* MTETShirtViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6AC78714D9FE890040A06A /* MTETShirtViewController.m */; };
-		1F6AC78C14DA03E00040A06A /* MTEWearWashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6AC78B14DA03E00040A06A /* MTEWearWashViewController.m */; };
-		1F6AC78F14DA05DB0040A06A /* MTEWash.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6AC78E14DA05DB0040A06A /* MTEWash.m */; };
-		1F6AC79214DA05DC0040A06A /* MTEWear.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6AC79114DA05DC0040A06A /* MTEWear.m */; };
-		1F6DFDD917D7CA9800101020 /* MTESyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6DFDD817D7CA9800101020 /* MTESyncManager.m */; };
-		1F74FC9414DEF6130034BA02 /* MTEStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F74FC9314DEF6130034BA02 /* MTEStoreViewController.m */; };
 		1F7BF97914D4429500D7F4A3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7BF97814D4429500D7F4A3 /* UIKit.framework */; };
 		1F7BF97B14D4429500D7F4A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7BF97A14D4429500D7F4A3 /* Foundation.framework */; };
 		1F7BF97D14D4429500D7F4A3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7BF97C14D4429500D7F4A3 /* CoreGraphics.framework */; };
 		1F7BF97F14D4429500D7F4A3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7BF97E14D4429500D7F4A3 /* CoreData.framework */; };
-		1F7BF98514D4429500D7F4A3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F7BF98314D4429500D7F4A3 /* InfoPlist.strings */; };
-		1F7BF98714D4429500D7F4A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BF98614D4429500D7F4A3 /* main.m */; };
-		1F7BF98B14D4429500D7F4A3 /* MTEAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BF98A14D4429500D7F4A3 /* MTEAppDelegate.m */; };
 		1F7BF99614D4429500D7F4A3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7BF99514D4429500D7F4A3 /* SenTestingKit.framework */; };
 		1F7BF99714D4429500D7F4A3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7BF97814D4429500D7F4A3 /* UIKit.framework */; };
 		1F7BF99814D4429500D7F4A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7BF97A14D4429500D7F4A3 /* Foundation.framework */; };
 		1F7BF99914D4429500D7F4A3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7BF97E14D4429500D7F4A3 /* CoreData.framework */; };
 		1F7BF9A114D4429500D7F4A3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F7BF99F14D4429500D7F4A3 /* InfoPlist.strings */; };
 		1F7BF9A414D4429500D7F4A3 /* myteeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BF9A314D4429500D7F4A3 /* myteeTests.m */; };
-		1F7BF9C214D4526D00D7F4A3 /* Storyboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F7BF9C114D4526D00D7F4A3 /* Storyboard_iPhone.storyboard */; };
-		1F7BF9C414D4529400D7F4A3 /* Storyboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F7BF9C314D4529400D7F4A3 /* Storyboard_iPad.storyboard */; };
-		1F7BF9F814D4543A00D7F4A3 /* mytee.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BF9F614D4543A00D7F4A3 /* mytee.xcdatamodeld */; };
-		1F7C152F162B706D00929ECB /* MTESettingSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C152E162B706D00929ECB /* MTESettingSwitchCell.m */; };
 		1FA1EA3115850FFA00A78FA8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA1EA2E15850F8200A78FA8 /* MapKit.framework */; };
-		1FA1EA341585148B00A78FA8 /* MTEStoreRetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA1EA331585148B00A78FA8 /* MTEStoreRetailViewController.m */; };
 		1FA1EA401585168800A78FA8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA1EA3F1585168800A78FA8 /* CoreLocation.framework */; };
-		1FA1EA551585575C00A78FA8 /* MTEStoreOnlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA1EA541585575C00A78FA8 /* MTEStoreOnlineViewController.m */; };
-		1FA8536114EC5BCB00736DAD /* MTESettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8536014EC5BCB00736DAD /* MTESettingsViewController.m */; };
-		1FDE079A14D4CE7700909A11 /* MTELoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDE079914D4CE7700909A11 /* MTELoginViewController.m */; };
-		1FED0C1016AC4E9100E33965 /* MTEAuthenticationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FED0C0F16AC4E9100E33965 /* MTEAuthenticationManager.m */; };
+		1FA5434C197162BB00D49FA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FA5434B197162BB00D49FA9 /* Images.xcassets */; };
+		1FA54351197162CB00D49FA9 /* Storyboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FA5434D197162CB00D49FA9 /* Storyboard_iPad.storyboard */; };
+		1FA54352197162CB00D49FA9 /* Storyboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FA5434F197162CB00D49FA9 /* Storyboard_iPhone.storyboard */; };
+		1FA54358197162E800D49FA9 /* mytee.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1FA54353197162E800D49FA9 /* mytee.xcdatamodeld */; };
+		1FA5435F1971632300D49FA9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FA5435A1971632300D49FA9 /* InfoPlist.strings */; };
+		1FA543601971632300D49FA9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA5435C1971632300D49FA9 /* main.m */; };
+		1FA543611971632300D49FA9 /* mytee-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FA5435D1971632300D49FA9 /* mytee-Info.plist */; };
+		1FA543911971633900D49FA9 /* MTEAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA543631971633900D49FA9 /* MTEAnimator.m */; };
+		1FA543921971633900D49FA9 /* MTEAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA543651971633900D49FA9 /* MTEAppDelegate.m */; };
+		1FA543931971633900D49FA9 /* MTEAuthenticationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA543671971633900D49FA9 /* MTEAuthenticationManager.m */; };
+		1FA543941971633900D49FA9 /* MTELoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA5436A1971633900D49FA9 /* MTELoginViewController.m */; };
+		1FA543951971633900D49FA9 /* MTEMyTeeAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA5436C1971633900D49FA9 /* MTEMyTeeAPIClient.m */; };
+		1FA543961971633900D49FA9 /* MTENavigationControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA5436E1971633900D49FA9 /* MTENavigationControllerDelegate.m */; };
+		1FA543971971633900D49FA9 /* MTESettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA543701971633900D49FA9 /* MTESettingCell.m */; };
+		1FA543981971633900D49FA9 /* MTESettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA543721971633900D49FA9 /* MTESettingsManager.m */; };
+		1FA543991971633900D49FA9 /* MTESettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA543741971633900D49FA9 /* MTESettingsViewController.m */; };
+		1FA5439A1971633900D49FA9 /* MTESettingSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA543761971633900D49FA9 /* MTESettingSwitchCell.m */; };
+		1FA5439B1971633900D49FA9 /* MTEStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA543781971633900D49FA9 /* MTEStore.m */; };
+		1FA5439C1971633900D49FA9 /* MTEStoreOnlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA5437A1971633900D49FA9 /* MTEStoreOnlineViewController.m */; };
+		1FA5439D1971633900D49FA9 /* MTEStoreRetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA5437C1971633900D49FA9 /* MTEStoreRetailViewController.m */; };
+		1FA5439E1971633900D49FA9 /* MTEStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA5437E1971633900D49FA9 /* MTEStoreViewController.m */; };
+		1FA5439F1971633900D49FA9 /* MTESyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA543801971633900D49FA9 /* MTESyncManager.m */; };
+		1FA543A01971633900D49FA9 /* MTETShirt.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA543821971633900D49FA9 /* MTETShirt.m */; };
+		1FA543A11971633900D49FA9 /* MTETShirtCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA543841971633900D49FA9 /* MTETShirtCell.m */; };
+		1FA543A21971633900D49FA9 /* MTETShirtsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA543861971633900D49FA9 /* MTETShirtsViewController.m */; };
+		1FA543A31971633900D49FA9 /* MTETShirtViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA543881971633900D49FA9 /* MTETShirtViewController.m */; };
+		1FA543A41971633900D49FA9 /* MTEWash.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA5438A1971633900D49FA9 /* MTEWash.m */; };
+		1FA543A51971633900D49FA9 /* MTEWear.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA5438C1971633900D49FA9 /* MTEWear.m */; };
+		1FA543A61971633900D49FA9 /* MTEWearWashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA5438E1971633900D49FA9 /* MTEWearWashViewController.m */; };
+		1FA543A71971633900D49FA9 /* NSString+NSStringURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA543901971633900D49FA9 /* NSString+NSStringURL.m */; };
 		1FF7D5E014D88E3F000BDE04 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF7D5DF14D88E3F000BDE04 /* CFNetwork.framework */; };
 		1FF7D5E214D88E51000BDE04 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF7D5E114D88E51000BDE04 /* MobileCoreServices.framework */; };
 		1FF7D5E414D88E58000BDE04 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF7D5E314D88E58000BDE04 /* SystemConfiguration.framework */; };
-		1FF7D5E914D8936E000BDE04 /* MTETShirtsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF7D5E814D8936E000BDE04 /* MTETShirtsViewController.m */; };
-		1FF7D5EF14D89D2B000BDE04 /* MTETShirt.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF7D5EE14D89D2B000BDE04 /* MTETShirt.m */; };
-		1FFAB03314F1D44A00851D81 /* MTESettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFAB03214F1D44A00851D81 /* MTESettingCell.m */; };
 		32C3C5BB663E40998C1481E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26E53B393D6747B38F80051E /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -70,85 +70,83 @@
 
 /* Begin PBXFileReference section */
 		15A5273C9C654B3A99350E1E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
-		1F01259517FEF50A006812FA /* mytee 3 indexed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "mytee 3 indexed.xcdatamodel"; sourceTree = "<group>"; };
-		1F01F15814DB464700D6EF0C /* MTETShirtCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MTETShirtCell.h; path = MyTee/Classes/MTETShirtCell.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1F01F15914DB464700D6EF0C /* MTETShirtCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTETShirtCell.m; path = MyTee/Classes/MTETShirtCell.m; sourceTree = SOURCE_ROOT; };
-		1F01F15B14DC055900D6EF0C /* ShadowedTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = ShadowedTableView.h; path = Libraries/ShadowedTableView/ShadowedTableView.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1F01F15C14DC055900D6EF0C /* ShadowedTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShadowedTableView.m; path = Libraries/ShadowedTableView/ShadowedTableView.m; sourceTree = SOURCE_ROOT; };
 		1F01F15E14DC05FC00D6EF0C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		1F02F4AB14F12915005F738B /* MTESettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTESettingsManager.h; path = MyTee/Classes/MTESettingsManager.h; sourceTree = SOURCE_ROOT; };
-		1F02F4AC14F12915005F738B /* MTESettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTESettingsManager.m; path = MyTee/Classes/MTESettingsManager.m; sourceTree = SOURCE_ROOT; };
-		1F0D48A216AB51520076D60F /* MTEMyTeeAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEMyTeeAPIClient.h; path = MyTee/Classes/MTEMyTeeAPIClient.h; sourceTree = SOURCE_ROOT; };
-		1F0D48A316AB51520076D60F /* MTEMyTeeAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEMyTeeAPIClient.m; path = MyTee/Classes/MTEMyTeeAPIClient.m; sourceTree = SOURCE_ROOT; };
-		1F140EB918C9198C008923FA /* MTENavigationControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTENavigationControllerDelegate.h; path = MyTee/Classes/MTENavigationControllerDelegate.h; sourceTree = SOURCE_ROOT; };
-		1F140EBA18C9198C008923FA /* MTENavigationControllerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTENavigationControllerDelegate.m; path = MyTee/Classes/MTENavigationControllerDelegate.m; sourceTree = SOURCE_ROOT; };
-		1F140EBC18C91A75008923FA /* MTEAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEAnimator.h; path = MyTee/Classes/MTEAnimator.h; sourceTree = SOURCE_ROOT; };
-		1F140EBD18C91A75008923FA /* MTEAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEAnimator.m; path = MyTee/Classes/MTEAnimator.m; sourceTree = SOURCE_ROOT; };
-		1F230B2B14DC981A00B65E7E /* mytee 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "mytee 2.xcdatamodel"; sourceTree = "<group>"; };
-		1F230B2D14DC98D500B65E7E /* MTEStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEStore.h; path = MyTee/Classes/MTEStore.h; sourceTree = SOURCE_ROOT; };
-		1F230B2E14DC98D500B65E7E /* MTEStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEStore.m; path = MyTee/Classes/MTEStore.m; sourceTree = SOURCE_ROOT; };
-		1F294DFC14D73EE300A24AED /* NSString+NSStringURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSString+NSStringURL.h"; path = "MyTee/Classes/NSString+NSStringURL.h"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1F294DFD14D73EE300A24AED /* NSString+NSStringURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+NSStringURL.m"; path = "MyTee/Classes/NSString+NSStringURL.m"; sourceTree = SOURCE_ROOT; };
 		1F294E1614D7515A00A24AED /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1F294E1914D7558600A24AED /* MTESyncManagerSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MTESyncManagerSpec.mm; path = MyTeeTests/Specs/MTESyncManagerSpec.mm; sourceTree = SOURCE_ROOT; };
-		1F39732A17E5B2350061FF16 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		1F5570FE181D5542001A706D /* mytee 4 factors.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "mytee 4 factors.xcdatamodel"; sourceTree = "<group>"; };
-		1F6AC78614D9FE890040A06A /* MTETShirtViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTETShirtViewController.h; path = MyTee/Classes/MTETShirtViewController.h; sourceTree = SOURCE_ROOT; };
-		1F6AC78714D9FE890040A06A /* MTETShirtViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTETShirtViewController.m; path = MyTee/Classes/MTETShirtViewController.m; sourceTree = SOURCE_ROOT; };
-		1F6AC78A14DA03E00040A06A /* MTEWearWashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MTEWearWashViewController.h; path = MyTee/Classes/MTEWearWashViewController.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1F6AC78B14DA03E00040A06A /* MTEWearWashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEWearWashViewController.m; path = MyTee/Classes/MTEWearWashViewController.m; sourceTree = SOURCE_ROOT; };
-		1F6AC78D14DA05DB0040A06A /* MTEWash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MTEWash.h; path = MyTee/Classes/MTEWash.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1F6AC78E14DA05DB0040A06A /* MTEWash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEWash.m; path = MyTee/Classes/MTEWash.m; sourceTree = SOURCE_ROOT; };
-		1F6AC79014DA05DC0040A06A /* MTEWear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MTEWear.h; path = MyTee/Classes/MTEWear.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1F6AC79114DA05DC0040A06A /* MTEWear.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEWear.m; path = MyTee/Classes/MTEWear.m; sourceTree = SOURCE_ROOT; };
-		1F6DFDD717D7CA9800101020 /* MTESyncManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MTESyncManager.h; path = MyTee/Classes/MTESyncManager.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1F6DFDD817D7CA9800101020 /* MTESyncManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTESyncManager.m; path = MyTee/Classes/MTESyncManager.m; sourceTree = SOURCE_ROOT; };
-		1F74FC9214DEF6130034BA02 /* MTEStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEStoreViewController.h; path = MyTee/Classes/MTEStoreViewController.h; sourceTree = SOURCE_ROOT; };
-		1F74FC9314DEF6130034BA02 /* MTEStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEStoreViewController.m; path = MyTee/Classes/MTEStoreViewController.m; sourceTree = SOURCE_ROOT; };
-		1F7BF97414D4429500D7F4A3 /* mytee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mytee.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F7BF97414D4429500D7F4A3 /* MyTee-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyTee-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F7BF97814D4429500D7F4A3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1F7BF97A14D4429500D7F4A3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1F7BF97C14D4429500D7F4A3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		1F7BF97E14D4429500D7F4A3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		1F7BF98214D4429500D7F4A3 /* mytee-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "mytee-Info.plist"; sourceTree = "<group>"; };
-		1F7BF98414D4429500D7F4A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		1F7BF98614D4429500D7F4A3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		1F7BF98814D4429500D7F4A3 /* mytee-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "mytee-Prefix.pch"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		1F7BF98914D4429500D7F4A3 /* MTEAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MTEAppDelegate.h; path = ../MyTee/Classes/MTEAppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1F7BF98A14D4429500D7F4A3 /* MTEAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MTEAppDelegate.m; path = ../MyTee/Classes/MTEAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		1F7BF99414D4429500D7F4A3 /* myteeTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = myteeTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F7BF99414D4429500D7F4A3 /* MyTee-iOSTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MyTee-iOSTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F7BF99514D4429500D7F4A3 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		1F7BF99E14D4429500D7F4A3 /* myteeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "myteeTests-Info.plist"; sourceTree = "<group>"; };
 		1F7BF9A014D4429500D7F4A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1F7BF9A214D4429500D7F4A3 /* myteeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = myteeTests.h; sourceTree = "<group>"; };
 		1F7BF9A314D4429500D7F4A3 /* myteeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = myteeTests.m; sourceTree = "<group>"; };
-		1F7BF9C114D4526D00D7F4A3 /* Storyboard_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Storyboard_iPhone.storyboard; path = Resources/Storyboards/Storyboard_iPhone.storyboard; sourceTree = "<group>"; };
-		1F7BF9C314D4529400D7F4A3 /* Storyboard_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Storyboard_iPad.storyboard; path = Resources/Storyboards/Storyboard_iPad.storyboard; sourceTree = "<group>"; };
-		1F7BF9F714D4543A00D7F4A3 /* mytee.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = mytee.xcdatamodel; sourceTree = "<group>"; };
-		1F7C152D162B706D00929ECB /* MTESettingSwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTESettingSwitchCell.h; path = MyTee/Classes/MTESettingSwitchCell.h; sourceTree = SOURCE_ROOT; };
-		1F7C152E162B706D00929ECB /* MTESettingSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTESettingSwitchCell.m; path = MyTee/Classes/MTESettingSwitchCell.m; sourceTree = SOURCE_ROOT; };
 		1FA1EA2E15850F8200A78FA8 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		1FA1EA321585148B00A78FA8 /* MTEStoreRetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEStoreRetailViewController.h; path = MyTee/Classes/MTEStoreRetailViewController.h; sourceTree = SOURCE_ROOT; };
-		1FA1EA331585148B00A78FA8 /* MTEStoreRetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEStoreRetailViewController.m; path = MyTee/Classes/MTEStoreRetailViewController.m; sourceTree = SOURCE_ROOT; };
 		1FA1EA3F1585168800A78FA8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		1FA1EA531585575C00A78FA8 /* MTEStoreOnlineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEStoreOnlineViewController.h; path = MyTee/Classes/MTEStoreOnlineViewController.h; sourceTree = SOURCE_ROOT; };
-		1FA1EA541585575C00A78FA8 /* MTEStoreOnlineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEStoreOnlineViewController.m; path = MyTee/Classes/MTEStoreOnlineViewController.m; sourceTree = SOURCE_ROOT; };
-		1FA8535F14EC5BCB00736DAD /* MTESettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MTESettingsViewController.h; path = MyTee/Classes/MTESettingsViewController.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1FA8536014EC5BCB00736DAD /* MTESettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTESettingsViewController.m; path = MyTee/Classes/MTESettingsViewController.m; sourceTree = SOURCE_ROOT; };
-		1FDE079814D4CE7700909A11 /* MTELoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MTELoginViewController.h; path = MyTee/Classes/MTELoginViewController.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1FDE079914D4CE7700909A11 /* MTELoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MTELoginViewController.m; path = MyTee/Classes/MTELoginViewController.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		1FED0C0E16AC4E9100E33965 /* MTEAuthenticationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MTEAuthenticationManager.h; path = MyTee/Classes/MTEAuthenticationManager.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1FED0C0F16AC4E9100E33965 /* MTEAuthenticationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEAuthenticationManager.m; path = MyTee/Classes/MTEAuthenticationManager.m; sourceTree = SOURCE_ROOT; };
+		1FA5434B197162BB00D49FA9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "MyTee-iOS/Images.xcassets"; sourceTree = SOURCE_ROOT; };
+		1FA5434E197162CB00D49FA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "MyTee-iOS/Base.lproj/Storyboard_iPad.storyboard"; sourceTree = SOURCE_ROOT; };
+		1FA54350197162CB00D49FA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "MyTee-iOS/Base.lproj/Storyboard_iPhone.storyboard"; sourceTree = SOURCE_ROOT; };
+		1FA54354197162E800D49FA9 /* mytee 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "mytee 2.xcdatamodel"; sourceTree = "<group>"; };
+		1FA54355197162E800D49FA9 /* mytee 3 indexed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "mytee 3 indexed.xcdatamodel"; sourceTree = "<group>"; };
+		1FA54356197162E800D49FA9 /* mytee 4 factors.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "mytee 4 factors.xcdatamodel"; sourceTree = "<group>"; };
+		1FA54357197162E800D49FA9 /* mytee.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = mytee.xcdatamodel; sourceTree = "<group>"; };
+		1FA5435B1971632300D49FA9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "MyTee-iOS/en.lproj/InfoPlist.strings"; sourceTree = SOURCE_ROOT; };
+		1FA5435C1971632300D49FA9 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "MyTee-iOS/main.m"; sourceTree = SOURCE_ROOT; };
+		1FA5435D1971632300D49FA9 /* mytee-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "mytee-Info.plist"; path = "MyTee-iOS/mytee-Info.plist"; sourceTree = SOURCE_ROOT; };
+		1FA5435E1971632300D49FA9 /* mytee-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "mytee-Prefix.pch"; path = "MyTee-iOS/mytee-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		1FA543621971633900D49FA9 /* MTEAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEAnimator.h; path = "MyTee-iOS/Classes/MTEAnimator.h"; sourceTree = SOURCE_ROOT; };
+		1FA543631971633900D49FA9 /* MTEAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEAnimator.m; path = "MyTee-iOS/Classes/MTEAnimator.m"; sourceTree = SOURCE_ROOT; };
+		1FA543641971633900D49FA9 /* MTEAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEAppDelegate.h; path = "MyTee-iOS/Classes/MTEAppDelegate.h"; sourceTree = SOURCE_ROOT; };
+		1FA543651971633900D49FA9 /* MTEAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEAppDelegate.m; path = "MyTee-iOS/Classes/MTEAppDelegate.m"; sourceTree = SOURCE_ROOT; };
+		1FA543661971633900D49FA9 /* MTEAuthenticationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEAuthenticationManager.h; path = "MyTee-iOS/Classes/MTEAuthenticationManager.h"; sourceTree = SOURCE_ROOT; };
+		1FA543671971633900D49FA9 /* MTEAuthenticationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEAuthenticationManager.m; path = "MyTee-iOS/Classes/MTEAuthenticationManager.m"; sourceTree = SOURCE_ROOT; };
+		1FA543681971633900D49FA9 /* MTEConstView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEConstView.h; path = "MyTee-iOS/Classes/MTEConstView.h"; sourceTree = SOURCE_ROOT; };
+		1FA543691971633900D49FA9 /* MTELoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTELoginViewController.h; path = "MyTee-iOS/Classes/MTELoginViewController.h"; sourceTree = SOURCE_ROOT; };
+		1FA5436A1971633900D49FA9 /* MTELoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTELoginViewController.m; path = "MyTee-iOS/Classes/MTELoginViewController.m"; sourceTree = SOURCE_ROOT; };
+		1FA5436B1971633900D49FA9 /* MTEMyTeeAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEMyTeeAPIClient.h; path = "MyTee-iOS/Classes/MTEMyTeeAPIClient.h"; sourceTree = SOURCE_ROOT; };
+		1FA5436C1971633900D49FA9 /* MTEMyTeeAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEMyTeeAPIClient.m; path = "MyTee-iOS/Classes/MTEMyTeeAPIClient.m"; sourceTree = SOURCE_ROOT; };
+		1FA5436D1971633900D49FA9 /* MTENavigationControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTENavigationControllerDelegate.h; path = "MyTee-iOS/Classes/MTENavigationControllerDelegate.h"; sourceTree = SOURCE_ROOT; };
+		1FA5436E1971633900D49FA9 /* MTENavigationControllerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTENavigationControllerDelegate.m; path = "MyTee-iOS/Classes/MTENavigationControllerDelegate.m"; sourceTree = SOURCE_ROOT; };
+		1FA5436F1971633900D49FA9 /* MTESettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTESettingCell.h; path = "MyTee-iOS/Classes/MTESettingCell.h"; sourceTree = SOURCE_ROOT; };
+		1FA543701971633900D49FA9 /* MTESettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTESettingCell.m; path = "MyTee-iOS/Classes/MTESettingCell.m"; sourceTree = SOURCE_ROOT; };
+		1FA543711971633900D49FA9 /* MTESettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTESettingsManager.h; path = "MyTee-iOS/Classes/MTESettingsManager.h"; sourceTree = SOURCE_ROOT; };
+		1FA543721971633900D49FA9 /* MTESettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTESettingsManager.m; path = "MyTee-iOS/Classes/MTESettingsManager.m"; sourceTree = SOURCE_ROOT; };
+		1FA543731971633900D49FA9 /* MTESettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTESettingsViewController.h; path = "MyTee-iOS/Classes/MTESettingsViewController.h"; sourceTree = SOURCE_ROOT; };
+		1FA543741971633900D49FA9 /* MTESettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTESettingsViewController.m; path = "MyTee-iOS/Classes/MTESettingsViewController.m"; sourceTree = SOURCE_ROOT; };
+		1FA543751971633900D49FA9 /* MTESettingSwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTESettingSwitchCell.h; path = "MyTee-iOS/Classes/MTESettingSwitchCell.h"; sourceTree = SOURCE_ROOT; };
+		1FA543761971633900D49FA9 /* MTESettingSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTESettingSwitchCell.m; path = "MyTee-iOS/Classes/MTESettingSwitchCell.m"; sourceTree = SOURCE_ROOT; };
+		1FA543771971633900D49FA9 /* MTEStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEStore.h; path = "MyTee-iOS/Classes/MTEStore.h"; sourceTree = SOURCE_ROOT; };
+		1FA543781971633900D49FA9 /* MTEStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEStore.m; path = "MyTee-iOS/Classes/MTEStore.m"; sourceTree = SOURCE_ROOT; };
+		1FA543791971633900D49FA9 /* MTEStoreOnlineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEStoreOnlineViewController.h; path = "MyTee-iOS/Classes/MTEStoreOnlineViewController.h"; sourceTree = SOURCE_ROOT; };
+		1FA5437A1971633900D49FA9 /* MTEStoreOnlineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEStoreOnlineViewController.m; path = "MyTee-iOS/Classes/MTEStoreOnlineViewController.m"; sourceTree = SOURCE_ROOT; };
+		1FA5437B1971633900D49FA9 /* MTEStoreRetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEStoreRetailViewController.h; path = "MyTee-iOS/Classes/MTEStoreRetailViewController.h"; sourceTree = SOURCE_ROOT; };
+		1FA5437C1971633900D49FA9 /* MTEStoreRetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEStoreRetailViewController.m; path = "MyTee-iOS/Classes/MTEStoreRetailViewController.m"; sourceTree = SOURCE_ROOT; };
+		1FA5437D1971633900D49FA9 /* MTEStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEStoreViewController.h; path = "MyTee-iOS/Classes/MTEStoreViewController.h"; sourceTree = SOURCE_ROOT; };
+		1FA5437E1971633900D49FA9 /* MTEStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEStoreViewController.m; path = "MyTee-iOS/Classes/MTEStoreViewController.m"; sourceTree = SOURCE_ROOT; };
+		1FA5437F1971633900D49FA9 /* MTESyncManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTESyncManager.h; path = "MyTee-iOS/Classes/MTESyncManager.h"; sourceTree = SOURCE_ROOT; };
+		1FA543801971633900D49FA9 /* MTESyncManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTESyncManager.m; path = "MyTee-iOS/Classes/MTESyncManager.m"; sourceTree = SOURCE_ROOT; };
+		1FA543811971633900D49FA9 /* MTETShirt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTETShirt.h; path = "MyTee-iOS/Classes/MTETShirt.h"; sourceTree = SOURCE_ROOT; };
+		1FA543821971633900D49FA9 /* MTETShirt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTETShirt.m; path = "MyTee-iOS/Classes/MTETShirt.m"; sourceTree = SOURCE_ROOT; };
+		1FA543831971633900D49FA9 /* MTETShirtCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTETShirtCell.h; path = "MyTee-iOS/Classes/MTETShirtCell.h"; sourceTree = SOURCE_ROOT; };
+		1FA543841971633900D49FA9 /* MTETShirtCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTETShirtCell.m; path = "MyTee-iOS/Classes/MTETShirtCell.m"; sourceTree = SOURCE_ROOT; };
+		1FA543851971633900D49FA9 /* MTETShirtsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTETShirtsViewController.h; path = "MyTee-iOS/Classes/MTETShirtsViewController.h"; sourceTree = SOURCE_ROOT; };
+		1FA543861971633900D49FA9 /* MTETShirtsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTETShirtsViewController.m; path = "MyTee-iOS/Classes/MTETShirtsViewController.m"; sourceTree = SOURCE_ROOT; };
+		1FA543871971633900D49FA9 /* MTETShirtViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTETShirtViewController.h; path = "MyTee-iOS/Classes/MTETShirtViewController.h"; sourceTree = SOURCE_ROOT; };
+		1FA543881971633900D49FA9 /* MTETShirtViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTETShirtViewController.m; path = "MyTee-iOS/Classes/MTETShirtViewController.m"; sourceTree = SOURCE_ROOT; };
+		1FA543891971633900D49FA9 /* MTEWash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEWash.h; path = "MyTee-iOS/Classes/MTEWash.h"; sourceTree = SOURCE_ROOT; };
+		1FA5438A1971633900D49FA9 /* MTEWash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEWash.m; path = "MyTee-iOS/Classes/MTEWash.m"; sourceTree = SOURCE_ROOT; };
+		1FA5438B1971633900D49FA9 /* MTEWear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEWear.h; path = "MyTee-iOS/Classes/MTEWear.h"; sourceTree = SOURCE_ROOT; };
+		1FA5438C1971633900D49FA9 /* MTEWear.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEWear.m; path = "MyTee-iOS/Classes/MTEWear.m"; sourceTree = SOURCE_ROOT; };
+		1FA5438D1971633900D49FA9 /* MTEWearWashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEWearWashViewController.h; path = "MyTee-iOS/Classes/MTEWearWashViewController.h"; sourceTree = SOURCE_ROOT; };
+		1FA5438E1971633900D49FA9 /* MTEWearWashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTEWearWashViewController.m; path = "MyTee-iOS/Classes/MTEWearWashViewController.m"; sourceTree = SOURCE_ROOT; };
+		1FA5438F1971633900D49FA9 /* NSString+NSStringURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+NSStringURL.h"; path = "MyTee-iOS/Classes/NSString+NSStringURL.h"; sourceTree = SOURCE_ROOT; };
+		1FA543901971633900D49FA9 /* NSString+NSStringURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+NSStringURL.m"; path = "MyTee-iOS/Classes/NSString+NSStringURL.m"; sourceTree = SOURCE_ROOT; };
 		1FF7D5DF14D88E3F000BDE04 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		1FF7D5E114D88E51000BDE04 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		1FF7D5E314D88E58000BDE04 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		1FF7D5E714D8936E000BDE04 /* MTETShirtsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTETShirtsViewController.h; path = MyTee/Classes/MTETShirtsViewController.h; sourceTree = SOURCE_ROOT; };
-		1FF7D5E814D8936E000BDE04 /* MTETShirtsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTETShirtsViewController.m; path = MyTee/Classes/MTETShirtsViewController.m; sourceTree = SOURCE_ROOT; };
-		1FF7D5EB14D89B61000BDE04 /* MTEConstView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MTEConstView.h; path = MyTee/Classes/MTEConstView.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1FF7D5ED14D89D2B000BDE04 /* MTETShirt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTETShirt.h; path = MyTee/Classes/MTETShirt.h; sourceTree = SOURCE_ROOT; };
-		1FF7D5EE14D89D2B000BDE04 /* MTETShirt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTETShirt.m; path = MyTee/Classes/MTETShirt.m; sourceTree = SOURCE_ROOT; };
-		1FFAB03114F1D44A00851D81 /* MTESettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MTESettingCell.h; path = MyTee/Classes/MTESettingCell.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1FFAB03214F1D44A00851D81 /* MTESettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MTESettingCell.m; path = MyTee/Classes/MTESettingCell.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		26E53B393D6747B38F80051E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -186,116 +184,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1F01F13B14DB3D0C00D6EF0C /* Wood */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Wood;
-			sourceTree = "<group>";
-		};
-		1F01F14414DB3E5300D6EF0C /* Linen Nav Bar */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Linen Nav Bar";
-			sourceTree = "<group>";
-		};
-		1F01F16014DC065500D6EF0C /* Shadowed Table View */ = {
-			isa = PBXGroup;
-			children = (
-				1F01F15B14DC055900D6EF0C /* ShadowedTableView.h */,
-				1F01F15C14DC055900D6EF0C /* ShadowedTableView.m */,
-			);
-			name = "Shadowed Table View";
-			sourceTree = "<group>";
-		};
-		1F01F16914DC120000D6EF0C /* Icons */ = {
-			isa = PBXGroup;
-			children = (
-				1F48D055168B78B0003681C9 /* Lines */,
-				1FB189DA15FE7F3500208149 /* Cabinet */,
-				1FB189DB15FE7F3E00208149 /* Coat hanger */,
-				1FB189DC15FE7F4800208149 /* Calendar */,
-				1FBB127115C417070049AA95 /* Clock */,
-				1FBB126B15C4140C0049AA95 /* Gear */,
-				1FA1EA5F15855D5B00A78FA8 /* Compass */,
-				1FA1EA3E1585160800A78FA8 /* Pin */,
-				1FA1EA391585158600A78FA8 /* Wash */,
-				1FA1EA361585155D00A78FA8 /* T-Shirt */,
-				1FA1EA371585156A00A78FA8 /* Shopping Cart */,
-				1FA1EA381585157700A78FA8 /* Tag */,
-				1FA1EA351585155300A78FA8 /* Notepad */,
-			);
-			name = Icons;
-			sourceTree = "<group>";
-		};
-		1F02F4AF14F12919005F738B /* Settings Manager */ = {
-			isa = PBXGroup;
-			children = (
-				1F02F4AB14F12915005F738B /* MTESettingsManager.h */,
-				1F02F4AC14F12915005F738B /* MTESettingsManager.m */,
-			);
-			name = "Settings Manager";
-			sourceTree = "<group>";
-		};
-		1F294DF714D73B9E00A24AED /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				1F294E1514D74F3000A24AED /* Sync Manager */,
-				1F294DFF14D73F0E00A24AED /* NSString Category */,
-				1F02F4AF14F12919005F738B /* Settings Manager */,
-			);
-			name = Shared;
-			sourceTree = "<group>";
-		};
-		1F294DFF14D73F0E00A24AED /* NSString Category */ = {
-			isa = PBXGroup;
-			children = (
-				1F294DFC14D73EE300A24AED /* NSString+NSStringURL.h */,
-				1F294DFD14D73EE300A24AED /* NSString+NSStringURL.m */,
-			);
-			name = "NSString Category";
-			sourceTree = "<group>";
-		};
-		1F294E0014D744AE00A24AED /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				1F7205251533973D00B4D60F /* Tab Bar */,
-				1F01F16914DC120000D6EF0C /* Icons */,
-				1F01F14414DB3E5300D6EF0C /* Linen Nav Bar */,
-				1F01F13B14DB3D0C00D6EF0C /* Wood */,
-				1F294E0914D745AD00A24AED /* Check/No */,
-			);
-			name = Images;
-			sourceTree = "<group>";
-		};
-		1F294E0914D745AD00A24AED /* Check/No */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Check/No;
-			sourceTree = "<group>";
-		};
-		1F294E1014D74D7900A24AED /* Icons */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Icons;
-			sourceTree = "<group>";
-		};
-		1F294E1514D74F3000A24AED /* Sync Manager */ = {
-			isa = PBXGroup;
-			children = (
-				1F6DFDD717D7CA9800101020 /* MTESyncManager.h */,
-				1F6DFDD817D7CA9800101020 /* MTESyncManager.m */,
-				1F0D48A216AB51520076D60F /* MTEMyTeeAPIClient.h */,
-				1F0D48A316AB51520076D60F /* MTEMyTeeAPIClient.m */,
-				1FED0C0E16AC4E9100E33965 /* MTEAuthenticationManager.h */,
-				1FED0C0F16AC4E9100E33965 /* MTEAuthenticationManager.m */,
-			);
-			name = "Sync Manager";
-			sourceTree = "<group>";
-		};
 		1F294E1814D752F100A24AED /* Specs */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,45 +192,12 @@
 			name = Specs;
 			sourceTree = "<group>";
 		};
-		1F2C7F55155341EF002A160C /* Defaults */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Defaults;
-			sourceTree = "<group>";
-		};
-		1F48D055168B78B0003681C9 /* Lines */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Lines;
-			sourceTree = "<group>";
-		};
-		1F7205251533973D00B4D60F /* Tab Bar */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Tab Bar";
-			sourceTree = "<group>";
-		};
-		1F74FC9114DEF5740034BA02 /* Store */ = {
-			isa = PBXGroup;
-			children = (
-				1F74FC9214DEF6130034BA02 /* MTEStoreViewController.h */,
-				1F74FC9314DEF6130034BA02 /* MTEStoreViewController.m */,
-				1FA1EA321585148B00A78FA8 /* MTEStoreRetailViewController.h */,
-				1FA1EA331585148B00A78FA8 /* MTEStoreRetailViewController.m */,
-				1FA1EA531585575C00A78FA8 /* MTEStoreOnlineViewController.h */,
-				1FA1EA541585575C00A78FA8 /* MTEStoreOnlineViewController.m */,
-			);
-			name = Store;
-			sourceTree = "<group>";
-		};
 		1F7BF96914D4429400D7F4A3 = {
 			isa = PBXGroup;
 			children = (
-				1F7BF98014D4429500D7F4A3 /* mytee */,
-				1F7BF99C14D4429500D7F4A3 /* myteeTests */,
+				1F7BF98014D4429500D7F4A3 /* MyTee iOS */,
+				1FA54359197162EB00D49FA9 /* Shared */,
+				1F7BF99C14D4429500D7F4A3 /* MyTee iOS Tests */,
 				1F7BF97714D4429500D7F4A3 /* Frameworks */,
 				1F7BF97514D4429500D7F4A3 /* Products */,
 				15A5273C9C654B3A99350E1E /* Pods.xcconfig */,
@@ -352,8 +207,8 @@
 		1F7BF97514D4429500D7F4A3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1F7BF97414D4429500D7F4A3 /* mytee.app */,
-				1F7BF99414D4429500D7F4A3 /* myteeTests.octest */,
+				1F7BF97414D4429500D7F4A3 /* MyTee-iOS.app */,
+				1F7BF99414D4429500D7F4A3 /* MyTee-iOSTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -378,32 +233,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		1F7BF98014D4429500D7F4A3 /* mytee */ = {
+		1F7BF98014D4429500D7F4A3 /* MyTee iOS */ = {
 			isa = PBXGroup;
 			children = (
-				1F7BF9BD14D451D100D7F4A3 /* App Delegate */,
-				1F294DF714D73B9E00A24AED /* Shared */,
-				1FF7D5EC14D89D10000BDE04 /* Model */,
-				1FDE079614D4CE0500909A11 /* View Controllers */,
-				1F7BF9BE14D4520500D7F4A3 /* Resources */,
-				1F39732A17E5B2350061FF16 /* Images.xcassets */,
+				1FA543AB1971636C00D49FA9 /* App delegate */,
+				1FA543A81971633D00D49FA9 /* Classes */,
+				1FA5434B197162BB00D49FA9 /* Images.xcassets */,
+				1FA5434D197162CB00D49FA9 /* Storyboard_iPad.storyboard */,
+				1FA5434F197162CB00D49FA9 /* Storyboard_iPhone.storyboard */,
 				1F7BF98114D4429500D7F4A3 /* Supporting Files */,
 			);
+			name = "MyTee iOS";
 			path = mytee;
 			sourceTree = "<group>";
 		};
 		1F7BF98114D4429500D7F4A3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				1F7BF98214D4429500D7F4A3 /* mytee-Info.plist */,
-				1F7BF98314D4429500D7F4A3 /* InfoPlist.strings */,
-				1F7BF98614D4429500D7F4A3 /* main.m */,
-				1F7BF98814D4429500D7F4A3 /* mytee-Prefix.pch */,
+				1FA5435A1971632300D49FA9 /* InfoPlist.strings */,
+				1FA5435C1971632300D49FA9 /* main.m */,
+				1FA5435D1971632300D49FA9 /* mytee-Info.plist */,
+				1FA5435E1971632300D49FA9 /* mytee-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		1F7BF99C14D4429500D7F4A3 /* myteeTests */ = {
+		1F7BF99C14D4429500D7F4A3 /* MyTee iOS Tests */ = {
 			isa = PBXGroup;
 			children = (
 				1F294E1814D752F100A24AED /* Specs */,
@@ -411,6 +266,7 @@
 				1F7BF9A314D4429500D7F4A3 /* myteeTests.m */,
 				1F7BF99D14D4429500D7F4A3 /* Supporting Files */,
 			);
+			name = "MyTee iOS Tests";
 			path = myteeTests;
 			sourceTree = "<group>";
 		};
@@ -423,203 +279,99 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		1F7BF9BD14D451D100D7F4A3 /* App Delegate */ = {
+		1FA54359197162EB00D49FA9 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				1F7BF98914D4429500D7F4A3 /* MTEAppDelegate.h */,
-				1F7BF98A14D4429500D7F4A3 /* MTEAppDelegate.m */,
+				1FA543AA1971635900D49FA9 /* Sync */,
+				1FA543A91971634800D49FA9 /* Model */,
+				1FA54353197162E800D49FA9 /* mytee.xcdatamodeld */,
 			);
-			name = "App Delegate";
+			name = Shared;
 			sourceTree = "<group>";
 		};
-		1F7BF9BE14D4520500D7F4A3 /* Resources */ = {
+		1FA543A81971633D00D49FA9 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				1F2C7F55155341EF002A160C /* Defaults */,
-				1F294E1014D74D7900A24AED /* Icons */,
-				1F294E0014D744AE00A24AED /* Images */,
-				1F7BF9C014D4522300D7F4A3 /* Storyboards */,
-				1F7BF9BF14D4521000D7F4A3 /* Model */,
+				1FA543621971633900D49FA9 /* MTEAnimator.h */,
+				1FA543631971633900D49FA9 /* MTEAnimator.m */,
+				1FA543661971633900D49FA9 /* MTEAuthenticationManager.h */,
+				1FA543671971633900D49FA9 /* MTEAuthenticationManager.m */,
+				1FA543681971633900D49FA9 /* MTEConstView.h */,
+				1FA543691971633900D49FA9 /* MTELoginViewController.h */,
+				1FA5436A1971633900D49FA9 /* MTELoginViewController.m */,
+				1FA5436D1971633900D49FA9 /* MTENavigationControllerDelegate.h */,
+				1FA5436E1971633900D49FA9 /* MTENavigationControllerDelegate.m */,
+				1FA5436F1971633900D49FA9 /* MTESettingCell.h */,
+				1FA543701971633900D49FA9 /* MTESettingCell.m */,
+				1FA543711971633900D49FA9 /* MTESettingsManager.h */,
+				1FA543721971633900D49FA9 /* MTESettingsManager.m */,
+				1FA543731971633900D49FA9 /* MTESettingsViewController.h */,
+				1FA543741971633900D49FA9 /* MTESettingsViewController.m */,
+				1FA543751971633900D49FA9 /* MTESettingSwitchCell.h */,
+				1FA543761971633900D49FA9 /* MTESettingSwitchCell.m */,
+				1FA543791971633900D49FA9 /* MTEStoreOnlineViewController.h */,
+				1FA5437A1971633900D49FA9 /* MTEStoreOnlineViewController.m */,
+				1FA5437B1971633900D49FA9 /* MTEStoreRetailViewController.h */,
+				1FA5437C1971633900D49FA9 /* MTEStoreRetailViewController.m */,
+				1FA5437D1971633900D49FA9 /* MTEStoreViewController.h */,
+				1FA5437E1971633900D49FA9 /* MTEStoreViewController.m */,
+				1FA543831971633900D49FA9 /* MTETShirtCell.h */,
+				1FA543841971633900D49FA9 /* MTETShirtCell.m */,
+				1FA543851971633900D49FA9 /* MTETShirtsViewController.h */,
+				1FA543861971633900D49FA9 /* MTETShirtsViewController.m */,
+				1FA543871971633900D49FA9 /* MTETShirtViewController.h */,
+				1FA543881971633900D49FA9 /* MTETShirtViewController.m */,
+				1FA5438D1971633900D49FA9 /* MTEWearWashViewController.h */,
+				1FA5438E1971633900D49FA9 /* MTEWearWashViewController.m */,
+				1FA5438F1971633900D49FA9 /* NSString+NSStringURL.h */,
+				1FA543901971633900D49FA9 /* NSString+NSStringURL.m */,
 			);
-			name = Resources;
+			name = Classes;
 			sourceTree = "<group>";
 		};
-		1F7BF9BF14D4521000D7F4A3 /* Model */ = {
+		1FA543A91971634800D49FA9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1F7BF9F614D4543A00D7F4A3 /* mytee.xcdatamodeld */,
+				1FA543771971633900D49FA9 /* MTEStore.h */,
+				1FA543781971633900D49FA9 /* MTEStore.m */,
+				1FA543811971633900D49FA9 /* MTETShirt.h */,
+				1FA543821971633900D49FA9 /* MTETShirt.m */,
+				1FA543891971633900D49FA9 /* MTEWash.h */,
+				1FA5438A1971633900D49FA9 /* MTEWash.m */,
+				1FA5438B1971633900D49FA9 /* MTEWear.h */,
+				1FA5438C1971633900D49FA9 /* MTEWear.m */,
 			);
 			name = Model;
+			path = mytee;
 			sourceTree = "<group>";
 		};
-		1F7BF9C014D4522300D7F4A3 /* Storyboards */ = {
+		1FA543AA1971635900D49FA9 /* Sync */ = {
 			isa = PBXGroup;
 			children = (
-				1F7BF9C114D4526D00D7F4A3 /* Storyboard_iPhone.storyboard */,
-				1F7BF9C314D4529400D7F4A3 /* Storyboard_iPad.storyboard */,
+				1FA5436B1971633900D49FA9 /* MTEMyTeeAPIClient.h */,
+				1FA5436C1971633900D49FA9 /* MTEMyTeeAPIClient.m */,
+				1FA5437F1971633900D49FA9 /* MTESyncManager.h */,
+				1FA543801971633900D49FA9 /* MTESyncManager.m */,
 			);
-			name = Storyboards;
+			name = Sync;
+			path = mytee;
 			sourceTree = "<group>";
 		};
-		1FA1EA351585155300A78FA8 /* Notepad */ = {
+		1FA543AB1971636C00D49FA9 /* App delegate */ = {
 			isa = PBXGroup;
 			children = (
+				1FA543641971633900D49FA9 /* MTEAppDelegate.h */,
+				1FA543651971633900D49FA9 /* MTEAppDelegate.m */,
 			);
-			name = Notepad;
-			sourceTree = "<group>";
-		};
-		1FA1EA361585155D00A78FA8 /* T-Shirt */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "T-Shirt";
-			sourceTree = "<group>";
-		};
-		1FA1EA371585156A00A78FA8 /* Shopping Cart */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Shopping Cart";
-			sourceTree = "<group>";
-		};
-		1FA1EA381585157700A78FA8 /* Tag */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Tag;
-			sourceTree = "<group>";
-		};
-		1FA1EA391585158600A78FA8 /* Wash */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Wash;
-			sourceTree = "<group>";
-		};
-		1FA1EA3E1585160800A78FA8 /* Pin */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Pin;
-			sourceTree = "<group>";
-		};
-		1FA1EA5F15855D5B00A78FA8 /* Compass */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Compass;
-			sourceTree = "<group>";
-		};
-		1FB189DA15FE7F3500208149 /* Cabinet */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Cabinet;
-			sourceTree = "<group>";
-		};
-		1FB189DB15FE7F3E00208149 /* Coat hanger */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Coat hanger";
-			sourceTree = "<group>";
-		};
-		1FB189DC15FE7F4800208149 /* Calendar */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Calendar;
-			sourceTree = "<group>";
-		};
-		1FBB126B15C4140C0049AA95 /* Gear */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Gear;
-			sourceTree = "<group>";
-		};
-		1FBB127115C417070049AA95 /* Clock */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Clock;
-			sourceTree = "<group>";
-		};
-		1FDE079014D4CB9500909A11 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				1F01F16014DC065500D6EF0C /* Shadowed Table View */,
-				1FF7D5EB14D89B61000BDE04 /* MTEConstView.h */,
-				1F140EB918C9198C008923FA /* MTENavigationControllerDelegate.h */,
-				1F140EBA18C9198C008923FA /* MTENavigationControllerDelegate.m */,
-				1F140EBC18C91A75008923FA /* MTEAnimator.h */,
-				1F140EBD18C91A75008923FA /* MTEAnimator.m */,
-			);
-			name = UI;
-			sourceTree = "<group>";
-		};
-		1FDE079614D4CE0500909A11 /* View Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				1FF7D5EA14D89373000BDE04 /* T-Shirts */,
-				1F74FC9114DEF5740034BA02 /* Store */,
-				1FDE079714D4CE2700909A11 /* Settings */,
-				1FDE079014D4CB9500909A11 /* UI */,
-			);
-			name = "View Controllers";
-			sourceTree = "<group>";
-		};
-		1FDE079714D4CE2700909A11 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				1FA8535F14EC5BCB00736DAD /* MTESettingsViewController.h */,
-				1FA8536014EC5BCB00736DAD /* MTESettingsViewController.m */,
-				1FDE079814D4CE7700909A11 /* MTELoginViewController.h */,
-				1FDE079914D4CE7700909A11 /* MTELoginViewController.m */,
-				1FFAB03114F1D44A00851D81 /* MTESettingCell.h */,
-				1FFAB03214F1D44A00851D81 /* MTESettingCell.m */,
-				1F7C152D162B706D00929ECB /* MTESettingSwitchCell.h */,
-				1F7C152E162B706D00929ECB /* MTESettingSwitchCell.m */,
-			);
-			name = Settings;
-			sourceTree = "<group>";
-		};
-		1FF7D5EA14D89373000BDE04 /* T-Shirts */ = {
-			isa = PBXGroup;
-			children = (
-				1FF7D5E714D8936E000BDE04 /* MTETShirtsViewController.h */,
-				1FF7D5E814D8936E000BDE04 /* MTETShirtsViewController.m */,
-				1F6AC78614D9FE890040A06A /* MTETShirtViewController.h */,
-				1F6AC78714D9FE890040A06A /* MTETShirtViewController.m */,
-				1F6AC78A14DA03E00040A06A /* MTEWearWashViewController.h */,
-				1F6AC78B14DA03E00040A06A /* MTEWearWashViewController.m */,
-				1F01F15814DB464700D6EF0C /* MTETShirtCell.h */,
-				1F01F15914DB464700D6EF0C /* MTETShirtCell.m */,
-			);
-			name = "T-Shirts";
-			sourceTree = "<group>";
-		};
-		1FF7D5EC14D89D10000BDE04 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				1FF7D5ED14D89D2B000BDE04 /* MTETShirt.h */,
-				1FF7D5EE14D89D2B000BDE04 /* MTETShirt.m */,
-				1F6AC79014DA05DC0040A06A /* MTEWear.h */,
-				1F6AC79114DA05DC0040A06A /* MTEWear.m */,
-				1F6AC78D14DA05DB0040A06A /* MTEWash.h */,
-				1F6AC78E14DA05DB0040A06A /* MTEWash.m */,
-				1F230B2D14DC98D500B65E7E /* MTEStore.h */,
-				1F230B2E14DC98D500B65E7E /* MTEStore.m */,
-			);
-			name = Model;
+			name = "App delegate";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1F7BF97314D4429500D7F4A3 /* mytee */ = {
+		1F7BF97314D4429500D7F4A3 /* MyTee-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1F7BF9A714D4429500D7F4A3 /* Build configuration list for PBXNativeTarget "mytee" */;
+			buildConfigurationList = 1F7BF9A714D4429500D7F4A3 /* Build configuration list for PBXNativeTarget "MyTee-iOS" */;
 			buildPhases = (
 				1F7BF97014D4429500D7F4A3 /* Sources */,
 				1F7BF97114D4429500D7F4A3 /* Frameworks */,
@@ -630,14 +382,14 @@
 			);
 			dependencies = (
 			);
-			name = mytee;
+			name = "MyTee-iOS";
 			productName = mytee;
-			productReference = 1F7BF97414D4429500D7F4A3 /* mytee.app */;
+			productReference = 1F7BF97414D4429500D7F4A3 /* MyTee-iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		1F7BF99314D4429500D7F4A3 /* myteeTests */ = {
+		1F7BF99314D4429500D7F4A3 /* MyTee-iOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1F7BF9AA14D4429500D7F4A3 /* Build configuration list for PBXNativeTarget "myteeTests" */;
+			buildConfigurationList = 1F7BF9AA14D4429500D7F4A3 /* Build configuration list for PBXNativeTarget "MyTee-iOSTests" */;
 			buildPhases = (
 				1F7BF98F14D4429500D7F4A3 /* Sources */,
 				1F7BF99014D4429500D7F4A3 /* Frameworks */,
@@ -649,9 +401,9 @@
 			dependencies = (
 				1F7BF99B14D4429500D7F4A3 /* PBXTargetDependency */,
 			);
-			name = myteeTests;
+			name = "MyTee-iOSTests";
 			productName = myteeTests;
-			productReference = 1F7BF99414D4429500D7F4A3 /* myteeTests.octest */;
+			productReference = 1F7BF99414D4429500D7F4A3 /* MyTee-iOSTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -671,6 +423,9 @@
 							};
 						};
 					};
+					1F7BF99314D4429500D7F4A3 = {
+						TestTargetID = 1F7BF97314D4429500D7F4A3;
+					};
 				};
 			};
 			buildConfigurationList = 1F7BF96E14D4429500D7F4A3 /* Build configuration list for PBXProject "mytee" */;
@@ -679,14 +434,15 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 1F7BF96914D4429400D7F4A3;
 			productRefGroup = 1F7BF97514D4429500D7F4A3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1F7BF97314D4429500D7F4A3 /* mytee */,
-				1F7BF99314D4429500D7F4A3 /* myteeTests */,
+				1F7BF97314D4429500D7F4A3 /* MyTee-iOS */,
+				1F7BF99314D4429500D7F4A3 /* MyTee-iOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -696,10 +452,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F7BF98514D4429500D7F4A3 /* InfoPlist.strings in Resources */,
-				1F7BF9C214D4526D00D7F4A3 /* Storyboard_iPhone.storyboard in Resources */,
-				1F7BF9C414D4529400D7F4A3 /* Storyboard_iPad.storyboard in Resources */,
-				1F39732B17E5B2350061FF16 /* Images.xcassets in Resources */,
+				1FA543611971632300D49FA9 /* mytee-Info.plist in Resources */,
+				1FA5434C197162BB00D49FA9 /* Images.xcassets in Resources */,
+				1FA5435F1971632300D49FA9 /* InfoPlist.strings in Resources */,
+				1FA54352197162CB00D49FA9 /* Storyboard_iPhone.storyboard in Resources */,
+				1FA54351197162CB00D49FA9 /* Storyboard_iPad.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -748,32 +505,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F7BF98714D4429500D7F4A3 /* main.m in Sources */,
-				1F7BF98B14D4429500D7F4A3 /* MTEAppDelegate.m in Sources */,
-				1F7BF9F814D4543A00D7F4A3 /* mytee.xcdatamodeld in Sources */,
-				1FDE079A14D4CE7700909A11 /* MTELoginViewController.m in Sources */,
-				1F294DFE14D73EE300A24AED /* NSString+NSStringURL.m in Sources */,
-				1FF7D5E914D8936E000BDE04 /* MTETShirtsViewController.m in Sources */,
-				1FF7D5EF14D89D2B000BDE04 /* MTETShirt.m in Sources */,
-				1F6AC78814D9FE890040A06A /* MTETShirtViewController.m in Sources */,
-				1F6AC78C14DA03E00040A06A /* MTEWearWashViewController.m in Sources */,
-				1F6AC78F14DA05DB0040A06A /* MTEWash.m in Sources */,
-				1F6AC79214DA05DC0040A06A /* MTEWear.m in Sources */,
-				1F140EBE18C91A75008923FA /* MTEAnimator.m in Sources */,
-				1F01F15A14DB464800D6EF0C /* MTETShirtCell.m in Sources */,
-				1F01F15D14DC055900D6EF0C /* ShadowedTableView.m in Sources */,
-				1F140EBB18C9198C008923FA /* MTENavigationControllerDelegate.m in Sources */,
-				1F230B2F14DC98D500B65E7E /* MTEStore.m in Sources */,
-				1F74FC9414DEF6130034BA02 /* MTEStoreViewController.m in Sources */,
-				1FA8536114EC5BCB00736DAD /* MTESettingsViewController.m in Sources */,
-				1F02F4AD14F12915005F738B /* MTESettingsManager.m in Sources */,
-				1FFAB03314F1D44A00851D81 /* MTESettingCell.m in Sources */,
-				1FA1EA341585148B00A78FA8 /* MTEStoreRetailViewController.m in Sources */,
-				1FA1EA551585575C00A78FA8 /* MTEStoreOnlineViewController.m in Sources */,
-				1F7C152F162B706D00929ECB /* MTESettingSwitchCell.m in Sources */,
-				1F6DFDD917D7CA9800101020 /* MTESyncManager.m in Sources */,
-				1F0D48A416AB51520076D60F /* MTEMyTeeAPIClient.m in Sources */,
-				1FED0C1016AC4E9100E33965 /* MTEAuthenticationManager.m in Sources */,
+				1FA543601971632300D49FA9 /* main.m in Sources */,
+				1FA543A41971633900D49FA9 /* MTEWash.m in Sources */,
+				1FA543921971633900D49FA9 /* MTEAppDelegate.m in Sources */,
+				1FA543971971633900D49FA9 /* MTESettingCell.m in Sources */,
+				1FA54358197162E800D49FA9 /* mytee.xcdatamodeld in Sources */,
+				1FA543A61971633900D49FA9 /* MTEWearWashViewController.m in Sources */,
+				1FA543961971633900D49FA9 /* MTENavigationControllerDelegate.m in Sources */,
+				1FA5439E1971633900D49FA9 /* MTEStoreViewController.m in Sources */,
+				1FA543A51971633900D49FA9 /* MTEWear.m in Sources */,
+				1FA543A01971633900D49FA9 /* MTETShirt.m in Sources */,
+				1FA543951971633900D49FA9 /* MTEMyTeeAPIClient.m in Sources */,
+				1FA543A31971633900D49FA9 /* MTETShirtViewController.m in Sources */,
+				1FA543991971633900D49FA9 /* MTESettingsViewController.m in Sources */,
+				1FA543A71971633900D49FA9 /* NSString+NSStringURL.m in Sources */,
+				1FA5439A1971633900D49FA9 /* MTESettingSwitchCell.m in Sources */,
+				1FA5439C1971633900D49FA9 /* MTEStoreOnlineViewController.m in Sources */,
+				1FA543A21971633900D49FA9 /* MTETShirtsViewController.m in Sources */,
+				1FA5439D1971633900D49FA9 /* MTEStoreRetailViewController.m in Sources */,
+				1FA5439B1971633900D49FA9 /* MTEStore.m in Sources */,
+				1FA543941971633900D49FA9 /* MTELoginViewController.m in Sources */,
+				1FA543A11971633900D49FA9 /* MTETShirtCell.m in Sources */,
+				1FA543931971633900D49FA9 /* MTEAuthenticationManager.m in Sources */,
+				1FA5439F1971633900D49FA9 /* MTESyncManager.m in Sources */,
+				1FA543911971633900D49FA9 /* MTEAnimator.m in Sources */,
+				1FA543981971633900D49FA9 /* MTESettingsManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -791,24 +547,40 @@
 /* Begin PBXTargetDependency section */
 		1F7BF99B14D4429500D7F4A3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 1F7BF97314D4429500D7F4A3 /* mytee */;
+			target = 1F7BF97314D4429500D7F4A3 /* MyTee-iOS */;
 			targetProxy = 1F7BF99A14D4429500D7F4A3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		1F7BF98314D4429500D7F4A3 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1F7BF98414D4429500D7F4A3 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		1F7BF99F14D4429500D7F4A3 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				1F7BF9A014D4429500D7F4A3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1FA5434D197162CB00D49FA9 /* Storyboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1FA5434E197162CB00D49FA9 /* Base */,
+			);
+			name = Storyboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		1FA5434F197162CB00D49FA9 /* Storyboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1FA54350197162CB00D49FA9 /* Base */,
+			);
+			name = Storyboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		1FA5435A1971632300D49FA9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1FA5435B1971632300D49FA9 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -892,8 +664,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "mytee/mytee-Prefix.pch";
-				INFOPLIST_FILE = "mytee/mytee-Info.plist";
+				GCC_PREFIX_HEADER = "MyTee-iOS/mytee-Prefix.pch";
+				INFOPLIST_FILE = "MyTee-iOS/mytee-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -916,8 +688,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "mytee/mytee-Prefix.pch";
-				INFOPLIST_FILE = "mytee/mytee-Info.plist";
+				GCC_PREFIX_HEADER = "MyTee-iOS/mytee-Prefix.pch";
+				INFOPLIST_FILE = "MyTee-iOS/mytee-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -934,7 +706,7 @@
 		1F7BF9AB14D4429500D7F4A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/mytee.app/mytee";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MyTee-iOS.app/MyTee-iOS";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -962,7 +734,7 @@
 		1F7BF9AC14D4429500D7F4A3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/mytee.app/mytee";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MyTee-iOS.app/MyTee-iOS";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -997,7 +769,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1F7BF9A714D4429500D7F4A3 /* Build configuration list for PBXNativeTarget "mytee" */ = {
+		1F7BF9A714D4429500D7F4A3 /* Build configuration list for PBXNativeTarget "MyTee-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1F7BF9A814D4429500D7F4A3 /* Debug */,
@@ -1006,7 +778,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1F7BF9AA14D4429500D7F4A3 /* Build configuration list for PBXNativeTarget "myteeTests" */ = {
+		1F7BF9AA14D4429500D7F4A3 /* Build configuration list for PBXNativeTarget "MyTee-iOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1F7BF9AB14D4429500D7F4A3 /* Debug */,
@@ -1018,17 +790,17 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		1F7BF9F614D4543A00D7F4A3 /* mytee.xcdatamodeld */ = {
+		1FA54353197162E800D49FA9 /* mytee.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				1F230B2B14DC981A00B65E7E /* mytee 2.xcdatamodel */,
-				1F01259517FEF50A006812FA /* mytee 3 indexed.xcdatamodel */,
-				1F5570FE181D5542001A706D /* mytee 4 factors.xcdatamodel */,
-				1F7BF9F714D4543A00D7F4A3 /* mytee.xcdatamodel */,
+				1FA54354197162E800D49FA9 /* mytee 2.xcdatamodel */,
+				1FA54355197162E800D49FA9 /* mytee 3 indexed.xcdatamodel */,
+				1FA54356197162E800D49FA9 /* mytee 4 factors.xcdatamodel */,
+				1FA54357197162E800D49FA9 /* mytee.xcdatamodel */,
 			);
-			currentVersion = 1F5570FE181D5542001A706D /* mytee 4 factors.xcdatamodel */;
+			currentVersion = 1FA54356197162E800D49FA9 /* mytee 4 factors.xcdatamodel */;
 			name = mytee.xcdatamodeld;
-			path = ../MyTee/Resources/Model/mytee.xcdatamodeld;
+			path = "MyTee-Shared/mytee.xcdatamodeld";
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
