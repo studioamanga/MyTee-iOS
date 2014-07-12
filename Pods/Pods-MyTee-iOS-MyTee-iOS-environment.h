@@ -1,0 +1,110 @@
+
+// To check if a library is compiled with CocoaPods you
+// can use the `COCOAPODS` macro definition which is
+// defined in the xcconfigs so it is available in
+// headers also when they are imported in the client
+// project.
+
+
+// AFIncrementalStore
+#define COCOAPODS_POD_AVAILABLE_AFIncrementalStore
+#define COCOAPODS_VERSION_MAJOR_AFIncrementalStore 0
+#define COCOAPODS_VERSION_MINOR_AFIncrementalStore 5
+#define COCOAPODS_VERSION_PATCH_AFIncrementalStore 1
+
+// AFNetworking
+#define COCOAPODS_POD_AVAILABLE_AFNetworking
+#define COCOAPODS_VERSION_MAJOR_AFNetworking 1
+#define COCOAPODS_VERSION_MINOR_AFNetworking 3
+#define COCOAPODS_VERSION_PATCH_AFNetworking 4
+
+// Colours
+#define COCOAPODS_POD_AVAILABLE_Colours
+#define COCOAPODS_VERSION_MAJOR_Colours 5
+#define COCOAPODS_VERSION_MINOR_Colours 4
+#define COCOAPODS_VERSION_PATCH_Colours 0
+
+// InflectorKit
+#define COCOAPODS_POD_AVAILABLE_InflectorKit
+#define COCOAPODS_VERSION_MAJOR_InflectorKit 0
+#define COCOAPODS_VERSION_MINOR_InflectorKit 0
+#define COCOAPODS_VERSION_PATCH_InflectorKit 1
+
+// PDKeychainBindingsController
+#define COCOAPODS_POD_AVAILABLE_PDKeychainBindingsController
+#define COCOAPODS_VERSION_MAJOR_PDKeychainBindingsController 0
+#define COCOAPODS_VERSION_MINOR_PDKeychainBindingsController 0
+#define COCOAPODS_VERSION_PATCH_PDKeychainBindingsController 1
+
+// RNGridMenu
+#define COCOAPODS_POD_AVAILABLE_RNGridMenu
+#define COCOAPODS_VERSION_MAJOR_RNGridMenu 0
+#define COCOAPODS_VERSION_MINOR_RNGridMenu 1
+#define COCOAPODS_VERSION_PATCH_RNGridMenu 3
+
+// SDWebImage
+#define COCOAPODS_POD_AVAILABLE_SDWebImage
+#define COCOAPODS_VERSION_MAJOR_SDWebImage 3
+#define COCOAPODS_VERSION_MINOR_SDWebImage 6
+#define COCOAPODS_VERSION_PATCH_SDWebImage 0
+
+// SDWebImage/Core
+#define COCOAPODS_POD_AVAILABLE_SDWebImage_Core
+#define COCOAPODS_VERSION_MAJOR_SDWebImage_Core 3
+#define COCOAPODS_VERSION_MINOR_SDWebImage_Core 6
+#define COCOAPODS_VERSION_PATCH_SDWebImage_Core 0
+
+// SVProgressHUD
+#define COCOAPODS_POD_AVAILABLE_SVProgressHUD
+#define COCOAPODS_VERSION_MAJOR_SVProgressHUD 1
+#define COCOAPODS_VERSION_MINOR_SVProgressHUD 0
+#define COCOAPODS_VERSION_PATCH_SVProgressHUD 0
+
+// TransformerKit
+#define COCOAPODS_POD_AVAILABLE_TransformerKit
+#define COCOAPODS_VERSION_MAJOR_TransformerKit 0
+#define COCOAPODS_VERSION_MINOR_TransformerKit 5
+#define COCOAPODS_VERSION_PATCH_TransformerKit 1
+
+// TransformerKit/Core
+#define COCOAPODS_POD_AVAILABLE_TransformerKit_Core
+#define COCOAPODS_VERSION_MAJOR_TransformerKit_Core 0
+#define COCOAPODS_VERSION_MINOR_TransformerKit_Core 5
+#define COCOAPODS_VERSION_PATCH_TransformerKit_Core 1
+
+// TransformerKit/Cryptography
+#define COCOAPODS_POD_AVAILABLE_TransformerKit_Cryptography
+#define COCOAPODS_VERSION_MAJOR_TransformerKit_Cryptography 0
+#define COCOAPODS_VERSION_MINOR_TransformerKit_Cryptography 5
+#define COCOAPODS_VERSION_PATCH_TransformerKit_Cryptography 1
+
+// TransformerKit/Data
+#define COCOAPODS_POD_AVAILABLE_TransformerKit_Data
+#define COCOAPODS_VERSION_MAJOR_TransformerKit_Data 0
+#define COCOAPODS_VERSION_MINOR_TransformerKit_Data 5
+#define COCOAPODS_VERSION_PATCH_TransformerKit_Data 1
+
+// TransformerKit/Date
+#define COCOAPODS_POD_AVAILABLE_TransformerKit_Date
+#define COCOAPODS_VERSION_MAJOR_TransformerKit_Date 0
+#define COCOAPODS_VERSION_MINOR_TransformerKit_Date 5
+#define COCOAPODS_VERSION_PATCH_TransformerKit_Date 1
+
+// TransformerKit/Image
+#define COCOAPODS_POD_AVAILABLE_TransformerKit_Image
+#define COCOAPODS_VERSION_MAJOR_TransformerKit_Image 0
+#define COCOAPODS_VERSION_MINOR_TransformerKit_Image 5
+#define COCOAPODS_VERSION_PATCH_TransformerKit_Image 1
+
+// TransformerKit/JSON
+#define COCOAPODS_POD_AVAILABLE_TransformerKit_JSON
+#define COCOAPODS_VERSION_MAJOR_TransformerKit_JSON 0
+#define COCOAPODS_VERSION_MINOR_TransformerKit_JSON 5
+#define COCOAPODS_VERSION_PATCH_TransformerKit_JSON 1
+
+// TransformerKit/String
+#define COCOAPODS_POD_AVAILABLE_TransformerKit_String
+#define COCOAPODS_VERSION_MAJOR_TransformerKit_String 0
+#define COCOAPODS_VERSION_MINOR_TransformerKit_String 5
+#define COCOAPODS_VERSION_PATCH_TransformerKit_String 1
+

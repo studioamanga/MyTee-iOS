@@ -44,15 +44,26 @@ TransformerKit also contains a _growing_ number of convenient transformers that 
 - PNG Representation*
 - JPEG Representation*
 
+### Data Transformers
+
+- Base16 String Encode / Decode
+- Base32 String Encode / Decode
+- Base64 String Encode / Decode
+- Base85 String Encode / Decode
+
 ### Date Transformers
 
 - ISO 8601 Timestamp*
 
-### Data Transformers
+### JSON Data Transformers
 
 - JSON Transformer*
 
 > \* - **Reversible**
+
+### Cryptographic Transformers _(OS X)_
+
+- MD5, SHA-1, SHA-256, et al. Digest
 
 ## Contact
 

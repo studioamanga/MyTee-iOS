@@ -21,9 +21,15 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "Colours.h"
+#import <objc/runtime.h>
+
+#pragma mark - Static Block
+static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
+    return degree * M_PI/180;
+};
+
 
 #pragma mark - Create correct iOS/OSX implementation
-
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 @implementation UIColor (Colours)
@@ -528,7 +534,7 @@
 {
     NSArray *rgbaArray = [self rgbaArray];
     double a = 1 - ((0.299 * [rgbaArray[0] doubleValue]) + (0.587 * [rgbaArray[1] doubleValue]) + (0.114 * [rgbaArray[2] doubleValue]));
-    return a < 0.5 ? [[self class] colorWithRed:0 green:0 blue:0 alpha:1] : [[self class] colorWithRed:1 green:1 blue:1 alpha:1];
+    return a < 0.5 ? [[self class] blackColor] : [[self class] whiteColor];
 }
 
 
@@ -536,10 +542,9 @@
 - (instancetype)complementaryColor
 {
     NSMutableDictionary *hsba = [[self hsbaDictionary] mutableCopy];
-    float newH = [[self class] addDegrees:180.0f toDegree:([hsba[kColoursHSBA_H] floatValue]*360)];
-    [hsba setObject:@(newH) forKey:kColoursHSBA_H];
+    float newH = [[self class] addDegrees:180.0f toDegree:([hsba[kColoursHSBA_H] floatValue]*360.0f)];
+    [hsba setObject:@(newH/360.0f) forKey:kColoursHSBA_H];
     return [[self class] colorFromHSBADictionary:hsba];
-    
 }
 
 
@@ -633,25 +638,46 @@
     CGFloat deltaCPrime = cPrime1 - cPrime2;
     CGFloat hPrime1 = atan2(B1, aPrime1);
     CGFloat hPrime2 = atan2(B2, aPrime2);
-    hPrime1 = fmodf(hPrime1, [self radiansFromDegree:360]);
-    hPrime2 = fmodf(hPrime2, [self radiansFromDegree:360]);
+    hPrime1 = fmodf(hPrime1, RAD(360.0));
+    hPrime2 = fmodf(hPrime2, RAD(360.0));
     CGFloat deltahPrime = 0;
-    if (fabsf(hPrime1 - hPrime2) <= [self radiansFromDegree:180]) {
+    if (fabsf(hPrime1 - hPrime2) <= RAD(180.0)) {
         deltahPrime = hPrime2 - hPrime1;
     }
     else {
-        deltahPrime = (hPrime2 <= hPrime1) ? hPrime2 - hPrime1 + [self radiansFromDegree:360] : hPrime2 - hPrime1 - [self radiansFromDegree:360];
+        deltahPrime = (hPrime2 <= hPrime1) ? hPrime2 - hPrime1 + RAD(360.0) : hPrime2 - hPrime1 - RAD(360.0);
     }
     CGFloat deltaHPrime = 2 * sqrt(cPrime1*cPrime2) * sin(deltahPrime/2);
-    CGFloat meanHPrime = (fabsf(hPrime1 - hPrime2) <= [self radiansFromDegree:180]) ? (hPrime1 + hPrime2)/2 : (hPrime1 + hPrime2 + [self radiansFromDegree:360])/2;
-    CGFloat T = 1 - 0.17*cos(meanHPrime - [self radiansFromDegree:30]) + 0.24*cos(2*meanHPrime)+0.32*cos(3*meanHPrime + [self radiansFromDegree:6]) - 0.20*cos(4*meanHPrime - [self radiansFromDegree:63]);
+    CGFloat meanHPrime = (fabsf(hPrime1 - hPrime2) <= RAD(180.0)) ? (hPrime1 + hPrime2)/2 : (hPrime1 + hPrime2 + RAD(360.0))/2;
+    CGFloat T = 1 - 0.17*cos(meanHPrime - RAD(30.0)) + 0.24*cos(2*meanHPrime)+0.32*cos(3*meanHPrime + RAD(6.0)) - 0.20*cos(4*meanHPrime - RAD(63.0));
     sL = 1 + (0.015 * pow((meanL - 50), 2))/sqrt(20 + pow((meanL - 50), 2));
     sC = 1 + 0.045*cMeanPrime;
     sH = 1 + 0.015*cMeanPrime*T;
-    CGFloat Rt = -2 * sqrt(pow(cMeanPrime, 7)/(pow(cMeanPrime, 7) + pow(25.0, 7))) * sin([self radiansFromDegree:60]* exp(-1 * pow((meanHPrime - [self radiansFromDegree:275])/[self radiansFromDegree:25], 2)));
+    CGFloat Rt = -2 * sqrt(pow(cMeanPrime, 7)/(pow(cMeanPrime, 7) + pow(25.0, 7))) * sin(RAD(60.0)* exp(-1 * pow((meanHPrime - RAD(275.0))/RAD(25.0), 2)));
     
     // Finally return CIE2000 distance
     return sqrt(pow((deltaLPrime/(kL*sL)), 2) + pow((deltaCPrime/(kC*sC)), 2) + pow((deltaHPrime/(kH*sH)), 2) + Rt*(deltaC/(kC*sC))*(deltaHPrime/(kH*sH)));
+}
+
+
+#pragma mark - Compare Colors
++ (NSArray *)sortColors:(NSArray *)colors withComparison:(ColorComparison)comparison {
+    return [colors sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [self compareColor:obj1 andColor:obj2 withComparison:comparison];
+    }];
+}
+
++ (NSComparisonResult)compareColor:(id)colorA andColor:(id)colorB withComparison:(ColorComparison)comparison {
+    if (![colorA isKindOfClass:[self class]] || ![colorB isKindOfClass:[self class]]) {
+        return NSOrderedSame;
+    }
+    
+    // Check Colors
+    NSString *key = @"";
+    boolean_t greater = true;
+    NSDictionary *c1 = [colorA colorsForComparison:comparison key:&key greater:&greater];
+    NSDictionary *c2 = [colorB colorsForComparison:comparison key:&key greater:&greater];
+    return [self compareValue:[c1[key] floatValue] andValue:[c2[key] floatValue] greaterThan:greater];
 }
 
 
@@ -1196,8 +1222,153 @@
     }
 }
 
-- (CGFloat)radiansFromDegree:(CGFloat)degree {
-    return degree * M_PI/180;
+
+#pragma mark - Color Comparison
+- (NSDictionary *)colorsForComparison:(ColorComparison)comparison key:(NSString **)key greater:(boolean_t *)greaterThan {
+    switch (comparison) {
+        case ColorComparisonRed:
+            *key = kColoursRGBA_R;
+            *greaterThan = true;
+            return [self rgbaDictionary];
+            
+        case ColorComparisonGreen:
+            *key = kColoursRGBA_G;
+            *greaterThan = true;
+            return [self rgbaDictionary];
+            
+        case ColorComparisonBlue:
+            *key = kColoursRGBA_B;
+            *greaterThan = true;
+            return [self rgbaDictionary];
+            
+        case ColorComparisonDarkness:
+            *key = kColoursHSBA_B;
+            *greaterThan = false;
+            return [self hsbaDictionary];
+            
+        case ColorComparisonLightness:
+            *key = kColoursHSBA_B;
+            *greaterThan = true;
+            return [self hsbaDictionary];
+            
+        case ColorComparisonSaturated:
+            *key = kColoursHSBA_S;
+            *greaterThan = true;
+            return [self hsbaDictionary];
+            
+        case ColorComparisonDesaturated:
+            *key = kColoursHSBA_S;
+            *greaterThan = false;
+            return [self hsbaDictionary];
+            
+        default:
+            *key = kColoursRGBA_R;
+            *greaterThan = true;
+            return [self rgbaDictionary];
+    }
+}
+
++ (NSComparisonResult)compareValue:(CGFloat)v1 andValue:(CGFloat)v2 greaterThan:(boolean_t)greaterThan {
+    CGFloat comparison = v1 - v2;
+    comparison = (greaterThan == true ? 1 : -1)*comparison;
+    return (comparison == 0.0 ? NSOrderedSame : (comparison < 0.0 ? NSOrderedDescending : NSOrderedAscending));
+}
+
+
+#pragma mark - Swizzle
+
+
+#pragma mark - On Load - Flip methods
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class class = [self class];
+        SEL rgbaSelector = @selector(getRed:green:blue:alpha:);
+        SEL swizzledRGBASelector = @selector(colours_getRed:green:blue:alpha:);
+        SEL hsbaSelector = @selector(getHue:saturation:brightness:alpha:);
+        SEL swizzledHSBASelector = @selector(colours_getHue:saturation:brightness:alpha:);
+        Method rgbaMethod = class_getInstanceMethod(class, rgbaSelector);
+        Method swizzledRGBAMethod = class_getInstanceMethod(class, swizzledRGBASelector);
+        Method hsbaMethod = class_getInstanceMethod(class, hsbaSelector);
+        Method swizzledHSBAMethod = class_getInstanceMethod(class, swizzledHSBASelector);
+        
+        // Attempt adding the methods
+        BOOL didAddRGBAMethod =
+        class_addMethod(class,
+                        rgbaSelector,
+                        method_getImplementation(swizzledRGBAMethod),
+                        method_getTypeEncoding(swizzledRGBAMethod));
+        
+        BOOL didAddHSBAMethod =
+        class_addMethod(class,
+                        hsbaSelector,
+                        method_getImplementation(swizzledHSBAMethod),
+                        method_getTypeEncoding(swizzledHSBAMethod));
+        
+        // Replace methods
+        if (didAddRGBAMethod) {
+            class_replaceMethod(class,
+                                swizzledRGBASelector,
+                                method_getImplementation(swizzledRGBAMethod),
+                                method_getTypeEncoding(swizzledRGBAMethod));
+        } else {
+            method_exchangeImplementations(rgbaMethod, swizzledRGBAMethod);
+        }
+        
+        if (didAddHSBAMethod) {
+            class_replaceMethod(class,
+                                swizzledHSBASelector,
+                                method_getImplementation(swizzledHSBAMethod),
+                                method_getTypeEncoding(swizzledHSBAMethod));
+        } else {
+            method_exchangeImplementations(hsbaMethod, swizzledHSBAMethod);
+        }
+    });
+}
+
+
+#pragma mark - Swizzled Methods
+- (BOOL)colours_getRed:(CGFloat *)red green:(CGFloat *)green blue:(CGFloat *)blue alpha:(CGFloat *)alpha
+{
+    if (CGColorGetNumberOfComponents(self.CGColor) == 4) {
+        return [self colours_getRed:red green:green blue:blue alpha:alpha];
+    }
+    else if (CGColorGetNumberOfComponents(self.CGColor) == 2) {
+        CGFloat white;
+        CGFloat m_alpha;
+        [self getWhite:&white alpha:&m_alpha];
+        *red = white * 1.0;
+        *green = white * 1.0;
+        *blue = white * 1.0;
+        if (alpha) {
+		    *alpha = m_alpha;
+        }
+        return YES;
+    }
+    
+    return NO;
+}
+
+
+- (BOOL)colours_getHue:(CGFloat *)hue saturation:(CGFloat *)saturation brightness:(CGFloat *)brightness alpha:(CGFloat *)alpha
+{
+    if (CGColorGetNumberOfComponents(self.CGColor) == 4) {
+        return [self colours_getHue:hue saturation:saturation brightness:brightness alpha:alpha];
+    }
+    else if (CGColorGetNumberOfComponents(self.CGColor) == 2) {
+        CGFloat white = 0;
+        CGFloat a = 0;
+        [self getWhite:&white alpha:&a];
+        *hue = 0;
+        *saturation = 0;
+        *brightness = white * 1.0;
+        if (alpha) {
+            *alpha = a * 1.0;
+		}
+        return YES;
+    }
+    
+    return NO;
 }
 
 

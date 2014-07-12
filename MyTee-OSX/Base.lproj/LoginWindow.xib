@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="MTELoginWindowController">
+            <connections>
+                <outlet property="emailTextField" destination="LpR-hp-PMi" id="yaa-P6-ytR"/>
+                <outlet property="passwordTextField" destination="P12-HX-eMz" id="LaM-UE-IlU"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="UJt-Dd-YeB"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application"/>
+        <window title="Welcome to MyTee" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="453" height="300"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1058"/>
+            <view key="contentView" id="EiT-Mj-1SZ">
+                <rect key="frame" x="0.0" y="0.0" width="453" height="300"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QDm-fF-ft6">
+                        <rect key="frame" x="128" y="133" width="42" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Email:" id="JB8-Un-6FP">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qgv-g6-6IH">
+                        <rect key="frame" x="104" y="101" width="66" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Password:" id="hm8-5s-LpF">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LpR-hp-PMi">
+                        <rect key="frame" x="176" y="131" width="200" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="200" id="Nlr-2i-gou"/>
+                        </constraints>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Required" drawsBackground="YES" id="eVW-jd-MmG">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <outlet property="nextKeyView" destination="P12-HX-eMz" id="1fY-Yv-ppG"/>
+                        </connections>
+                    </textField>
+                    <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P12-HX-eMz">
+                        <rect key="frame" x="176" y="99" width="200" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Required" drawsBackground="YES" usesSingleLineMode="YES" id="qD5-VC-xQm">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            <allowedInputSourceLocales>
+                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                            </allowedInputSourceLocales>
+                        </secureTextFieldCell>
+                        <connections>
+                            <outlet property="nextKeyView" destination="LpR-hp-PMi" id="fLq-tN-48m"/>
+                        </connections>
+                    </secureTextField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nXj-D1-6p7">
+                        <rect key="frame" x="179" y="204" width="96" height="36"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="MyTee" id="bhC-qc-U3f">
+                            <font key="font" metaFont="system" size="30"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xrk-yj-tVa">
+                        <rect key="frame" x="170" y="51" width="112" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="aTD-RS-OKa"/>
+                        </constraints>
+                        <buttonCell key="cell" type="push" title="Login" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QLO-hP-Cvl">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="login:" target="-2" id="p7T-P1-8bp"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="P12-HX-eMz" firstAttribute="leading" secondItem="Qgv-g6-6IH" secondAttribute="trailing" constant="8" id="29H-1k-CsF"/>
+                    <constraint firstItem="xrk-yj-tVa" firstAttribute="leading" secondItem="P12-HX-eMz" secondAttribute="leading" id="9qS-4e-TQb"/>
+                    <constraint firstItem="xrk-yj-tVa" firstAttribute="top" secondItem="P12-HX-eMz" secondAttribute="bottom" constant="20" id="BJ6-Rw-3Eg"/>
+                    <constraint firstItem="P12-HX-eMz" firstAttribute="baseline" secondItem="Qgv-g6-6IH" secondAttribute="baseline" id="BXL-Ya-05c"/>
+                    <constraint firstItem="LpR-hp-PMi" firstAttribute="leading" secondItem="QDm-fF-ft6" secondAttribute="trailing" constant="8" id="HMs-Ad-p1u"/>
+                    <constraint firstItem="nXj-D1-6p7" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="60" id="NrU-Rb-83q"/>
+                    <constraint firstAttribute="centerX" secondItem="nXj-D1-6p7" secondAttribute="centerX" id="Pq8-fU-7Yd"/>
+                    <constraint firstItem="LpR-hp-PMi" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="147" id="ZON-L9-9ZP"/>
+                    <constraint firstItem="P12-HX-eMz" firstAttribute="trailing" secondItem="LpR-hp-PMi" secondAttribute="trailing" id="kbT-S0-pvb"/>
+                    <constraint firstItem="LpR-hp-PMi" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="176" id="ltm-2c-yxH"/>
+                    <constraint firstItem="LpR-hp-PMi" firstAttribute="baseline" secondItem="QDm-fF-ft6" secondAttribute="baseline" id="oOg-5p-iD2"/>
+                    <constraint firstItem="P12-HX-eMz" firstAttribute="leading" secondItem="LpR-hp-PMi" secondAttribute="leading" id="rs7-4Y-Dv7"/>
+                    <constraint firstItem="P12-HX-eMz" firstAttribute="top" secondItem="LpR-hp-PMi" secondAttribute="bottom" constant="10" id="tWz-7y-5QU"/>
+                </constraints>
+            </view>
+        </window>
+    </objects>
+</document>

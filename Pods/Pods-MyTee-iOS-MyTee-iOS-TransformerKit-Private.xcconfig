@@ -1,0 +1,5 @@
+#include "Pods-MyTee-iOS-MyTee-iOS-TransformerKit.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/TransformerKit" "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFIncrementalStore" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/Colours" "${PODS_ROOT}/Headers/InflectorKit" "${PODS_ROOT}/Headers/PDKeychainBindingsController" "${PODS_ROOT}/Headers/RNGridMenu" "${PODS_ROOT}/Headers/SDWebImage" "${PODS_ROOT}/Headers/SVProgressHUD" "${PODS_ROOT}/Headers/TransformerKit"
+OTHER_LDFLAGS = -ObjC ${PODS_MYTEE_IOS_MYTEE_IOS_TRANSFORMERKIT_OTHER_LDFLAGS}
+PODS_ROOT = ${SRCROOT}
