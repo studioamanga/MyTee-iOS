@@ -21,16 +21,16 @@
 
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext
 {
-    return 0.5;
+    return 0.4;
 }
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
 {
     UIViewController* toViewController   = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIViewController* fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    
-    if ([fromViewController isKindOfClass:MTETShirtViewController.class]
-        && [toViewController isKindOfClass:MTETShirtsViewController.class]) {
+
+    if ([fromViewController isKindOfClass:MTETShirtViewController.class] &&
+        [toViewController   isKindOfClass:MTETShirtsViewController.class]) {
         // Pop
         MTETShirtViewController  *tshirtViewController  = (MTETShirtViewController *)fromViewController;
         MTETShirtsViewController *tshirtsViewController = (MTETShirtsViewController *)toViewController;
@@ -72,8 +72,8 @@
             [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         }];
     }
-    else if ([fromViewController isKindOfClass:MTETShirtsViewController.class]
-             && [toViewController isKindOfClass:MTETShirtViewController.class]) {
+    else if ([fromViewController isKindOfClass:MTETShirtsViewController.class] &&
+             [toViewController   isKindOfClass:MTETShirtViewController.class]) {
         // Push
         MTETShirtsViewController *tshirtsViewController = (MTETShirtsViewController *)fromViewController;
         MTETShirtViewController  *tshirtViewController  = (MTETShirtViewController *)toViewController;

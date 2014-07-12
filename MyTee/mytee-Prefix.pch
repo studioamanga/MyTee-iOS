@@ -4,12 +4,8 @@
 
 #import <Availability.h>
 
-#ifdef __OBJC__
-
 @import UIKit;
 @import Foundation;
 @import CoreData;
 @import SystemConfiguration;
 @import MobileCoreServices;
-
-#endif

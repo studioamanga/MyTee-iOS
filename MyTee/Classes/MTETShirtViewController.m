@@ -55,43 +55,47 @@
 {
     if (_tshirt != newTShirt) {
         _tshirt = newTShirt;
-        
+
         // Update the view.
         [self configureView];
     }
-    
-    if (self.masterPopoverController != nil)
+
+    if (self.masterPopoverController != nil) {
         [self.masterPopoverController dismissPopoverAnimated:YES];
+    }
 }
 
 - (void)configureView
 {
     if (!self.tshirt) {
-        for (UIView *view in self.view.subviews)
+        for (UIView *view in self.view.subviews) {
             view.hidden = YES;
+        }
     }
     else {
-        for (UIView *view in self.view.subviews)
+        for (UIView *view in self.view.subviews) {
             view.hidden = NO;
-        
+        }
+
         self.title = self.tshirt.name;
-        
+
         self.sizeLabel.layer.borderWidth  = 1;
         self.sizeLabel.layer.borderColor  = [UIColor blackColor].CGColor;
         self.sizeLabel.layer.cornerRadius = CGRectGetWidth(self.sizeLabel.frame)/2;
         self.sizeLabel.text = self.tshirt.size;
-        
         self.tagsLabel.text = self.tshirt.tags;
-        
+
         NSMutableString * ratingString = [NSMutableString stringWithString:@""];
         NSUInteger i = 0;
         NSUInteger rating = [self.tshirt.rating intValue];
-        for( ; i<rating ; i++)
+        for( ; i<rating ; i++) {
             [ratingString appendString:@"★"];
-        for( ; i<5 ; i++)
+        }
+        for( ; i<5 ; i++) {
             [ratingString appendString:@"☆"];
+        }
         self.ratingLabel.text = ratingString;
-        
+
         if (self.tshirt.note.length > 0) {
             CGSize noteSize = [self.tshirt.note boundingRectWithSize:CGSizeMake(self.noteLabel.frame.size.width, CGFLOAT_MAX)
                                                              options:kNilOptions
@@ -156,8 +160,10 @@
 
 - (IBAction)didPressAction:(id)sender
 {
-    UIImage *wearImage = [[UIImage imageNamed:@"IconTShirt"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    UIImage *washImage = [[UIImage imageNamed:@"IconWash"]   imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImage *wearImage = [[UIImage imageNamed:@"IconTShirt"]
+                          imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImage *washImage = [[UIImage imageNamed:@"IconWash"]
+                          imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 
     RNGridMenuItem *wearItem = [[RNGridMenuItem alloc] initWithImage:wearImage
                                                                title:@"Wear Today"];
@@ -175,17 +181,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.dateFormatter = [NSDateFormatter new];
     self.dateFormatter.dateStyle = NSDateFormatterShortStyle;
     self.dateFormatter.doesRelativeDateFormatting = YES;
-    
+
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Dismiss", nil)
-                                                                                 style:UIBarButtonItemStylePlain
-                                                                                target:self
-                                                                                action:@selector(dismissViewController:)];
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Dismiss", nil)
+                                                                 style:UIBarButtonItemStylePlain
+                                                                target:self
+                                                                action:@selector(dismissViewController:)];
+        self.navigationItem.leftBarButtonItem = item;
     }
+
     [self configureView];
 }
 
@@ -193,9 +201,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"MTEStoreSegue"]
-        || [segue.identifier isEqualToString:@"MTEStoreRetailSegue"]
-        || [segue.identifier isEqualToString:@"MTEStoreOnlineSegue"]) {
+    if ([segue.identifier isEqualToString:@"MTEStoreSegue"] ||
+        [segue.identifier isEqualToString:@"MTEStoreRetailSegue"] ||
+        [segue.identifier isEqualToString:@"MTEStoreOnlineSegue"]) {
         MTEStoreViewController *viewController = segue.destinationViewController;
         viewController.store = self.tshirt.store;
     }
