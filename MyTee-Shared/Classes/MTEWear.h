@@ -13,8 +13,8 @@
 
 @interface MTEWear : NSManagedObject
 
-@property (nonatomic, retain) NSString * identifier;
-@property (nonatomic, retain) NSDate * date;
+@property (nonatomic, retain) NSString  *identifier;
+@property (nonatomic, retain) NSDate    *date;
 @property (nonatomic, retain) MTETShirt *tshirt;
 
 - (id)initInManagedObjectContext:(NSManagedObjectContext *)context;
