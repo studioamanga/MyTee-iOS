@@ -1,3 +1,6 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+
 target 'MyTee-iOS', :exclusive => false do
     platform :ios, '7.0'
     target 'MyTee-iOS' do

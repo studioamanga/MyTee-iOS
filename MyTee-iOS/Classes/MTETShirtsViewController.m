@@ -48,14 +48,14 @@
 - (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
 {
     _managedObjectContext = managedObjectContext;
-    
+
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([MTETShirt class])];
-    
+
     NSUserDefaults *userDefaults    = [NSUserDefaults standardUserDefaults];
     MTETShirtsFilterType filterType = [userDefaults integerForKey:kMTETShirtsFilterType];
     NSSortDescriptor *sortDescriptor;
     NSString *sectionNameKeyPath;
-    
+
     switch (filterType) {
         case MTETShirtsFilterWash:
             sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"numberOfWearsSinceLastWash" ascending:NO];
@@ -72,20 +72,21 @@
             sectionNameKeyPath = @"color";
             break;
     }
-    
+
     fetchRequest.sortDescriptors = @[sortDescriptor];
     self.fetchedResultsController = [[NSFetchedResultsController alloc]
                                      initWithFetchRequest:fetchRequest
                                      managedObjectContext:managedObjectContext
                                      sectionNameKeyPath:sectionNameKeyPath
                                      cacheName:nil];
-    
+
     self.fetchedResultsController.delegate = self;
-    
+
     NSError *error = nil;
     BOOL result = [self.fetchedResultsController performFetch:&error];
-    if(!result)
+    if(!result) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    }
 }
 
 - (void)viewDidLoad
@@ -93,13 +94,13 @@
     [super viewDidLoad];
 
     self.collectionView.backgroundColor = [UIColor whiteColor];
-    
+
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     refreshControl.tintColor = [UIColor blackColor];
     [refreshControl addTarget:self action:@selector(startRefresh:)
              forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:refreshControl];
-    
+
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     MTETShirtsFilterType filterType = [userDefaults integerForKey:kMTETShirtsFilterType];
     [self configureForFilterType:filterType];
@@ -140,7 +141,7 @@
             filterIconName = @"IconCabinet";
             break;
     }
-    
+
     UIBarButtonItem *filterBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:filterIconName]
                                                                             style:UIBarButtonItemStylePlain
                                                                            target:self
@@ -166,20 +167,20 @@
     UIImage *allImage  = [[UIImage imageNamed:@"IconCabinet"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     UIImage *wearImage = [[UIImage imageNamed:@"IconTShirt"]  imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     UIImage *washImage = [[UIImage imageNamed:@"IconWash"]    imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    
+
     RNGridMenuItem *allItem  = [[RNGridMenuItem alloc] initWithImage:allImage
                                                                title:@"All"];
     RNGridMenuItem *wearItem = [[RNGridMenuItem alloc] initWithImage:wearImage
                                                                title:@"Wear"];
     RNGridMenuItem *washItem = [[RNGridMenuItem alloc] initWithImage:washImage
                                                                title:@"Wash"];
-    
+
     NSArray    *items = @[wearItem, washItem, allItem];
     RNGridMenu *menu  = [[RNGridMenu alloc] initWithItems:items];
     menu.menuView.tintColor = [UIColor palePurpleColor];
     menu.highlightColor     = [UIColor coolPurpleColor];
     menu.delegate           = self;
-    
+
     [menu showInViewController:self center:self.view.center];
 }
 
@@ -197,7 +198,7 @@
     else {
         storyboard = self.storyboard;
     }
-    
+
     UINavigationController *settingsNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"MTESettingsNavigationController"];
     settingsNavigationController.modalPresentationStyle = UIModalPresentationFormSheet;
     MTESettingsViewController *viewController = (MTESettingsViewController*)settingsNavigationController.topViewController;
@@ -208,11 +209,13 @@
 - (IBAction)showLoginViewController:(id)sender
 {
     UIStoryboard *storyboard;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         storyboard = [UIStoryboard storyboardWithName:@"Storyboard_iPhone" bundle:[NSBundle mainBundle]];
-    else
+    }
+    else {
         storyboard = self.storyboard;
-    
+    }
+
     UINavigationController *settingsNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"MTELoginNavigationController"];
     settingsNavigationController.modalPresentationStyle = UIModalPresentationFormSheet;
     MTELoginViewController *viewController = (MTELoginViewController*)settingsNavigationController.topViewController;
@@ -231,7 +234,7 @@
             UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
             viewController = (MTETShirtViewController *)navigationController.topViewController;
         }
-        
+
         NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] lastObject];
         MTETShirt *tshirt      = [self.fetchedResultsController objectAtIndexPath:indexPath];
         viewController.tshirt = tshirt;
@@ -254,17 +257,18 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MTETShirtCellID" forIndexPath:indexPath];
-    
+
     MTETShirt *tshirt = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
+
     UIImageView *tshirtImageView = nil;
-    if ([cell.contentView.subviews.lastObject isMemberOfClass:UIImageView.class])
+    if ([cell.contentView.subviews.lastObject isMemberOfClass:UIImageView.class]) {
         tshirtImageView = cell.contentView.subviews.lastObject;
-    
+    }
+
     if (!tshirtImageView) {
         tshirtImageView = [[UIImageView alloc] init];
         tshirtImageView.contentMode = UIViewContentModeScaleAspectFit;
-        
+
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             CGFloat tshirtSize = cell.bounds.size.width - 2*20;
             tshirtImageView.frame = CGRectMake(10, (cell.bounds.size.height - tshirtSize)/2 + 8, tshirtSize, tshirtSize);
@@ -285,9 +289,9 @@
         tshirtImageView.image = image;
     }
     else {
-        [tshirtImageView setImageWithURL:imageURL
-                        placeholderImage:nil
-                                 options:kNilOptions];
+        [tshirtImageView sd_setImageWithURL:imageURL
+                           placeholderImage:nil
+                                    options:kNilOptions];
     }
 
     return cell;

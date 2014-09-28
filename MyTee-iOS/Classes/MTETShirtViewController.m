@@ -94,6 +94,7 @@
         for( ; i<5 ; i++) {
             [ratingString appendString:@"☆"];
         }
+
         self.ratingLabel.text = ratingString;
 
         if (self.tshirt.note.length > 0) {
@@ -109,25 +110,30 @@
             self.noteLabel.text = @"";
             self.noteIconImageView.hidden = YES;
         }
-        
+
         [self.storeButton setTitle:self.tshirt.store.name forState:UIControlStateNormal];
         self.storeButton.enabled = ![self.tshirt.store.identifier isEqualToString:MTEUnknownStoreIdentifier];
-        
+
         MTEWear *mostRecentWear = [self.tshirt mostRecentWear];
-        if (mostRecentWear)
+        if (mostRecentWear) {
             [self.wearButton setTitle:[NSString stringWithFormat:@"Last worn %@", [self relativeDescriptionForDate:mostRecentWear.date]]
                              forState:UIControlStateNormal];
-        else
+        }
+        else {
             [self.wearButton setTitle:@"Never worn before" forState:UIControlStateNormal];
-        
+        }
+
         MTEWash *mostRecentWash = [self.tshirt mostRecentWash];
-        if (mostRecentWash)
+        if (mostRecentWash) {
             [self.washButton setTitle:[NSString stringWithFormat:@"Last washed %@", [self relativeDescriptionForDate:mostRecentWash.date]]
                              forState:UIControlStateNormal];
-        else
+        }
+        else {
             [self.washButton setTitle:@"Never washed before" forState:UIControlStateNormal];
-        
-        [self.tshirtImageView setImageWithURL:[NSURL URLWithString:self.tshirt.image_url] placeholderImage:nil options:kNilOptions];
+        }
+
+        [self.tshirtImageView sd_setImageWithURL:[NSURL URLWithString:self.tshirt.image_url]
+                                placeholderImage:nil options:kNilOptions];
 
         self.mainScrollView.contentSize = CGSizeMake((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 540 : self.view.frame.size.width, self.noteLabel.frame.origin.y+self.noteLabel.frame.size.height+50);
     }

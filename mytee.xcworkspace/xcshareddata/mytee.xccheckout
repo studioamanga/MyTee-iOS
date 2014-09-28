@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D50458ED-8156-4B99-8952-0179354927E2</string>
+	<key>IDESourceControlProjectName</key>
+	<string>mytee</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>4AC8F7F04D5A08211383D848DC6B4B2663BE2D7B</key>
+		<string>github.com:studioamanga/MyTee-iOS.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>mytee.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>4AC8F7F04D5A08211383D848DC6B4B2663BE2D7B</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:studioamanga/MyTee-iOS.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>4AC8F7F04D5A08211383D848DC6B4B2663BE2D7B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4AC8F7F04D5A08211383D848DC6B4B2663BE2D7B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MyTee</string>
+		</dict>
+	</array>
+</dict>
+</plist>
