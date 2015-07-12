@@ -125,7 +125,9 @@
 
         MTEWash *mostRecentWash = [self.tshirt mostRecentWash];
         if (mostRecentWash) {
-            [self.washButton setTitle:[NSString stringWithFormat:@"Last washed %@", [self relativeDescriptionForDate:mostRecentWash.date]]
+            [self.washButton setTitle:[NSString stringWithFormat:@"Last washed %@/%@w",
+                                       [self relativeDescriptionForDate:mostRecentWash.date],
+                                       [self.tshirt numberOfWearsSinceLastWash]]
                              forState:UIControlStateNormal];
         }
         else {
