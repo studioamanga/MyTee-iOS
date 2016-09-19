@@ -3,7 +3,7 @@
 //  mytee
 //
 //  Created by Vincent Tourraine on 2/19/12.
-//  Copyright (c) 2012-2013 Studio AMANgA. All rights reserved.
+//  Copyright (c) 2012-2016 Studio AMANgA. All rights reserved.
 //
 
 #import "MTESettingsManager.h"
@@ -16,16 +16,16 @@
 
 + (BOOL)isRemindersActive
 {
-    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     return [userDefaults boolForKey:MTE_USER_DEFAULTS_REMINDERS_ACTIVE];
 }
 
 + (NSDate*)dateForNextReminder
 {
     NSUInteger reminderHour = [self remindersHour];
-    
+
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *nowComponents = [calendar components:(NSHourCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit)
+    NSDateComponents *nowComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear)
                                                   fromDate:[NSDate date]];
     
     NSInteger nowHour  = [nowComponents hour];

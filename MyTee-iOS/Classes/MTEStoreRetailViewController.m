@@ -76,8 +76,8 @@
     MKPinAnnotationView *newAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
                                                                          reuseIdentifier:@"annotation1"];
 
-    newAnnotation.pinColor       = MKPinAnnotationColorRed;
-    newAnnotation.animatesDrop   = YES;
+    newAnnotation.pinTintColor = MKPinAnnotationColorRed;
+    newAnnotation.animatesDrop = YES;
     newAnnotation.canShowCallout = YES;
     [newAnnotation setSelected:YES animated:YES]; 
 

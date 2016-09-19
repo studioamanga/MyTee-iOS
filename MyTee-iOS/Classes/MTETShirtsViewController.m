@@ -3,7 +3,7 @@
 //  mytee
 //
 //  Created by Vincent Tourraine on 1/31/12.
-//  Copyright (c) 2012-2014 Studio AMANgA. All rights reserved.
+//  Copyright (c) 2012-2016 Studio AMANgA. All rights reserved.
 //
 
 #import "MTETShirtsViewController.h"
@@ -240,12 +240,12 @@
 
 #pragma mark - Collection view data source
 
-- (int)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return self.fetchedResultsController.sections.count;
 }
 
-- (int)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
     return sectionInfo.numberOfObjects;
