@@ -1,5 +1,9 @@
+ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFIncrementalStore" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/InflectorKit" "${PODS_ROOT}/Headers/Public/PDKeychainBindingsController" "${PODS_ROOT}/Headers/Public/TransformerKit"
+LIBRARY_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/AFIncrementalStore-OSX" "$PODS_CONFIGURATION_BUILD_DIR/AFNetworking-OSX" "$PODS_CONFIGURATION_BUILD_DIR/InflectorKit-OSX" "$PODS_CONFIGURATION_BUILD_DIR/PDKeychainBindingsController-OSX" "$PODS_CONFIGURATION_BUILD_DIR/TransformerKit-OSX"
 OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/AFIncrementalStore" -isystem "${PODS_ROOT}/Headers/Public/AFNetworking" -isystem "${PODS_ROOT}/Headers/Public/InflectorKit" -isystem "${PODS_ROOT}/Headers/Public/PDKeychainBindingsController" -isystem "${PODS_ROOT}/Headers/Public/TransformerKit"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"Pods-MyTee-AFIncrementalStore" -l"Pods-MyTee-AFNetworking" -l"Pods-MyTee-InflectorKit" -l"Pods-MyTee-PDKeychainBindingsController" -l"Pods-MyTee-TransformerKit" -framework "CoreData" -framework "CoreServices" -framework "Security" -framework "SystemConfiguration"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"AFIncrementalStore-OSX" -l"AFNetworking-OSX" -l"InflectorKit-OSX" -l"PDKeychainBindingsController-OSX" -l"TransformerKit-OSX" -framework "CoreData" -framework "CoreServices" -framework "Security" -framework "SystemConfiguration"
+PODS_BUILD_DIR = $BUILD_DIR
+PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_ROOT = ${SRCROOT}/Pods

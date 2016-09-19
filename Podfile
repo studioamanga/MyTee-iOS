@@ -1,7 +1,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
 
-target 'MyTee-iOS', :exclusive => false do
+target 'MyTee-iOS' do
     platform :ios, '7.0'
 
     pod 'PDKeychainBindingsController'
@@ -14,7 +14,7 @@ target 'MyTee-iOS', :exclusive => false do
     pod 'RNGridMenu'
 end
 
-target 'MyTee', :exclusive => false do
+target 'MyTee' do
     platform :osx, '10.9'
 
     pod 'PDKeychainBindingsController'
