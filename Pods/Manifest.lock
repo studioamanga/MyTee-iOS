@@ -4,13 +4,14 @@ PODS:
     - InflectorKit
     - TransformerKit
   - AFNetworking (1.3.4)
-  - Colours (5.6.2)
+  - ColorArt (0.1.1)
+  - Colours (5.8.0)
   - InflectorKit (0.0.1)
   - PDKeychainBindingsController (0.0.1)
   - RNGridMenu (0.1.3)
-  - SDWebImage (3.7.2):
-    - SDWebImage/Core (= 3.7.2)
-  - SDWebImage/Core (3.7.2)
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
   - SVProgressHUD (1.1.3)
   - TransformerKit (0.5.4):
     - TransformerKit/Core (= 0.5.4)
@@ -36,6 +37,7 @@ PODS:
 
 DEPENDENCIES:
   - AFIncrementalStore
+  - ColorArt
   - Colours
   - PDKeychainBindingsController
   - RNGridMenu
@@ -46,12 +48,13 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFIncrementalStore: cd8783c8e7863afb53f3e0f5bb9a39b7e6fb8490
   AFNetworking: cf8e418e16f0c9c7e5c3150d019a3c679d015018
-  Colours: 0afd4c3429656880fd4cff350ca3bf0ab86ca348
+  ColorArt: de0ffb63da4acdde8e234ded62e200236ca3e7e4
+  Colours: c186cc76afa2ca86f5ca5e68f610f9be17b48337
   InflectorKit: 64497199e6764f4d8337cab7f700a77b13d76a73
   PDKeychainBindingsController: fa8cb3cf99f2ea9240d61066ed0549f34e2cec3c
   RNGridMenu: c58db81f87b5473936bb1b675dc3e947c409b51d
-  SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TransformerKit: 0a235de1030a23d47c86706c0316b4a0c7105d73
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.39.0

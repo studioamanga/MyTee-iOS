@@ -84,13 +84,12 @@
 
     NSError *error = nil;
     BOOL result = [self.fetchedResultsController performFetch:&error];
-    if(!result) {
+    if (!result) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     }
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     self.collectionView.backgroundColor = [UIColor whiteColor];
@@ -106,13 +105,7 @@
     [self configureForFilterType:filterType];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
     if (![MTEAuthenticationManager emailFromKeychain]) {
@@ -120,8 +113,7 @@
     }
 }
 
-- (void)configureForFilterType:(MTETShirtsFilterType)filterType
-{
+- (void)configureForFilterType:(MTETShirtsFilterType)filterType {
     NSString *filterIconName;
 
     switch (filterType) {
@@ -149,21 +141,26 @@
     self.navigationItem.leftBarButtonItem = filterBarButtonItem;
 }
 
+
 #pragma mark - Actions
 
-- (void)startRefresh:(id)sender
-{
+- (void)startRefresh:(id)sender {
     [self.syncManager syncSuccess:^(UIBackgroundFetchResult result){
-        if ([sender isKindOfClass:UIRefreshControl.class])
+        if ([sender isKindOfClass:UIRefreshControl.class]) {
             [(UIRefreshControl *)sender endRefreshing];
+        }
+
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        MTETShirtsFilterType filterType = [userDefaults integerForKey:kMTETShirtsFilterType];
+        [self configureForFilterType:filterType];
     } failure:^(NSError *error) {
-        if ([sender isKindOfClass:UIRefreshControl.class])
+        if ([sender isKindOfClass:UIRefreshControl.class]) {
             [(UIRefreshControl *)sender endRefreshing];
+        }
     }];
 }
 
-- (IBAction)showFilterViewController:(id)sender
-{
+- (IBAction)showFilterViewController:(id)sender {
     UIImage *allImage  = [[UIImage imageNamed:@"IconCabinet"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     UIImage *wearImage = [[UIImage imageNamed:@"IconTShirt"]  imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     UIImage *washImage = [[UIImage imageNamed:@"IconWash"]    imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];

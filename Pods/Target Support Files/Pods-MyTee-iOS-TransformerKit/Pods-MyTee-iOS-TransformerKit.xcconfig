@@ -1,0 +1,5 @@
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/TransformerKit" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFIncrementalStore" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/ColorArt" "${PODS_ROOT}/Headers/Public/Colours" "${PODS_ROOT}/Headers/Public/InflectorKit" "${PODS_ROOT}/Headers/Public/PDKeychainBindingsController" "${PODS_ROOT}/Headers/Public/RNGridMenu" "${PODS_ROOT}/Headers/Public/SDWebImage" "${PODS_ROOT}/Headers/Public/SVProgressHUD" "${PODS_ROOT}/Headers/Public/TransformerKit"
+OTHER_LDFLAGS = -framework "Security"
+PODS_ROOT = ${SRCROOT}
+SKIP_INSTALL = YES

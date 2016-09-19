@@ -3,7 +3,7 @@
 //  mytee
 //
 //  Created by Vincent Tourraine on 2/2/12.
-//  Copyright (c) 2012 Studio AMANgA. All rights reserved.
+//  Copyright (c) 2012-2015 Studio AMANgA. All rights reserved.
 //
 
 #import "MTETShirtViewController.h"
@@ -16,6 +16,8 @@
 
 #import <RNGridMenu.h>
 #import <Colours.h>
+
+#import <ColorArt/SLColorArt.h>
 
 #import "MTETShirt.h"
 #import "MTEStore.h"
@@ -36,9 +38,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sizeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *tagsLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *tagsImageView;
 @property (weak, nonatomic) IBOutlet UILabel *noteLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *noteImageView;
 @property (strong, nonatomic) NSDateFormatter * dateFormatter;
-@property (strong, nonatomic) UIPopoverController * masterPopoverController;
 
 - (IBAction)didPressAction:(id)sender;
 - (NSString*)relativeDescriptionForDate:(NSDate*)date;
@@ -51,22 +54,16 @@
 
 #pragma mark - View lifecycle
 
-- (void)setTshirt:(MTETShirt *)newTShirt
-{
+- (void)setTshirt:(MTETShirt *)newTShirt {
     if (_tshirt != newTShirt) {
         _tshirt = newTShirt;
 
         // Update the view.
         [self configureView];
     }
-
-    if (self.masterPopoverController != nil) {
-        [self.masterPopoverController dismissPopoverAnimated:YES];
-    }
 }
 
-- (void)configureView
-{
+- (void)configureView {
     if (!self.tshirt) {
         for (UIView *view in self.view.subviews) {
             view.hidden = YES;
@@ -79,36 +76,37 @@
 
         self.title = self.tshirt.name;
 
-        self.sizeLabel.layer.borderWidth  = 1;
-        self.sizeLabel.layer.borderColor  = [UIColor blackColor].CGColor;
-        self.sizeLabel.layer.cornerRadius = CGRectGetWidth(self.sizeLabel.frame)/2;
+//        self.sizeLabel.layer.borderWidth  = 1;
+//        self.sizeLabel.layer.borderColor  = [UIColor blackColor].CGColor;
+//        self.sizeLabel.layer.cornerRadius = CGRectGetWidth(self.sizeLabel.frame)/2;
         self.sizeLabel.text = self.tshirt.size;
         self.tagsLabel.text = self.tshirt.tags;
 
-        NSMutableString * ratingString = [NSMutableString stringWithString:@""];
-        NSUInteger i = 0;
-        NSUInteger rating = [self.tshirt.rating intValue];
-        for( ; i<rating ; i++) {
-            [ratingString appendString:@"★"];
-        }
-        for( ; i<5 ; i++) {
-            [ratingString appendString:@"☆"];
-        }
-
-        self.ratingLabel.text = ratingString;
+        self.ratingLabel.text = ({
+            NSMutableString * ratingString = [NSMutableString stringWithString:@""];
+            NSUInteger i = 0;
+            NSUInteger rating = [self.tshirt.rating intValue];
+            for( ; i<rating ; i++) {
+                [ratingString appendString:@"★"];
+            }
+            for( ; i<5 ; i++) {
+                [ratingString appendString:@"☆"];
+            }
+            ratingString;
+        });
 
         if (self.tshirt.note.length > 0) {
-            CGSize noteSize = [self.tshirt.note boundingRectWithSize:CGSizeMake(self.noteLabel.frame.size.width, CGFLOAT_MAX)
-                                                             options:kNilOptions
-                                                          attributes:@{NSFontAttributeName: self.noteLabel.font}
-                                                             context:nil].size;
-            self.noteLabel.frame = CGRectMake(self.noteLabel.frame.origin.x, self.noteLabel.frame.origin.y, self.noteLabel.frame.size.width, noteSize.height);
+//            CGSize noteSize = [self.tshirt.note boundingRectWithSize:CGSizeMake(self.noteLabel.frame.size.width, CGFLOAT_MAX)
+//                                                             options:kNilOptions
+//                                                          attributes:@{NSFontAttributeName: self.noteLabel.font}
+//                                                             context:nil].size;
+//            self.noteLabel.frame = CGRectMake(self.noteLabel.frame.origin.x, self.noteLabel.frame.origin.y, self.noteLabel.frame.size.width, noteSize.height);
             self.noteLabel.text = self.tshirt.note;
-            self.noteIconImageView.hidden = NO;
+            self.noteImageView.hidden = NO;
         }
         else {
-            self.noteLabel.text = @"";
-            self.noteIconImageView.hidden = YES;
+            self.noteLabel.text = nil;
+            self.noteImageView.hidden = YES;
         }
 
         [self.storeButton setTitle:self.tshirt.store.name forState:UIControlStateNormal];
@@ -125,7 +123,7 @@
 
         MTEWash *mostRecentWash = [self.tshirt mostRecentWash];
         if (mostRecentWash) {
-            [self.washButton setTitle:[NSString stringWithFormat:@"Last washed %@/%@w",
+            [self.washButton setTitle:[NSString stringWithFormat:@"Last washed %@ (%@ w)",
                                        [self relativeDescriptionForDate:mostRecentWash.date],
                                        [self.tshirt numberOfWearsSinceLastWash]]
                              forState:UIControlStateNormal];
@@ -134,27 +132,68 @@
             [self.washButton setTitle:@"Never washed before" forState:UIControlStateNormal];
         }
 
-        [self.tshirtImageView sd_setImageWithURL:[NSURL URLWithString:self.tshirt.image_url]
-                                placeholderImage:nil options:kNilOptions];
+        [self.tshirtImageView
+         sd_setImageWithURL:[NSURL URLWithString:self.tshirt.image_url]
+         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+             SLColorArt *colorArt = [[SLColorArt alloc] initWithImage:image];
+             self.view.backgroundColor = colorArt.backgroundColor;
+
+             self.sizeLabel.textColor   = colorArt.primaryColor;
+             self.ratingLabel.textColor = colorArt.primaryColor;
+
+             self.storeButton.tintColor = colorArt.secondaryColor;
+             [self.storeButton setTitleColor:colorArt.primaryColor forState:UIControlStateNormal];
+             self.wearButton.tintColor = colorArt.secondaryColor;
+             [self.wearButton setTitleColor:colorArt.primaryColor forState:UIControlStateNormal];
+             self.washButton.tintColor = colorArt.secondaryColor;
+             [self.washButton setTitleColor:colorArt.primaryColor forState:UIControlStateNormal];
+             
+             self.tagsImageView.tintColor = colorArt.secondaryColor;
+             self.tagsLabel.textColor = colorArt.primaryColor;
+             self.noteImageView.tintColor = colorArt.secondaryColor;
+             self.noteLabel.textColor = colorArt.primaryColor;
+         }];
 
         self.mainScrollView.contentSize = CGSizeMake((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 540 : self.view.frame.size.width, self.noteLabel.frame.origin.y+self.noteLabel.frame.size.height+50);
     }
 }
 
-- (NSString*)relativeDescriptionForDate:(NSDate*)date
-{
+- (NSString*)relativeDescriptionForDate:(NSDate*)date {
     NSInteger nbDaysAgo = (int)[date timeIntervalSinceNow]/(-60*60*24);
-    
-    if (nbDaysAgo == 0)
+
+    if (nbDaysAgo == 0) {
         return @"today";
-    else if (nbDaysAgo == 1)
+    }
+    else if (nbDaysAgo == 1) {
         return @"yesterday";
-    
-    return [NSString stringWithFormat:@"%d days ago", nbDaysAgo];
+    }
+
+    return [NSString stringWithFormat:@"%ld days ago", (long)nbDaysAgo];
 }
 
-- (IBAction)presentStoreController:(id)sender
-{
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    self.dateFormatter = [NSDateFormatter new];
+    self.dateFormatter.dateStyle = NSDateFormatterShortStyle;
+    self.dateFormatter.doesRelativeDateFormatting = YES;
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Dismiss", nil)
+                                                                 style:UIBarButtonItemStylePlain
+                                                                target:self
+                                                                action:@selector(dismissViewController:)];
+        self.navigationItem.leftBarButtonItem = item;
+    }
+
+    [self configureView];
+}
+
+
+#pragma mark - Actions
+
+- (IBAction)presentStoreController:(id)sender {
     if ([self.tshirt.store.type isEqualToString:@"Retail"]) {
         [self performSegueWithIdentifier:@"MTEStoreRetailSegue" sender:nil];
     }
@@ -166,8 +205,7 @@
     }
 }
 
-- (IBAction)didPressAction:(id)sender
-{
+- (IBAction)didPressAction:(id)sender {
     UIImage *wearImage = [[UIImage imageNamed:@"IconTShirt"]
                           imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     UIImage *washImage = [[UIImage imageNamed:@"IconWash"]
@@ -186,29 +224,10 @@
     [menu showInViewController:self center:self.tshirtImageView.center];
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-
-    self.dateFormatter = [NSDateFormatter new];
-    self.dateFormatter.dateStyle = NSDateFormatterShortStyle;
-    self.dateFormatter.doesRelativeDateFormatting = YES;
-
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Dismiss", nil)
-                                                                 style:UIBarButtonItemStylePlain
-                                                                target:self
-                                                                action:@selector(dismissViewController:)];
-        self.navigationItem.leftBarButtonItem = item;
-    }
-
-    [self configureView];
-}
 
 #pragma mark - Segue
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"MTEStoreSegue"] ||
         [segue.identifier isEqualToString:@"MTEStoreRetailSegue"] ||
         [segue.identifier isEqualToString:@"MTEStoreOnlineSegue"]) {
@@ -217,31 +236,28 @@
     }
 }
 
-- (IBAction)dismissViewController:(id)sender
-{
+- (IBAction)dismissViewController:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)presentWearViewController:(id)sender
-{
+- (IBAction)presentWearViewController:(id)sender {
     MTEWearWashViewController *viewController = [[MTEWearWashViewController alloc] init];
     viewController.datesObjects = self.tshirt.wearsSortedByDate;
     viewController.title = NSLocalizedString(@"Wear", nil);
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-- (IBAction)presentWashViewController:(id)sender
-{
+- (IBAction)presentWashViewController:(id)sender {
     MTEWearWashViewController *viewController = [[MTEWearWashViewController alloc] init];
     viewController.datesObjects = self.tshirt.washsSortedByDate;
     viewController.title = NSLocalizedString(@"Wash", nil);
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
+
 #pragma mark - Grid menu delegate
 
-- (void)gridMenu:(RNGridMenu *)gridMenu willDismissWithSelectedItem:(RNGridMenuItem *)item atIndex:(NSInteger)itemIndex
-{
+- (void)gridMenu:(RNGridMenu *)gridMenu willDismissWithSelectedItem:(RNGridMenuItem *)item atIndex:(NSInteger)itemIndex {
     NSDictionary * params = @{@"login":   [MTEAuthenticationManager emailFromKeychain],
                               @"password":[MTEAuthenticationManager passwordFromKeychain]};
     NSString *path;

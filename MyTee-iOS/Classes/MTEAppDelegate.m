@@ -57,7 +57,12 @@
                                                      context:self.managedObjectContext];
 
     tshirtsViewController.managedObjectContext = self.managedObjectContext;
-    tshirtsViewController.syncManager          = self.syncManager;
+    tshirtsViewController.syncManager = self.syncManager;
+
+    [application registerUserNotificationSettings:
+     [UIUserNotificationSettings settingsForTypes:
+      UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound
+                                       categories:nil]];
 
     return YES;
 }
@@ -105,7 +110,7 @@
 
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
-        __managedObjectContext = [[NSManagedObjectContext alloc] init];
+        __managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
         [__managedObjectContext setPersistentStoreCoordinator:coordinator];
     }
 

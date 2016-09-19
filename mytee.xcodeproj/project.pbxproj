@@ -64,6 +64,8 @@
 		1FA544081971697600D49FA9 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA544071971697600D49FA9 /* ApplicationServices.framework */; };
 		3C970F11CEF0405D98BCBD70 /* libPods-MyTee-MyTee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB2B176A76654607A8D8E73E /* libPods-MyTee-MyTee.a */; };
 		7B310ECFE10C424CAF63655C /* libPods-MyTee-iOS-MyTee-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BB8E42566B45AF8D970D7B /* libPods-MyTee-iOS-MyTee-iOS.a */; };
+		B1F08DBB1EE5CFAF0EF73B82 /* libPods-MyTee-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9EBE6E5C170FA0732C09390 /* libPods-MyTee-iOS.a */; };
+		FCD23D1C3AFA214E016DB833 /* libPods-MyTee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57F57F6E35B307176B60927F /* libPods-MyTee.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +86,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C4C4B821257DF468D3FD61A /* Pods-MyTee.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTee.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyTee/Pods-MyTee.debug.xcconfig"; sourceTree = "<group>"; };
 		1F2905FD19716D9500101D92 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		1F2905FF19716EAA00101D92 /* libcommonCrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcommonCrypto.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/usr/lib/system/libcommonCrypto.dylib; sourceTree = DEVELOPER_DIR; };
 		1F29060119716FD600101D92 /* MTEAuthenticationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTEAuthenticationManager.h; path = "MyTee-Shared/Classes/MTEAuthenticationManager.h"; sourceTree = SOURCE_ROOT; };
@@ -171,9 +174,14 @@
 		1FA544031971696B00D49FA9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		1FA544051971697100D49FA9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		1FA544071971697600D49FA9 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/ApplicationServices.framework; sourceTree = DEVELOPER_DIR; };
+		57F57F6E35B307176B60927F /* libPods-MyTee.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyTee.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		655F45B0CC0A17D7AD892366 /* Pods-MyTee-iOS-MyTee-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTee-iOS-MyTee-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyTee-iOS-MyTee-iOS/Pods-MyTee-iOS-MyTee-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		72F4CCAE3069E8CF4D323222 /* Pods-MyTee.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTee.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyTee/Pods-MyTee.release.xcconfig"; sourceTree = "<group>"; };
+		A89A7465255C040642A328DB /* Pods-MyTee-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTee-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyTee-iOS/Pods-MyTee-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		A9EBE6E5C170FA0732C09390 /* libPods-MyTee-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyTee-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABCA998857F71B2119A6F4A6 /* Pods-MyTee-MyTee.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTee-MyTee.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyTee-MyTee/Pods-MyTee-MyTee.release.xcconfig"; sourceTree = "<group>"; };
 		AEFDE50CE34C597DA5CDB1A8 /* Pods-MyTee-MyTee.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTee-MyTee.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyTee-MyTee/Pods-MyTee-MyTee.debug.xcconfig"; sourceTree = "<group>"; };
+		B0FBF2DACDC4DD3D9A76127E /* Pods-MyTee-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTee-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyTee-iOS/Pods-MyTee-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		C08BA976B4C4E51ED44C71A5 /* Pods-MyTee-iOS-MyTee-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTee-iOS-MyTee-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyTee-iOS-MyTee-iOS/Pods-MyTee-iOS-MyTee-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		C9BB8E42566B45AF8D970D7B /* libPods-MyTee-iOS-MyTee-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyTee-iOS-MyTee-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB2B176A76654607A8D8E73E /* libPods-MyTee-MyTee.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyTee-MyTee.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,6 +193,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B310ECFE10C424CAF63655C /* libPods-MyTee-iOS-MyTee-iOS.a in Frameworks */,
+				B1F08DBB1EE5CFAF0EF73B82 /* libPods-MyTee-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,6 +213,7 @@
 				1FA544061971697100D49FA9 /* Cocoa.framework in Frameworks */,
 				1FA544081971697600D49FA9 /* ApplicationServices.framework in Frameworks */,
 				3C970F11CEF0405D98BCBD70 /* libPods-MyTee-MyTee.a in Frameworks */,
+				FCD23D1C3AFA214E016DB833 /* libPods-MyTee.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +280,8 @@
 				1FA544031971696B00D49FA9 /* Foundation.framework */,
 				DB2B176A76654607A8D8E73E /* libPods-MyTee-MyTee.a */,
 				C9BB8E42566B45AF8D970D7B /* libPods-MyTee-iOS-MyTee-iOS.a */,
+				57F57F6E35B307176B60927F /* libPods-MyTee.a */,
+				A9EBE6E5C170FA0732C09390 /* libPods-MyTee-iOS.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -459,6 +471,10 @@
 				ABCA998857F71B2119A6F4A6 /* Pods-MyTee-MyTee.release.xcconfig */,
 				C08BA976B4C4E51ED44C71A5 /* Pods-MyTee-iOS-MyTee-iOS.debug.xcconfig */,
 				655F45B0CC0A17D7AD892366 /* Pods-MyTee-iOS-MyTee-iOS.release.xcconfig */,
+				0C4C4B821257DF468D3FD61A /* Pods-MyTee.debug.xcconfig */,
+				A89A7465255C040642A328DB /* Pods-MyTee-iOS.debug.xcconfig */,
+				72F4CCAE3069E8CF4D323222 /* Pods-MyTee.release.xcconfig */,
+				B0FBF2DACDC4DD3D9A76127E /* Pods-MyTee-iOS.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -475,6 +491,7 @@
 				1F7BF97114D4429500D7F4A3 /* Frameworks */,
 				1F7BF97214D4429500D7F4A3 /* Resources */,
 				4BB0A85DC204443D92E55A57 /* Copy Pods Resources */,
+				32883DC7E4FBA7CE17E400A8 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -513,6 +530,7 @@
 				1FA543AD197164DB00D49FA9 /* Frameworks */,
 				1FA543AE197164DB00D49FA9 /* Resources */,
 				3F94F770CB024085BB1C0144 /* Copy Pods Resources */,
+				B1351BC06C2B3B99FA9B6041 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -548,7 +566,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Studio AMANgA";
 				TargetAttributes = {
 					1F7BF97314D4429500D7F4A3 = {
@@ -661,6 +679,21 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		32883DC7E4FBA7CE17E400A8 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyTee-iOS/Pods-MyTee-iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3F94F770CB024085BB1C0144 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -673,7 +706,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyTee-MyTee/Pods-MyTee-MyTee-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyTee/Pods-MyTee-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4BB0A85DC204443D92E55A57 /* Copy Pods Resources */ = {
@@ -688,7 +721,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyTee-iOS-MyTee-iOS/Pods-MyTee-iOS-MyTee-iOS-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyTee-iOS/Pods-MyTee-iOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B1351BC06C2B3B99FA9B6041 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyTee/Pods-MyTee-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FA0BE6A313244C30BAD2C163 /* Check Pods Manifest.lock */ = {
@@ -884,6 +932,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vincent Tourraine (NMF3U5W9WV)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -945,21 +994,23 @@
 		};
 		1F7BF9A814D4429500D7F4A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C08BA976B4C4E51ED44C71A5 /* Pods-MyTee-iOS-MyTee-iOS.debug.xcconfig */;
+			baseConfigurationReference = A89A7465255C040642A328DB /* Pods-MyTee-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MyTee-iOS/mytee-Prefix.pch";
 				INFOPLIST_FILE = "MyTee-iOS/mytee-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"$(inherited)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.studioamanga.mytee;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -969,21 +1020,23 @@
 		};
 		1F7BF9A914D4429500D7F4A3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 655F45B0CC0A17D7AD892366 /* Pods-MyTee-iOS-MyTee-iOS.release.xcconfig */;
+			baseConfigurationReference = B0FBF2DACDC4DD3D9A76127E /* Pods-MyTee-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MyTee-iOS/mytee-Prefix.pch";
 				INFOPLIST_FILE = "MyTee-iOS/mytee-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"$(inherited)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.studioamanga.mytee;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -1047,7 +1100,7 @@
 		};
 		1FA543E1197164DC00D49FA9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AEFDE50CE34C597DA5CDB1A8 /* Pods-MyTee-MyTee.debug.xcconfig */;
+			baseConfigurationReference = 0C4C4B821257DF468D3FD61A /* Pods-MyTee.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1077,6 +1130,7 @@
 					"$(SDKROOT)/usr/lib/system",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.studioamanga.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
@@ -1085,7 +1139,7 @@
 		};
 		1FA543E2197164DC00D49FA9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ABCA998857F71B2119A6F4A6 /* Pods-MyTee-MyTee.release.xcconfig */;
+			baseConfigurationReference = 72F4CCAE3069E8CF4D323222 /* Pods-MyTee.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1113,6 +1167,7 @@
 					"$(SDKROOT)/usr/lib/system",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.studioamanga.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
@@ -1144,6 +1199,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "MyTee-OSXTests/MyTee-OSXTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.studioamanga.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -1174,6 +1230,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "MyTee-OSXTests/MyTee-OSXTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.studioamanga.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				TEST_HOST = "$(BUNDLE_LOADER)";
