@@ -3,12 +3,10 @@
 //  mytee
 //
 //  Created by Vincent Tourraine on 6/11/12.
-//  Copyright (c) 2012-2014 Studio AMANgA. All rights reserved.
+//  Copyright (c) 2012-2016 Studio AMANgA. All rights reserved.
 //
 
 #import "MTEStoreOnlineViewController.h"
-
-@import QuartzCore;
 
 #import "MTEStore.h"
 
@@ -21,10 +19,7 @@
 
 @implementation MTEStoreOnlineViewController
 
-@synthesize webView;
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     self.webView.layer.borderWidth  = 1;
@@ -37,26 +32,18 @@
     }
 }
 
+
 #pragma mark - Actions
 
-- (IBAction)presentActionSheet:(id)sender
-{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                             delegate:self
-                                                    cancelButtonTitle:@"Cancel"
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"Open in Safari", nil];
-    [actionSheet showFromBarButtonItem:sender animated:YES];
-}
-
-#pragma mark - Action Sheet delegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex != actionSheet.cancelButtonIndex) {
+- (IBAction)presentActionSheet:(id)sender {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Open in Safari", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSURL *URL = [NSURL URLWithString:self.store.url];
         [[UIApplication sharedApplication] openURL:URL];
-    }
+    }]];
+
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 @end

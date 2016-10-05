@@ -13,6 +13,7 @@
 		1F29060719718B2A00101D92 /* LoginWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F29060519718B2A00101D92 /* LoginWindow.xib */; };
 		1F29060A1971913A00101D92 /* MTELoginWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2906091971913A00101D92 /* MTELoginWindowController.m */; };
 		1F294E1A14D7558600A24AED /* MTESyncManagerSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F294E1914D7558600A24AED /* MTESyncManagerSpec.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1F36FE821DA5A02E00456FAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F36FE801DA5A02E00456FAA /* LaunchScreen.storyboard */; };
 		1F7BF9A114D4429500D7F4A3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F7BF99F14D4429500D7F4A3 /* InfoPlist.strings */; };
 		1F7BF9A414D4429500D7F4A3 /* myteeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BF9A314D4429500D7F4A3 /* myteeTests.m */; };
 		1FA5434C197162BB00D49FA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FA5434B197162BB00D49FA9 /* Images.xcassets */; };
@@ -93,6 +94,7 @@
 		1F2906081971913A00101D92 /* MTELoginWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTELoginWindowController.h; path = Classes/MTELoginWindowController.h; sourceTree = "<group>"; };
 		1F2906091971913A00101D92 /* MTELoginWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTELoginWindowController.m; path = Classes/MTELoginWindowController.m; sourceTree = "<group>"; };
 		1F294E1914D7558600A24AED /* MTESyncManagerSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MTESyncManagerSpec.mm; path = MyTeeTests/Specs/MTESyncManagerSpec.mm; sourceTree = SOURCE_ROOT; };
+		1F36FE811DA5A02E00456FAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "MyTee-iOS/Base.lproj/LaunchScreen.storyboard"; sourceTree = SOURCE_ROOT; };
 		1F7BF97414D4429500D7F4A3 /* MyTee-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyTee-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F7BF99414D4429500D7F4A3 /* MyTee-iOSTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MyTee-iOSTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F7BF99E14D4429500D7F4A3 /* myteeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "myteeTests-Info.plist"; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 				1FA5434B197162BB00D49FA9 /* Images.xcassets */,
 				1FA5434D197162CB00D49FA9 /* Storyboard_iPad.storyboard */,
 				1FA5434F197162CB00D49FA9 /* Storyboard_iPhone.storyboard */,
+				1F36FE801DA5A02E00456FAA /* LaunchScreen.storyboard */,
 				1F7BF98114D4429500D7F4A3 /* Supporting Files */,
 			);
 			name = "MyTee iOS";
@@ -601,6 +604,7 @@
 				1FA5434C197162BB00D49FA9 /* Images.xcassets in Resources */,
 				1FA5435F1971632300D49FA9 /* InfoPlist.strings in Resources */,
 				1FA54352197162CB00D49FA9 /* Storyboard_iPhone.storyboard in Resources */,
+				1F36FE821DA5A02E00456FAA /* LaunchScreen.storyboard in Resources */,
 				1FA54351197162CB00D49FA9 /* Storyboard_iPad.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -832,6 +836,14 @@
 				1F29060619718B2A00101D92 /* Base */,
 			);
 			name = LoginWindow.xib;
+			sourceTree = "<group>";
+		};
+		1F36FE801DA5A02E00456FAA /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1F36FE811DA5A02E00456FAA /* Base */,
+			);
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 		1F7BF99F14D4429500D7F4A3 /* InfoPlist.strings */ = {

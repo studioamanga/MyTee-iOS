@@ -261,29 +261,33 @@
     NSDictionary * params = @{@"login":   [MTEAuthenticationManager emailFromKeychain],
                               @"password":[MTEAuthenticationManager passwordFromKeychain]};
     NSString *path;
-    
+
     switch (itemIndex) {
         case 0:
             // Wear
             path = [NSString stringWithFormat:@"tshirt/%@/wear", self.tshirt.identifier];
             break;
-            
+
         case 1:
             // Wash
             path = [NSString stringWithFormat:@"tshirt/%@/wash", self.tshirt.identifier];
             break;
     }
-    
+
     if (path) {
-        [[MTEMyTeeAPIClient sharedClient] postPath:path
-                                        parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-                                            [self dismissViewControllerAnimated:YES completion:nil];
-                                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                            [[[UIAlertView alloc] initWithTitle:@"Error"
-                                                                        message:[NSString stringWithFormat:@"%@ (%@)", [error localizedDescription], [error localizedRecoverySuggestion]]
-                                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-                                        }];
+        [[MTEMyTeeAPIClient sharedClient]
+         postPath:path
+         parameters:params
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+             [self dismissViewControllerAnimated:YES completion:nil];
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil)
+                                                                                      message:[NSString stringWithFormat:@"%@ (%@)", error.localizedDescription, error.localizedRecoverySuggestion]
+                                                                               preferredStyle:UIAlertControllerStyleAlert];
+             [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil]];
+             [self presentViewController:alertController animated:YES completion:nil];
+         }];
     }
 }
 

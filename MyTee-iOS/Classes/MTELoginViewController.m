@@ -90,17 +90,17 @@
 
 - (void)startAuthenticatingWithEmail:(NSString *)email password:(NSString *)password
 {
-    [SVProgressHUD showWithStatus:@"Authenticating..." maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Authenticating...", nil)];
 
     [[MTEMyTeeAPIClient sharedClient] sendAuthenticationRequestWithUsername:email password:password success:^{
         [MTEAuthenticationManager storeEmail:email password:password];
 
-        [SVProgressHUD showSuccessWithStatus:@"Authentication Successful!"];
+        [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Authentication Successful!", nil)];
 
         [self dismissViewControllerAnimated:YES completion:nil];
         [self.delegate loginViewControllerDidLoggedIn:self];
     } failure:^{
-        [SVProgressHUD showErrorWithStatus:@"Authentication Error\nPlease check your credentials"];
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Authentication Error\nPlease check your credentials", nil)];
     }];
 }
 
