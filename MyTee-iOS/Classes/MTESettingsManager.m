@@ -3,8 +3,11 @@
 //  mytee
 //
 //  Created by Vincent Tourraine on 2/19/12.
-//  Copyright (c) 2012-2016 Studio AMANgA. All rights reserved.
+//  Copyright (c) 2012-2017 Studio AMANgA. All rights reserved.
 //
+
+@import UIKit;
+@import UserNotifications;
 
 #import "MTESettingsManager.h"
 
@@ -14,66 +17,43 @@
 
 @implementation MTESettingsManager
 
-+ (BOOL)isRemindersActive
-{
++ (BOOL)isRemindersActive {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     return [userDefaults boolForKey:MTE_USER_DEFAULTS_REMINDERS_ACTIVE];
 }
 
-+ (NSDate*)dateForNextReminder
-{
-    NSUInteger reminderHour = [self remindersHour];
-
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *nowComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear)
-                                                  fromDate:[NSDate date]];
-    
-    NSInteger nowHour  = [nowComponents hour];
-    NSInteger nowDay   = [nowComponents day];
-    NSInteger nowMonth = [nowComponents month];
-    NSInteger nowYear  = [nowComponents year];
-    
-    NSDateComponents *components = [NSDateComponents new];
-    [components setHour:reminderHour];
-    [components setDay:nowDay]; 
-    [components setMonth:nowMonth]; 
-    [components setYear:nowYear];
-    NSDate *thisDate = [calendar dateFromComponents:components];
-    
-    if (nowHour > reminderHour)
-        thisDate = [thisDate dateByAddingTimeInterval:60*60*24];
-    
-    return thisDate;
-}
-
-+ (void)setRemindersActive:(BOOL)active
-{
++ (void)setRemindersActive:(BOOL)active {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setBool:active forKey:MTE_USER_DEFAULTS_REMINDERS_ACTIVE];
     [userDefaults synchronize];
-    
+
     // Scheduling notification
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
-    
-    if (active)
-    {
-        UILocalNotification *notification = [UILocalNotification new];
-        notification.fireDate       = [self dateForNextReminder];
-        notification.timeZone       = [NSTimeZone defaultTimeZone];
-        notification.repeatInterval = kCFCalendarUnitDay;
-        notification.repeatCalendar = [NSCalendar currentCalendar];
-        notification.alertAction    = @"choose";
-        notification.alertBody      = @"Let’s choose something awesome!";
-        notification.applicationIconBadgeNumber = 1;
-        
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    UIApplication *application = [UIApplication sharedApplication];
+    [[UNUserNotificationCenter currentNotificationCenter] removeAllPendingNotificationRequests];
+
+    if (active) {
+        NSDateComponents *components = [[NSDateComponents alloc] init];
+        components.hour = [self remindersHour];
+        UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:components repeats:YES];
+
+        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+        content.title = NSLocalizedString(@"Time to Dress", nil);
+        content.body = NSLocalizedString(@"Let’s choose something awesome!", nil);
+        content.badge = @1;
+
+        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"textNotification" content:content trigger:trigger];
+        [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"%@", error);
+            }
+        }];
     }
-    else
-        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    else {
+        application.applicationIconBadgeNumber = 0;
+    }
 }
 
-+ (NSUInteger)remindersHour
-{
++ (NSUInteger)remindersHour {
     return MTE_REMINDER_HOUR;
 }
 

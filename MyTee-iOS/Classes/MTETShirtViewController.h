@@ -3,7 +3,7 @@
 //  mytee
 //
 //  Created by Vincent Tourraine on 2/2/12.
-//  Copyright (c) 2012 Studio AMANgA. All rights reserved.
+//  Copyright (c) 2012-2017 Studio AMANgA. All rights reserved.
 //
 
 @class MTETShirt;

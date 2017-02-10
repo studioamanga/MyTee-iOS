@@ -30,13 +30,9 @@
 #import "MTESettingsViewController.h"
 #import "MTELoginViewController.h"
 
-@interface MTETShirtsViewController ()
-<UIPopoverControllerDelegate, NSFetchedResultsControllerDelegate, RNGridMenuDelegate>
+@interface MTETShirtsViewController () <UIPopoverControllerDelegate, NSFetchedResultsControllerDelegate, RNGridMenuDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
-
-- (void)startRefresh:(id)sender;
-- (void)configureForFilterType:(MTETShirtsFilterType)filterType;
 
 @end
 

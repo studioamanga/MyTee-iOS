@@ -3,7 +3,7 @@
 //  mytee
 //
 //  Created by Vincent Tourraine on 6/10/12.
-//  Copyright (c) 2012-2016 Studio AMANgA. All rights reserved.
+//  Copyright (c) 2012-2017 Studio AMANgA. All rights reserved.
 //
 
 #import "MTEStoreRetailViewController.h"
@@ -93,7 +93,7 @@
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Open in Maps", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSString *URLString = [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@", self.storeLocation];
         NSURL *URL = [NSURL URLWithString:URLString];
-        [[UIApplication sharedApplication] openURL:URL];
+        [[UIApplication sharedApplication] openURL:URL options:@{} completionHandler:^(BOOL success) {}];
     }]];
 
     [self presentViewController:alertController animated:YES completion:nil];

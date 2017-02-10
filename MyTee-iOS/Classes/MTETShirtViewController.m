@@ -3,11 +3,12 @@
 //  mytee
 //
 //  Created by Vincent Tourraine on 2/2/12.
-//  Copyright (c) 2012-2015 Studio AMANgA. All rights reserved.
+//  Copyright (c) 2012-2017 Studio AMANgA. All rights reserved.
 //
 
 #import "MTETShirtViewController.h"
 
+@import UserNotifications;
 @import QuartzCore;
 
 #import <AFNetworking.h>
@@ -42,10 +43,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *noteLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *noteImageView;
 @property (strong, nonatomic) NSDateFormatter * dateFormatter;
-
-- (IBAction)didPressAction:(id)sender;
-- (NSString*)relativeDescriptionForDate:(NSDate*)date;
-- (IBAction)presentStoreController:(id)sender;
 
 @end
 
@@ -279,7 +276,9 @@
          postPath:path
          parameters:params
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+             [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+             [[UNUserNotificationCenter currentNotificationCenter] removeAllDeliveredNotifications];
+
              [self dismissViewControllerAnimated:YES completion:nil];
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil)

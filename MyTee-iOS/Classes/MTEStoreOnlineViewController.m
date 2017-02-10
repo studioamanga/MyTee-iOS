@@ -3,7 +3,7 @@
 //  mytee
 //
 //  Created by Vincent Tourraine on 6/11/12.
-//  Copyright (c) 2012-2016 Studio AMANgA. All rights reserved.
+//  Copyright (c) 2012-2017 Studio AMANgA. All rights reserved.
 //
 
 #import "MTEStoreOnlineViewController.h"
@@ -40,7 +40,7 @@
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Open in Safari", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSURL *URL = [NSURL URLWithString:self.store.url];
-        [[UIApplication sharedApplication] openURL:URL];
+        [[UIApplication sharedApplication] openURL:URL options:@{} completionHandler:^(BOOL success) {}];
     }]];
 
     [self presentViewController:alertController animated:YES completion:nil];

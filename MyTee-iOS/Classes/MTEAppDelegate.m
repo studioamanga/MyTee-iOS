@@ -3,8 +3,10 @@
 //  mytee
 //
 //  Created by Vincent Tourraine on 1/28/12.
-//  Copyright (c) 2012 Studio AMANgA. All rights reserved.
+//  Copyright (c) 2012-2017 Studio AMANgA. All rights reserved.
 //
+
+@import UserNotifications;
 
 #import "MTEAppDelegate.h"
 
@@ -24,15 +26,13 @@
 @property (nonatomic, strong) MTENavigationControllerDelegate *navigationControllerDelegate;
 @property (strong, nonatomic, readonly) NSURL *storeURL;
 
-- (void)removeObjectsInManagedObjectContextForEntityName:(NSString *)entityName;
-
 @end
 
 
 @implementation MTEAppDelegate
 
-@synthesize managedObjectContext       = __managedObjectContext;
-@synthesize managedObjectModel         = __managedObjectModel;
+@synthesize managedObjectContext = __managedObjectContext;
+@synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -47,28 +47,28 @@
 
     self.navigationControllerDelegate = [MTENavigationControllerDelegate new];
 
-    UINavigationController   *navigationController  = (UINavigationController *)self.window.rootViewController;
+    UINavigationController *navigationController  = (UINavigationController *)self.window.rootViewController;
     MTETShirtsViewController *tshirtsViewController = (MTETShirtsViewController *)navigationController.topViewController;
 
     navigationController.delegate = self.navigationControllerDelegate;
     [self.navigationControllerDelegate configureWithNavigationController:navigationController];
 
-    self.syncManager = [MTESyncManager syncManagerWithClient:[MTEMyTeeAPIClient sharedClient]
-                                                     context:self.managedObjectContext];
+    self.syncManager = [MTESyncManager syncManagerWithClient:[MTEMyTeeAPIClient sharedClient] context:self.managedObjectContext];
 
     tshirtsViewController.managedObjectContext = self.managedObjectContext;
     tshirtsViewController.syncManager = self.syncManager;
 
-    [application registerUserNotificationSettings:
-     [UIUserNotificationSettings settingsForTypes:
-      UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound
-                                       categories:nil]];
+    [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"%@", error);
+        }
+    }];
 
     return YES;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    [application setApplicationIconBadgeNumber:0];
+    application.applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -99,7 +99,6 @@
         }
     }];
 }
-
 
 #pragma mark - Core Data
 
@@ -164,7 +163,6 @@
 - (NSURL *)storeURL {
     return [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"MyTee.sqlite"];
 }
-
 
 #pragma mark - Application's Documents directory
 
