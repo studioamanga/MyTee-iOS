@@ -88,8 +88,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.collectionView.backgroundColor = [UIColor whiteColor];
-
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     refreshControl.tintColor = [UIColor blackColor];
     [refreshControl addTarget:self action:@selector(startRefresh:)

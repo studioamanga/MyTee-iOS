@@ -40,7 +40,7 @@
 
     self.window.tintColor = UIColor.coolPurpleColor;
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
-    [[UINavigationBar appearance] setBarTintColor:UIColor.coolPurpleColor]; // #8C5DE4
+    // [[UINavigationBar appearance] setBarTintColor:UIColor.coolPurpleColor]; // #8C5DE4
     [[UINavigationBar appearance] setTintColor:UIColor.whiteColor];
 
     [application setMinimumBackgroundFetchInterval:60*60*12];
