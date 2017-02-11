@@ -24,7 +24,7 @@
 
 @property (nonatomic, strong) MTESyncManager *syncManager;
 @property (nonatomic, strong) MTENavigationControllerDelegate *navigationControllerDelegate;
-@property (strong, nonatomic, readonly) NSURL *storeURL;
+@property (nonatomic, strong, readonly) NSURL *storeURL;
 
 @end
 
@@ -38,10 +38,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     AFNetworkActivityIndicatorManager.sharedManager.enabled = YES;
 
-    self.window.tintColor = UIColor.coolPurpleColor;
+    self.window.tintColor = UIColor.orangeColor;
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     // [[UINavigationBar appearance] setBarTintColor:UIColor.coolPurpleColor]; // #8C5DE4
-    [[UINavigationBar appearance] setTintColor:UIColor.whiteColor];
+    [[UINavigationBar appearance] setTintColor:UIColor.orangeColor];
 
     [application setMinimumBackgroundFetchInterval:60*60*12];
 
@@ -158,10 +158,6 @@
     [self removeObjectsInManagedObjectContextForEntityName:@"MTEStore"];
     
     [self.managedObjectContext save:nil];
-}
-
-- (NSURL *)storeURL {
-    return [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"MyTee.sqlite"];
 }
 
 #pragma mark - Application's Documents directory

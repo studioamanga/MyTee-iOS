@@ -208,15 +208,13 @@
     UIImage *washImage = [[UIImage imageNamed:@"IconWash"]
                           imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 
-    RNGridMenuItem *wearItem = [[RNGridMenuItem alloc] initWithImage:wearImage
-                                                               title:@"Wear Today"];
-    RNGridMenuItem *washItem = [[RNGridMenuItem alloc] initWithImage:washImage
-                                                               title:@"Wash Today"];
+    RNGridMenuItem *wearItem = [[RNGridMenuItem alloc] initWithImage:wearImage title:NSLocalizedString(@"Wear Today", nil)];
+    RNGridMenuItem *washItem = [[RNGridMenuItem alloc] initWithImage:washImage title:NSLocalizedString(@"Wash Today", nil)];
 
     RNGridMenu *menu = [[RNGridMenu alloc] initWithItems:@[wearItem, washItem]];
-    menu.menuView.tintColor = [UIColor palePurpleColor];
-    menu.highlightColor     = [UIColor coolPurpleColor];
-    menu.delegate           = self;
+    menu.menuView.tintColor = [UIColor orangeColor];
+    menu.highlightColor = [UIColor blackColor];
+    menu.delegate = self;
 
     [menu showInViewController:self center:self.tshirtImageView.center];
 }

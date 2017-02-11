@@ -156,21 +156,18 @@
 
 - (IBAction)showFilterViewController:(id)sender {
     UIImage *allImage  = [[UIImage imageNamed:@"IconCabinet"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    UIImage *wearImage = [[UIImage imageNamed:@"IconTShirt"]  imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    UIImage *washImage = [[UIImage imageNamed:@"IconWash"]    imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImage *wearImage = [[UIImage imageNamed:@"IconTShirt"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImage *washImage = [[UIImage imageNamed:@"IconWash"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 
-    RNGridMenuItem *allItem  = [[RNGridMenuItem alloc] initWithImage:allImage
-                                                               title:@"All"];
-    RNGridMenuItem *wearItem = [[RNGridMenuItem alloc] initWithImage:wearImage
-                                                               title:@"Wear"];
-    RNGridMenuItem *washItem = [[RNGridMenuItem alloc] initWithImage:washImage
-                                                               title:@"Wash"];
+    RNGridMenuItem *allItem  = [[RNGridMenuItem alloc] initWithImage:allImage title:NSLocalizedString(@"All", nil)];
+    RNGridMenuItem *wearItem = [[RNGridMenuItem alloc] initWithImage:wearImage title:NSLocalizedString(@"Wear", nil)];
+    RNGridMenuItem *washItem = [[RNGridMenuItem alloc] initWithImage:washImage title:NSLocalizedString(@"Wash", nil)];
 
-    NSArray    *items = @[wearItem, washItem, allItem];
-    RNGridMenu *menu  = [[RNGridMenu alloc] initWithItems:items];
-    menu.menuView.tintColor = [UIColor palePurpleColor];
-    menu.highlightColor     = [UIColor coolPurpleColor];
-    menu.delegate           = self;
+    NSArray *items = @[wearItem, washItem, allItem];
+    RNGridMenu *menu = [[RNGridMenu alloc] initWithItems:items];
+    menu.menuView.tintColor = [UIColor orangeColor];
+    menu.highlightColor = [UIColor blackColor];
+    menu.delegate = self;
 
     [menu showInViewController:self center:self.view.center];
 }
