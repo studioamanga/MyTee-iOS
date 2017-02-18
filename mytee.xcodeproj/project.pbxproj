@@ -242,9 +242,9 @@
 			children = (
 				1FA54359197162EB00D49FA9 /* Shared */,
 				1F7BF98014D4429500D7F4A3 /* MyTee iOS */,
-				1FA543B7197164DB00D49FA9 /* MyTee OSX */,
+				1FA543B7197164DB00D49FA9 /* MyTee macOS */,
 				1F7BF99C14D4429500D7F4A3 /* MyTee iOS Tests */,
-				1FA543D8197164DC00D49FA9 /* MyTee OSX Tests */,
+				1FA543D8197164DC00D49FA9 /* MyTee macOS Tests */,
 				1F7BF97714D4429500D7F4A3 /* Frameworks */,
 				1F7BF97514D4429500D7F4A3 /* Products */,
 				395F6E1B9BBE6D42D15F36E6 /* Pods */,
@@ -410,7 +410,7 @@
 			name = "App delegate";
 			sourceTree = "<group>";
 		};
-		1FA543B7197164DB00D49FA9 /* MyTee OSX */ = {
+		1FA543B7197164DB00D49FA9 /* MyTee macOS */ = {
 			isa = PBXGroup;
 			children = (
 				1FA543C3197164DB00D49FA9 /* MTEAppDelegate.h */,
@@ -420,7 +420,7 @@
 				1FA543CC197164DC00D49FA9 /* Images.xcassets */,
 				1FA543B8197164DB00D49FA9 /* Supporting Files */,
 			);
-			name = "MyTee OSX";
+			name = "MyTee macOS";
 			path = "MyTee-OSX";
 			sourceTree = "<group>";
 		};
@@ -436,13 +436,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		1FA543D8197164DC00D49FA9 /* MyTee OSX Tests */ = {
+		1FA543D8197164DC00D49FA9 /* MyTee macOS Tests */ = {
 			isa = PBXGroup;
 			children = (
 				1FA543DE197164DC00D49FA9 /* MyTee_OSXTests.m */,
 				1FA543D9197164DC00D49FA9 /* Supporting Files */,
 			);
-			name = "MyTee OSX Tests";
+			name = "MyTee macOS Tests";
 			path = "MyTee-OSXTests";
 			sourceTree = "<group>";
 		};

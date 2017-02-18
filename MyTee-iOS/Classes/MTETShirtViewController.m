@@ -12,13 +12,11 @@
 @import QuartzCore;
 
 #import <AFNetworking.h>
-
 #import <SDWebImage/UIImageView+WebCache.h>
-
 #import <RNGridMenu.h>
 #import <Colours.h>
-
 #import <ColorArt/SLColorArt.h>
+#import <SVProgressHUD.h>
 
 #import "MTETShirt.h"
 #import "MTEStore.h"
@@ -43,6 +41,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *noteLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *noteImageView;
 @property (strong, nonatomic) NSDateFormatter * dateFormatter;
+
+@property (nonatomic, strong, nullable) NSArray <id <UIPreviewActionItem>> *previewActions;
 
 @end
 
@@ -80,13 +80,13 @@
         self.tagsLabel.text = self.tshirt.tags;
 
         self.ratingLabel.text = ({
-            NSMutableString * ratingString = [NSMutableString stringWithString:@""];
+            NSMutableString *ratingString = [NSMutableString stringWithString:@""];
             NSUInteger i = 0;
             NSUInteger rating = [self.tshirt.rating intValue];
-            for( ; i<rating ; i++) {
+            for( ; i < rating ; i++) {
                 [ratingString appendString:@"★"];
             }
-            for( ; i<5 ; i++) {
+            for( ; i < 5 ; i++) {
                 [ratingString appendString:@"☆"];
             }
             ratingString;
@@ -135,7 +135,7 @@
              SLColorArt *colorArt = [[SLColorArt alloc] initWithImage:image];
              self.view.backgroundColor = colorArt.backgroundColor;
 
-             self.sizeLabel.textColor   = colorArt.primaryColor;
+             self.sizeLabel.textColor = colorArt.primaryColor;
              self.ratingLabel.textColor = colorArt.primaryColor;
 
              self.storeButton.tintColor = colorArt.secondaryColor;
@@ -155,8 +155,8 @@
     }
 }
 
-- (NSString*)relativeDescriptionForDate:(NSDate*)date {
-    NSInteger nbDaysAgo = (int)[date timeIntervalSinceNow]/(-60*60*24);
+- (NSString *)relativeDescriptionForDate:(NSDate *)date {
+    NSInteger nbDaysAgo = [date timeIntervalSinceNow] / (-60 * 60 * 24);
 
     if (nbDaysAgo == 0) {
         return @"today";
@@ -165,7 +165,7 @@
         return @"yesterday";
     }
 
-    return [NSString stringWithFormat:@"%ld days ago", (long)nbDaysAgo];
+    return [NSString stringWithFormat:@"%@ days ago", @(nbDaysAgo)];
 }
 
 
@@ -177,10 +177,7 @@
     self.dateFormatter.doesRelativeDateFormatting = YES;
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Dismiss", nil)
-                                                                 style:UIBarButtonItemStylePlain
-                                                                target:self
-                                                                action:@selector(dismissViewController:)];
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Dismiss", nil) style:UIBarButtonItemStylePlain target:self action:@selector(dismissViewController:)];
         self.navigationItem.leftBarButtonItem = item;
     }
 
@@ -203,10 +200,8 @@
 }
 
 - (IBAction)didPressAction:(id)sender {
-    UIImage *wearImage = [[UIImage imageNamed:@"IconTShirt"]
-                          imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    UIImage *washImage = [[UIImage imageNamed:@"IconWash"]
-                          imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImage *wearImage = [[UIImage imageNamed:@"IconTShirt"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImage *washImage = [[UIImage imageNamed:@"IconWash"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 
     RNGridMenuItem *wearItem = [[RNGridMenuItem alloc] initWithImage:wearImage title:NSLocalizedString(@"Wear Today", nil)];
     RNGridMenuItem *washItem = [[RNGridMenuItem alloc] initWithImage:washImage title:NSLocalizedString(@"Wash Today", nil)];
@@ -253,39 +248,56 @@
 #pragma mark - Grid menu delegate
 
 - (void)gridMenu:(RNGridMenu *)gridMenu willDismissWithSelectedItem:(RNGridMenuItem *)item atIndex:(NSInteger)itemIndex {
-    NSDictionary * params = @{@"login":   [MTEAuthenticationManager emailFromKeychain],
+    NSDictionary * params = @{@"login": [MTEAuthenticationManager emailFromKeychain],
                               @"password":[MTEAuthenticationManager passwordFromKeychain]};
-    NSString *path;
+    NSString *path = [NSString stringWithFormat:@"tshirt/%@/%@", self.tshirt.identifier, itemIndex == 0 ? @"wear" : @"wash"];
 
-    switch (itemIndex) {
-        case 0:
-            // Wear
-            path = [NSString stringWithFormat:@"tshirt/%@/wear", self.tshirt.identifier];
-            break;
+    [[MTEMyTeeAPIClient sharedClient]
+     postPath:path
+     parameters:params
+     success:^(AFHTTPRequestOperation *operation, id responseObject) {
+         [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+         [[UNUserNotificationCenter currentNotificationCenter] removeAllDeliveredNotifications];
 
-        case 1:
-            // Wash
-            path = [NSString stringWithFormat:@"tshirt/%@/wash", self.tshirt.identifier];
-            break;
+         [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Success", nil)];
+         // [self dismissViewControllerAnimated:YES completion:nil];
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:[NSString stringWithFormat:@"%@ (%@)", error.localizedDescription, error.localizedRecoverySuggestion] preferredStyle:UIAlertControllerStyleAlert];
+         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil]];
+         [self presentViewController:alertController animated:YES completion:nil];
+     }];
+}
+
+#pragma mark -
+
+- (NSArray <id <UIPreviewActionItem>> *)previewActionItems {
+    if (!self.previewActions) {
+        self.previewActions =
+        @[[UIPreviewAction
+           actionWithTitle:NSLocalizedString(@"Wear Today", nil)
+           style:UIPreviewActionStyleDefault
+           handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+               NSDictionary * params = @{@"login": [MTEAuthenticationManager emailFromKeychain],
+                                         @"password":[MTEAuthenticationManager passwordFromKeychain]};
+               NSString *path = [NSString stringWithFormat:@"tshirt/%@/wear", self.tshirt.identifier];
+
+               [[MTEMyTeeAPIClient sharedClient]
+                postPath:path
+                parameters:params
+                success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+                    [[UNUserNotificationCenter currentNotificationCenter] removeAllDeliveredNotifications];
+                    
+                    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Success", nil)];
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:[NSString stringWithFormat:@"%@ (%@)", error.localizedDescription, error.localizedRecoverySuggestion] preferredStyle:UIAlertControllerStyleAlert];
+                    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil]];
+                    [self presentViewController:alertController animated:YES completion:nil];
+                }];
+           }]];
     }
 
-    if (path) {
-        [[MTEMyTeeAPIClient sharedClient]
-         postPath:path
-         parameters:params
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-             [[UNUserNotificationCenter currentNotificationCenter] removeAllDeliveredNotifications];
-
-             [self dismissViewControllerAnimated:YES completion:nil];
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil)
-                                                                                      message:[NSString stringWithFormat:@"%@ (%@)", error.localizedDescription, error.localizedRecoverySuggestion]
-                                                                               preferredStyle:UIAlertControllerStyleAlert];
-             [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil]];
-             [self presentViewController:alertController animated:YES completion:nil];
-         }];
-    }
+    return self.previewActions;
 }
 
 @end

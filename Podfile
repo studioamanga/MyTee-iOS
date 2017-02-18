@@ -2,7 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 
 target 'MyTee-iOS' do
-    platform :ios, '7.0'
+    platform :ios, '10.0'
 
     pod 'PDKeychainBindingsController'
     pod 'SVProgressHUD'

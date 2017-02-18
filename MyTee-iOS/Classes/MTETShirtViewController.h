@@ -6,10 +6,10 @@
 //  Copyright (c) 2012-2017 Studio AMANgA. All rights reserved.
 //
 
+@import UIKit;
 @class MTETShirt;
 
-@interface MTETShirtViewController : UIViewController
-<UISplitViewControllerDelegate>
+@interface MTETShirtViewController : UIViewController <UISplitViewControllerDelegate>
 
 @property (nonatomic, strong) MTETShirt *tshirt;
 

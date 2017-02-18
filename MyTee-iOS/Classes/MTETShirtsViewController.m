@@ -3,7 +3,7 @@
 //  mytee
 //
 //  Created by Vincent Tourraine on 1/31/12.
-//  Copyright (c) 2012-2016 Studio AMANgA. All rights reserved.
+//  Copyright (c) 2012-2017 Studio AMANgA. All rights reserved.
 //
 
 #import "MTETShirtsViewController.h"
@@ -97,6 +97,10 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     MTETShirtsFilterType filterType = [userDefaults integerForKey:kMTETShirtsFilterType];
     [self configureForFilterType:filterType];
+
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -353,7 +357,27 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - Popover controller
+#pragma mark - UIViewControllerPreviewingDelegate
+
+- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:location];
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+
+    if (!indexPath || !cell) {
+        return nil;
+    }
+
+    previewingContext.sourceRect = cell.frame;
+
+    MTETShirtViewController *tshirtViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MTETShirtViewController"];
+    tshirtViewController.tshirt = [self.fetchedResultsController objectAtIndexPath:indexPath];
+
+    return tshirtViewController;
+}
+
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
 
 #pragma mark - Grid menu delegate
 

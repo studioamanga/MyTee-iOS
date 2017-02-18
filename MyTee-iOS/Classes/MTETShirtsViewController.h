@@ -3,17 +3,17 @@
 //  mytee
 //
 //  Created by Vincent Tourraine on 1/31/12.
-//  Copyright (c) 2012-2016 Studio AMANgA. All rights reserved.
+//  Copyright (c) 2012-2017 Studio AMANgA. All rights reserved.
 //
 
+@import UIKit;
 #import "MTESettingsViewController.h"
 #import "MTELoginViewController.h"
 
 @class MTETShirtViewController;
 @class MTESyncManager;
 
-@interface MTETShirtsViewController : UICollectionViewController
- <MTESettingsViewDelegate, MTELoginViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
+@interface MTETShirtsViewController : UICollectionViewController <MTESettingsViewDelegate, MTELoginViewDelegate, UIViewControllerPreviewingDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, weak)   NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) MTESyncManager         *syncManager;
