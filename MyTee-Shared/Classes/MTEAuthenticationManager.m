@@ -3,7 +3,7 @@
 //  mytee
 //
 //  Created by Terenn on 1/20/13.
-//  Copyright (c) 2013 Studio AMANgA. All rights reserved.
+//  Copyright (c) 2013-2017 Studio AMANgA. All rights reserved.
 //
 
 #import "MTEAuthenticationManager.h"
@@ -34,8 +34,8 @@
 {
     PDKeychainBindingsController *keychainWrapper = [self keychainWrapper];
 
-    [keychainWrapper storeString:email forKey:(__bridge NSString *)kSecAttrAccount];
-    [keychainWrapper storeString:password forKey:(__bridge NSString*)kSecValueData];
+    [keychainWrapper storeString:email forKey:(__bridge NSString *)kSecAttrAccount accessibleAttribute:kSecAttrAccessibleAlways];
+    [keychainWrapper storeString:password forKey:(__bridge NSString*)kSecValueData accessibleAttribute:kSecAttrAccessibleAlways];
 }
 
 + (NSString *)valueFromKeychainWithKey:(NSString *)key

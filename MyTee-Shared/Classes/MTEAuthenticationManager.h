@@ -3,7 +3,7 @@
 //  mytee
 //
 //  Created by Terenn on 1/20/13.
-//  Copyright (c) 2013 Studio AMANgA. All rights reserved.
+//  Copyright (c) 2013-2017 Studio AMANgA. All rights reserved.
 //
 
 @import Foundation;

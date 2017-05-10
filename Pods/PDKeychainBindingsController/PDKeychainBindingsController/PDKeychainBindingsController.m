@@ -1,29 +1,131 @@
-//
-//  PDKeychainBindingsController.m
-//  PDKeychainBindingsController
-//
-//  Created by Carl Brown on 7/10/11.
-//  Copyright 2011 PDAgent, LLC. Released under MIT License.
-//
 
-//  There's (understandably) a lot of controversy about how (and whether)
-//   to use the Singleton pattern for Cocoa.  I am here because I'm 
-//   trying to emulate existing Singleton (NSUserDefaults) behavior
-//
-//   and I'm using the singleton methodology from
-//   http://www.duckrowing.com/2010/05/21/using-the-singleton-pattern-in-objective-c/
-//   because it seemed reasonable
-
+/*! @file       PDKeychainBindingsController.m
+    @class      PDKeychainBindingsController
+    @author     Carl Brown @since 7/10/11.
+    @copyright  2011 PDAgent, LLC. Released under MIT License.
+*/
 
 #import "PDKeychainBindingsController.h"
 #import <Security/Security.h>
 
+@implementation PDKeychainBindingsController {
+#if !TARGET_OS_IPHONE
+	     SecKeychainRef		_secKeychainRef;
+#endif
+  @private
+  NSMutableDictionary *_valueBuffer;
+}
+
+#pragma mark - Singleton Stuff
+
+/*
+  @note There's (understandably) a lot of controversy about how (and whether) to use the Singleton pattern for Cocoa.  I am here because I'm  trying to emulate existing Singleton (NSUserDefaults) behavior and I'm using the singleton methodology from @link  http://www.duckrowing.com/2010/05/21/using-the-singleton-pattern-in-objective-c/ because it seemed reasonable
+*/
+
 static PDKeychainBindingsController *sharedInstance = nil;
 
-@implementation PDKeychainBindingsController
++ (PDKeychainBindingsController*) sharedKeychainBindingsController {
+    static dispatch_once_t onceQueue;
 
-#pragma mark -
-#pragma mark Keychain Access
+    dispatch_once(&onceQueue, ^{
+        sharedInstance = [[self alloc] init];
+    });
+
+	return sharedInstance;
+}
+
+#pragma mark - External Keychain Access (OSX)
+
+#if !TARGET_OS_IPHONE
+
+- (NSError*)NSErrorFromOSStatus:(OSStatus)status {
+	// get error description
+	NSString *description = (__bridge_transfer NSString*)SecCopyErrorMessageString(status, NULL);
+	return [NSError errorWithDomain:NSOSStatusErrorDomain
+							   code:status
+						   userInfo:@{ NSLocalizedDescriptionKey : description}];
+}
+
+- (void)useDefaultKeychain {
+	if( _secKeychainRef ) {
+		SecKeychainLock(_secKeychainRef);
+		CFRelease(_secKeychainRef);
+		_secKeychainRef = NULL;
+	}
+}
+
+- (BOOL)useExternalKeychainFileWithPath:(NSString*)path password:(NSString*)password error:(NSError**)error {
+	if( _secKeychainRef ) {
+		SecKeychainLock(_secKeychainRef);
+		// free current keychainRef
+		CFRelease(_secKeychainRef);
+	}
+	
+	OSStatus status;
+	
+	// open existing keychain
+	status = SecKeychainOpen([path fileSystemRepresentation], &_secKeychainRef);
+	if( status != errSecSuccess ) {
+		goto handleError;
+	}
+	
+	status = SecKeychainUnlock(_secKeychainRef, (UInt32)password.length, [password UTF8String], TRUE );
+	if( status == errSecSuccess ) {
+		return YES;
+	}
+	if( status == errSecNoSuchKeychain ) {
+		// create new keychain
+		status = SecKeychainCreate([path fileSystemRepresentation]
+							   , (UInt32)password.length
+							   , [password UTF8String]
+							   , FALSE
+							   , NULL
+							   , &_secKeychainRef );
+	
+		if( status != errSecSuccess ) {
+			goto handleError;
+		}
+		
+		return YES;
+	}
+	
+handleError:
+	if( error ) {
+		*error = [self NSErrorFromOSStatus:status];
+	}
+	
+	return NO;
+}
+
+- (BOOL)removeExternalKeychainFileWithError:(NSError**)error {
+	if( _secKeychainRef ) {
+		OSStatus status = SecKeychainDelete(_secKeychainRef);
+		if( status != errSecSuccess ) {
+			if( error ) {
+				*error = [self NSErrorFromOSStatus:status];
+			}
+			return NO;
+		}
+	} else {
+		return NO;
+	}
+	
+	_secKeychainRef = NULL;
+	
+	return YES;
+}
+
+- (void) dealloc {
+	// release
+	if( _secKeychainRef ) {
+		SecKeychainLock(_secKeychainRef);
+		CFRelease(_secKeychainRef);
+	}
+}
+
+#endif
+
+#pragma mark - Keychain Access
 
 - (NSString*)serviceName {
 	return [[NSBundle mainBundle] bundleIdentifier];
@@ -44,7 +146,7 @@ static PDKeychainBindingsController *sharedInstance = nil;
     //SecKeychainItemRef item = NULL;
     UInt32 stringLength;
     void *stringBuffer;
-    status = SecKeychainFindGenericPassword(NULL, (uint) [[self serviceName] lengthOfBytesUsingEncoding:NSUTF8StringEncoding], [[self serviceName] UTF8String],
+    status = SecKeychainFindGenericPassword(_secKeychainRef, (uint) [[self serviceName] lengthOfBytesUsingEncoding:NSUTF8StringEncoding], [[self serviceName] UTF8String],
                                             (uint) [key lengthOfBytesUsingEncoding:NSUTF8StringEncoding], [key UTF8String],
                                             &stringLength, &stringBuffer, NULL);
     #endif
@@ -60,18 +162,25 @@ static PDKeychainBindingsController *sharedInstance = nil;
 	return string;	
 }
 
-
 - (BOOL)storeString:(NSString*)string forKey:(NSString*)key {
+    return [self storeString:string forKey:key accessibleAttribute:kSecAttrAccessibleWhenUnlocked];
+}
+
+- (BOOL)storeString:(NSString*)string forKey:(NSString*)key accessibleAttribute:(CFTypeRef)accessibleAttribute {
 	if (!string)  {
 		//Need to delete the Key 
 #if TARGET_OS_IPHONE
         NSDictionary *spec = [NSDictionary dictionaryWithObjectsAndKeys:(__bridge id)kSecClassGenericPassword, kSecClass,
                               key, kSecAttrAccount,[self serviceName], kSecAttrService, nil];
         
-        return !SecItemDelete((__bridge CFDictionaryRef)spec);
+        OSStatus result=SecItemDelete((__bridge CFDictionaryRef)spec);
+        if (result!=0) {
+            NSLog(@"Could not store(Delete) string. Error was:%i",(int)result);
+        }
+        return !result;
 #else //OSX
         SecKeychainItemRef item = NULL;
-        OSStatus status = SecKeychainFindGenericPassword(NULL, (uint) [[self serviceName] lengthOfBytesUsingEncoding:NSUTF8StringEncoding], [[self serviceName] UTF8String],
+        OSStatus status = SecKeychainFindGenericPassword(_secKeychainRef, (uint) [[self serviceName] lengthOfBytesUsingEncoding:NSUTF8StringEncoding], [[self serviceName] UTF8String],
                                                          (uint) [key lengthOfBytesUsingEncoding:NSUTF8StringEncoding], [key UTF8String],
                                                          NULL, NULL, &item);
         if(status) return YES;
@@ -85,23 +194,40 @@ static PDKeychainBindingsController *sharedInstance = nil;
                               key, kSecAttrAccount,[self serviceName], kSecAttrService, nil];
         
         if(!string) {
-            return !SecItemDelete((__bridge CFDictionaryRef)spec);
+            OSStatus result=SecItemDelete((__bridge CFDictionaryRef)spec);
+            if (result!=0) {
+                NSLog(@"Could not store(Delete) string. Error was:%i",(int)result);
+            }
+            return !result;
         }else if([self stringForKey:key]) {
-            NSDictionary *update = [NSDictionary dictionaryWithObject:stringData forKey:(__bridge id)kSecValueData];
-            return !SecItemUpdate((__bridge CFDictionaryRef)spec, (__bridge CFDictionaryRef)update);
+            NSDictionary *update = @{
+                                     (__bridge id)kSecAttrAccessible:(__bridge id)accessibleAttribute,
+                                     (__bridge id)kSecValueData:stringData
+                                     };
+            
+            OSStatus result=SecItemUpdate((__bridge CFDictionaryRef)spec, (__bridge CFDictionaryRef)update);
+            if (result!=0) {
+                NSLog(@"Could not store(Update) string. Error was:%i",(int)result);
+            }
+return !result;
         }else{
             NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:spec];
-            [data setObject:stringData forKey:(__bridge id)kSecValueData];
-            return !SecItemAdd((__bridge CFDictionaryRef)data, NULL);
+            data[(__bridge id)kSecValueData] = stringData;
+            data[(__bridge id)kSecAttrAccessible] =(__bridge id)accessibleAttribute;
+            OSStatus result=SecItemAdd((__bridge CFDictionaryRef)data, NULL);
+            if (result!=0) {
+                NSLog(@"Could not store(Add) string. Error was:%i",(int)result);
+            }
+            return !result;
         }
 #else //OSX
         SecKeychainItemRef item = NULL;
-        OSStatus status = SecKeychainFindGenericPassword(NULL, (uint) [[self serviceName] lengthOfBytesUsingEncoding:NSUTF8StringEncoding], [[self serviceName] UTF8String],
+        OSStatus status = SecKeychainFindGenericPassword(_secKeychainRef, (uint) [[self serviceName] lengthOfBytesUsingEncoding:NSUTF8StringEncoding], [[self serviceName] UTF8String],
                                                          (uint) [key lengthOfBytesUsingEncoding:NSUTF8StringEncoding], [key UTF8String],
                                                          NULL, NULL, &item);
         if(status) {
             //NO such item. Need to add it
-            return !SecKeychainAddGenericPassword(NULL, (uint) [[self serviceName] lengthOfBytesUsingEncoding:NSUTF8StringEncoding], [[self serviceName] UTF8String],
+            return !SecKeychainAddGenericPassword(_secKeychainRef, (uint) [[self serviceName] lengthOfBytesUsingEncoding:NSUTF8StringEncoding], [[self serviceName] UTF8String],
                                                   (uint) [key lengthOfBytesUsingEncoding:NSUTF8StringEncoding], [key UTF8String],
                                                   (uint) [string lengthOfBytesUsingEncoding:NSUTF8StringEncoding],[string UTF8String],
                                                   NULL);
@@ -111,7 +237,7 @@ static PDKeychainBindingsController *sharedInstance = nil;
             return !SecKeychainItemModifyAttributesAndData(item, NULL, (uint) [string lengthOfBytesUsingEncoding:NSUTF8StringEncoding], [string UTF8String]);
         
         else
-            return !SecKeychainAddGenericPassword(NULL, (uint) [[self serviceName] lengthOfBytesUsingEncoding:NSUTF8StringEncoding], [[self serviceName] UTF8String],
+            return !SecKeychainAddGenericPassword(_secKeychainRef, (uint) [[self serviceName] lengthOfBytesUsingEncoding:NSUTF8StringEncoding], [[self serviceName] UTF8String],
                                                   (uint) [key lengthOfBytesUsingEncoding:NSUTF8StringEncoding], [key UTF8String],
                                                   (uint) [string lengthOfBytesUsingEncoding:NSUTF8StringEncoding],[string UTF8String],
                                                   NULL);
@@ -119,22 +245,9 @@ static PDKeychainBindingsController *sharedInstance = nil;
     }
 }
 
-#pragma mark -
-#pragma mark Singleton Stuff
+#pragma mark - Business Logic
 
-+ (PDKeychainBindingsController *)sharedKeychainBindingsController 
-{
-    static dispatch_once_t onceQueue;
-
-    dispatch_once(&onceQueue, ^{
-        sharedInstance = [[self alloc] init];
-    });
-
-	return sharedInstance;
-}
-
-#pragma mark -
-#pragma mark Business Logic
+@synthesize keychainBindings = _keychainBindings;
 
 - (PDKeychainBindings *) keychainBindings {
     if (_keychainBindings == nil) {
@@ -146,14 +259,14 @@ static PDKeychainBindingsController *sharedInstance = nil;
     return _keychainBindings;
 }
 
--(id) values {
+- values {
     if (_valueBuffer==nil) {
         _valueBuffer = [[NSMutableDictionary alloc] init];
     }
     return _valueBuffer;
 }
 
-- (id)valueForKeyPath:(NSString *)keyPath {
+- valueForKeyPath:(NSString *)keyPath {
     NSRange firstSeven=NSMakeRange(0, 7);
     if (NSEqualRanges([keyPath rangeOfString:@"values."],firstSeven)) {
         //This is a values keyPath, so we need to check the keychain
@@ -170,8 +283,11 @@ static PDKeychainBindingsController *sharedInstance = nil;
     return [super valueForKeyPath:keyPath];
 }
 
+- (void)setValue:value forKeyPath:(NSString*)keyPath {
+    [self setValue:value forKeyPath:keyPath accessibleAttribute:kSecAttrAccessibleWhenUnlocked];
+}
 
-- (void)setValue:(id)value forKeyPath:(NSString *)keyPath {
+- (void)setValue:value forKeyPath:(NSString*)keyPath accessibleAttribute:(CFTypeRef)accessibleAttribute {
     NSRange firstSeven=NSMakeRange(0, 7);
     if (NSEqualRanges([keyPath rangeOfString:@"values."],firstSeven)) {
         //This is a values keyPath, so we need to check the keychain
@@ -179,15 +295,15 @@ static PDKeychainBindingsController *sharedInstance = nil;
         NSString *retrievedString = [self stringForKey:subKeyPath];
         if (retrievedString) {
             if (![value isEqualToString:retrievedString]) {
-                [self storeString:value forKey:subKeyPath];
+                [self storeString:value forKey:subKeyPath accessibleAttribute:accessibleAttribute];
             }
             if (![_valueBuffer objectForKey:subKeyPath] || ![[_valueBuffer objectForKey:subKeyPath] isEqualToString:value]) {
                 //buffer has wrong value, need to update it
-                [_valueBuffer setValue:value forKey:subKeyPath];
+                [_valueBuffer setValue:value forKey:subKeyPath ];
             }
         } else {
             //First time to set it
-            [self storeString:value forKey:subKeyPath];
+            [self storeString:value forKey:subKeyPath accessibleAttribute:accessibleAttribute];
             [_valueBuffer setValue:value forKey:subKeyPath];
         }
     } 

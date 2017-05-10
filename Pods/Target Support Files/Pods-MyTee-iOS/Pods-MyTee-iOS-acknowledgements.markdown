@@ -143,7 +143,7 @@ THE SOFTWARE.
 
 ## PDKeychainBindingsController
 
-Copyright (C) 2010-2011 by Carl Brown of PDAgent, LLC.
+  Copyright (C) 2010-2011 by Carl Brown of PDAgent, LLC.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
