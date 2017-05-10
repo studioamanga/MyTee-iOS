@@ -49,7 +49,7 @@
 
 @implementation MTETShirtViewController
 
-#pragma mark - View lifecycle
+#pragma mark - View life cycle
 
 - (void)setTshirt:(MTETShirt *)newTShirt {
     if (_tshirt != newTShirt) {
@@ -61,98 +61,85 @@
 }
 
 - (void)configureView {
-    if (!self.tshirt) {
+    if (self.tshirt == nil) {
         for (UIView *view in self.view.subviews) {
             view.hidden = YES;
         }
+
+        return;
+    }
+
+    for (UIView *view in self.view.subviews) {
+        view.hidden = NO;
+    }
+
+    self.title = self.tshirt.name;
+
+    self.sizeLabel.text = self.tshirt.size;
+    self.tagsLabel.text = self.tshirt.tags;
+
+    self.ratingLabel.text = ({
+        NSMutableString *ratingString = [NSMutableString stringWithString:@""];
+        NSUInteger i = 0;
+        NSUInteger rating = [self.tshirt.rating intValue];
+        for( ; i < rating ; i++) {
+            [ratingString appendString:@"★"];
+        }
+        for( ; i < 5 ; i++) {
+            [ratingString appendString:@"☆"];
+        }
+        ratingString;
+    });
+
+    if (self.tshirt.note.length > 0) {
+        self.noteLabel.text = self.tshirt.note;
+        self.noteImageView.hidden = NO;
     }
     else {
-        for (UIView *view in self.view.subviews) {
-            view.hidden = NO;
-        }
-
-        self.title = self.tshirt.name;
-
-//        self.sizeLabel.layer.borderWidth  = 1;
-//        self.sizeLabel.layer.borderColor  = [UIColor blackColor].CGColor;
-//        self.sizeLabel.layer.cornerRadius = CGRectGetWidth(self.sizeLabel.frame)/2;
-        self.sizeLabel.text = self.tshirt.size;
-        self.tagsLabel.text = self.tshirt.tags;
-
-        self.ratingLabel.text = ({
-            NSMutableString *ratingString = [NSMutableString stringWithString:@""];
-            NSUInteger i = 0;
-            NSUInteger rating = [self.tshirt.rating intValue];
-            for( ; i < rating ; i++) {
-                [ratingString appendString:@"★"];
-            }
-            for( ; i < 5 ; i++) {
-                [ratingString appendString:@"☆"];
-            }
-            ratingString;
-        });
-
-        if (self.tshirt.note.length > 0) {
-//            CGSize noteSize = [self.tshirt.note boundingRectWithSize:CGSizeMake(self.noteLabel.frame.size.width, CGFLOAT_MAX)
-//                                                             options:kNilOptions
-//                                                          attributes:@{NSFontAttributeName: self.noteLabel.font}
-//                                                             context:nil].size;
-//            self.noteLabel.frame = CGRectMake(self.noteLabel.frame.origin.x, self.noteLabel.frame.origin.y, self.noteLabel.frame.size.width, noteSize.height);
-            self.noteLabel.text = self.tshirt.note;
-            self.noteImageView.hidden = NO;
-        }
-        else {
-            self.noteLabel.text = nil;
-            self.noteImageView.hidden = YES;
-        }
-
-        [self.storeButton setTitle:self.tshirt.store.name forState:UIControlStateNormal];
-        self.storeButton.enabled = ![self.tshirt.store.identifier isEqualToString:MTEUnknownStoreIdentifier];
-
-        MTEWear *mostRecentWear = [self.tshirt mostRecentWear];
-        if (mostRecentWear) {
-            [self.wearButton setTitle:[NSString stringWithFormat:@"Last worn %@", [self relativeDescriptionForDate:mostRecentWear.date]]
-                             forState:UIControlStateNormal];
-        }
-        else {
-            [self.wearButton setTitle:@"Never worn before" forState:UIControlStateNormal];
-        }
-
-        MTEWash *mostRecentWash = [self.tshirt mostRecentWash];
-        if (mostRecentWash) {
-            [self.washButton setTitle:[NSString stringWithFormat:@"Last washed %@ (%@ w)",
-                                       [self relativeDescriptionForDate:mostRecentWash.date],
-                                       [self.tshirt numberOfWearsSinceLastWash]]
-                             forState:UIControlStateNormal];
-        }
-        else {
-            [self.washButton setTitle:@"Never washed before" forState:UIControlStateNormal];
-        }
-
-        [self.tshirtImageView
-         sd_setImageWithURL:[NSURL URLWithString:self.tshirt.image_url]
-         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-             SLColorArt *colorArt = [[SLColorArt alloc] initWithImage:image];
-             self.view.backgroundColor = colorArt.backgroundColor;
-
-             self.sizeLabel.textColor = colorArt.primaryColor;
-             self.ratingLabel.textColor = colorArt.primaryColor;
-
-             self.storeButton.tintColor = colorArt.secondaryColor;
-             [self.storeButton setTitleColor:colorArt.primaryColor forState:UIControlStateNormal];
-             self.wearButton.tintColor = colorArt.secondaryColor;
-             [self.wearButton setTitleColor:colorArt.primaryColor forState:UIControlStateNormal];
-             self.washButton.tintColor = colorArt.secondaryColor;
-             [self.washButton setTitleColor:colorArt.primaryColor forState:UIControlStateNormal];
-             
-             self.tagsImageView.tintColor = colorArt.secondaryColor;
-             self.tagsLabel.textColor = colorArt.primaryColor;
-             self.noteImageView.tintColor = colorArt.secondaryColor;
-             self.noteLabel.textColor = colorArt.primaryColor;
-         }];
-
-        self.mainScrollView.contentSize = CGSizeMake((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 540 : self.view.frame.size.width, self.noteLabel.frame.origin.y+self.noteLabel.frame.size.height+50);
+        self.noteLabel.text = nil;
+        self.noteImageView.hidden = YES;
     }
+
+    [self.storeButton setTitle:self.tshirt.store.name forState:UIControlStateNormal];
+    self.storeButton.enabled = ![self.tshirt.store.identifier isEqualToString:MTEUnknownStoreIdentifier];
+
+    MTEWear *mostRecentWear = [self.tshirt mostRecentWear];
+    if (mostRecentWear) {
+        [self.wearButton setTitle:[NSString stringWithFormat:@"Last worn %@", [self relativeDescriptionForDate:mostRecentWear.date]] forState:UIControlStateNormal];
+    }
+    else {
+        [self.wearButton setTitle:@"Never worn before" forState:UIControlStateNormal];
+    }
+
+    MTEWash *mostRecentWash = [self.tshirt mostRecentWash];
+    if (mostRecentWash) {
+        [self.washButton setTitle:[NSString stringWithFormat:@"Last washed %@ (%@ w)", [self relativeDescriptionForDate:mostRecentWash.date], [self.tshirt numberOfWearsSinceLastWash]] forState:UIControlStateNormal];
+    }
+    else {
+        [self.washButton setTitle:@"Never washed before" forState:UIControlStateNormal];
+    }
+
+    [self.tshirtImageView sd_setImageWithURL:[NSURL URLWithString:self.tshirt.image_url] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        SLColorArt *colorArt = [[SLColorArt alloc] initWithImage:image];
+        self.view.backgroundColor = colorArt.backgroundColor;
+
+        self.sizeLabel.textColor = colorArt.primaryColor;
+        self.ratingLabel.textColor = colorArt.primaryColor;
+
+        self.storeButton.tintColor = colorArt.secondaryColor;
+        [self.storeButton setTitleColor:colorArt.primaryColor forState:UIControlStateNormal];
+        self.wearButton.tintColor = colorArt.secondaryColor;
+        [self.wearButton setTitleColor:colorArt.primaryColor forState:UIControlStateNormal];
+        self.washButton.tintColor = colorArt.secondaryColor;
+        [self.washButton setTitleColor:colorArt.primaryColor forState:UIControlStateNormal];
+
+        self.tagsImageView.tintColor = colorArt.secondaryColor;
+        self.tagsLabel.textColor = colorArt.primaryColor;
+        self.noteImageView.tintColor = colorArt.secondaryColor;
+        self.noteLabel.textColor = colorArt.primaryColor;
+    }];
+
+    self.mainScrollView.contentSize = CGSizeMake((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 540 : self.view.frame.size.width, self.noteLabel.frame.origin.y+self.noteLabel.frame.size.height+50);
 }
 
 - (NSString *)relativeDescriptionForDate:(NSDate *)date {
@@ -184,7 +171,6 @@
     [self configureView];
 }
 
-
 #pragma mark - Actions
 
 - (IBAction)presentStoreController:(id)sender {
@@ -207,13 +193,12 @@
     RNGridMenuItem *washItem = [[RNGridMenuItem alloc] initWithImage:washImage title:NSLocalizedString(@"Wash Today", nil)];
 
     RNGridMenu *menu = [[RNGridMenu alloc] initWithItems:@[wearItem, washItem]];
-    menu.menuView.tintColor = [UIColor orangeColor];
+    menu.menuView.tintColor = self.view.window.tintColor;
     menu.highlightColor = [UIColor blackColor];
     menu.delegate = self;
 
     [menu showInViewController:self center:self.tshirtImageView.center];
 }
-
 
 #pragma mark - Segue
 
@@ -244,6 +229,11 @@
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
+- (void)presentAlertWithError:(nullable NSError *)error {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:[NSString stringWithFormat:@"%@ (%@)", error.localizedDescription, error.localizedRecoverySuggestion] preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 
 #pragma mark - Grid menu delegate
 
@@ -259,12 +249,10 @@
          [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
          [[UNUserNotificationCenter currentNotificationCenter] removeAllDeliveredNotifications];
 
-         [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Success", nil)];
+         [SVProgressHUD showSuccessWithStatus:itemIndex == 0 ? NSLocalizedString(@"Wearing Today", nil) : NSLocalizedString(@"Washed Today", nil)];
          // [self dismissViewControllerAnimated:YES completion:nil];
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:[NSString stringWithFormat:@"%@ (%@)", error.localizedDescription, error.localizedRecoverySuggestion] preferredStyle:UIAlertControllerStyleAlert];
-         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil]];
-         [self presentViewController:alertController animated:YES completion:nil];
+         [self presentAlertWithError:error];
      }];
 }
 
@@ -287,12 +275,10 @@
                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
                     [[UNUserNotificationCenter currentNotificationCenter] removeAllDeliveredNotifications];
-                    
-                    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Success", nil)];
+
+                    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Wearing Today", nil)];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:[NSString stringWithFormat:@"%@ (%@)", error.localizedDescription, error.localizedRecoverySuggestion] preferredStyle:UIAlertControllerStyleAlert];
-                    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil]];
-                    [self presentViewController:alertController animated:YES completion:nil];
+                    [self presentAlertWithError:error];
                 }];
            }]];
     }

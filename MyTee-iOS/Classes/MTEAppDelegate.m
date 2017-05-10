@@ -38,10 +38,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     AFNetworkActivityIndicatorManager.sharedManager.enabled = YES;
 
-    self.window.tintColor = UIColor.orangeColor;
+    self.window.tintColor = [UIColor colorWithWhite:0.95 alpha:1];
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     // [[UINavigationBar appearance] setBarTintColor:UIColor.coolPurpleColor]; // #8C5DE4
-    [[UINavigationBar appearance] setTintColor:UIColor.orangeColor];
+    [[UINavigationBar appearance] setTintColor:self.window.tintColor];
 
     [application setMinimumBackgroundFetchInterval:60*60*12];
 

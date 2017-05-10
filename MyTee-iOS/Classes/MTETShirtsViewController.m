@@ -41,13 +41,12 @@
 
 #pragma mark - View lifecycle
 
-- (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
-{
+- (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
     _managedObjectContext = managedObjectContext;
 
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([MTETShirt class])];
 
-    NSUserDefaults *userDefaults    = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     MTETShirtsFilterType filterType = [userDefaults integerForKey:kMTETShirtsFilterType];
     NSSortDescriptor *sortDescriptor;
     NSString *sectionNameKeyPath;
@@ -106,7 +105,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    if (![MTEAuthenticationManager emailFromKeychain]) {
+    if ([MTEAuthenticationManager emailFromKeychain] == nil) {
         [self showLoginViewController:nil];
     }
 }
@@ -176,8 +175,7 @@
     [menu showInViewController:self center:self.view.center];
 }
 
-- (IBAction)showSettingsViewController:(id)sender
-{
+- (IBAction)showSettingsViewController:(id)sender {
     if (![MTEAuthenticationManager emailFromKeychain]) {
         [self showLoginViewController:sender];
         return;
@@ -198,8 +196,7 @@
     [self presentViewController:settingsNavigationController animated:YES completion:nil];
 }
 
-- (IBAction)showLoginViewController:(id)sender
-{
+- (IBAction)showLoginViewController:(id)sender {
     UIStoryboard *storyboard;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         storyboard = [UIStoryboard storyboardWithName:@"Storyboard_iPhone" bundle:[NSBundle mainBundle]];
@@ -215,8 +212,7 @@
     [self presentViewController:settingsNavigationController animated:YES completion:nil];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"MTETShirtSegue"]) {
         MTETShirtViewController *viewController = nil;
         if ([segue.destinationViewController isMemberOfClass:[MTETShirtViewController class]]) {
@@ -228,26 +224,23 @@
         }
 
         NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] lastObject];
-        MTETShirt *tshirt      = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        MTETShirt *tshirt = [self.fetchedResultsController objectAtIndexPath:indexPath];
         viewController.tshirt = tshirt;
     }
 }
 
 #pragma mark - Collection view data source
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return self.fetchedResultsController.sections.count;
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
     return sectionInfo.numberOfObjects;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MTETShirtCellID" forIndexPath:indexPath];
 
     MTETShirt *tshirt = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -275,22 +268,20 @@
         [cell.contentView addSubview:tshirtImageView];
     }
 
-    NSURL   *imageURL = [NSURL URLWithString:tshirt.image_url];
-    UIImage *image    = [[SDImageCache sharedImageCache] imageFromMemoryCacheForKey:tshirt.image_url];
+    NSURL *imageURL = [NSURL URLWithString:tshirt.image_url];
+    UIImage *image = [[SDImageCache sharedImageCache] imageFromMemoryCacheForKey:tshirt.image_url];
+
     if (image) {
         tshirtImageView.image = image;
     }
     else {
-        [tshirtImageView sd_setImageWithURL:imageURL
-                           placeholderImage:nil
-                                    options:kNilOptions];
+        [tshirtImageView sd_setImageWithURL:imageURL placeholderImage:nil options:kNilOptions];
     }
 
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     self.selectedCellIndexPath = indexPath;
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
@@ -311,48 +302,37 @@
 
 #pragma mark - Login
 
-- (void)loginViewControllerDidLoggedIn:(MTELoginViewController *)loginViewController
-{
+- (void)loginViewControllerDidLoggedIn:(MTELoginViewController *)loginViewController {
     [self.syncManager syncSuccess:nil failure:nil];
 }
 
 #pragma mark - Sync
 
-- (void)shouldSyncNow:(id)sender
-{
-}
+- (void)shouldSyncNow:(id)sender {}
 
-- (void)syncStarted:(id)sender
-{
-}
+- (void)syncStarted:(id)sender {}
 
-- (void)syncFinished:(id)sender
-{
+- (void)syncFinished:(id)sender {
     [self.collectionView reloadData];
 }
 
-- (void)syncFailed:(id)sender
-{
+- (void)syncFailed:(id)sender {
     [SVProgressHUD showErrorWithStatus:@"Sync Failed"];
 }
 
 #pragma mark - Settings view controller delegate
 
-- (void)settingsViewControllerShouldClose:(MTESettingsViewController *)settingsViewController
-{
+- (void)settingsViewControllerShouldClose:(MTESettingsViewController *)settingsViewController {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)settingsViewControllerShouldSyncNow:(MTESettingsViewController *)settingsViewController
-{
-}
+- (void)settingsViewControllerShouldSyncNow:(MTESettingsViewController *)settingsViewController {}
 
-- (void)settingsViewControllerShouldLogOut:(MTESettingsViewController *)settingsViewController
-{   
+- (void)settingsViewControllerShouldLogOut:(MTESettingsViewController *)settingsViewController {
     [MTEAuthenticationManager resetKeychain];
     MTEAppDelegate *appDelegate = (MTEAppDelegate *)[UIApplication sharedApplication].delegate;
     [appDelegate resetManagedObjectContext];
-    
+
     [self.navigationController popToRootViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -381,8 +361,7 @@
 
 #pragma mark - Grid menu delegate
 
-- (void)gridMenu:(RNGridMenu *)gridMenu willDismissWithSelectedItem:(RNGridMenuItem *)item atIndex:(NSInteger)itemIndex
-{
+- (void)gridMenu:(RNGridMenu *)gridMenu willDismissWithSelectedItem:(RNGridMenuItem *)item atIndex:(NSInteger)itemIndex {
     MTETShirtsFilterType filterType;
     switch (itemIndex) {
         case 0:
