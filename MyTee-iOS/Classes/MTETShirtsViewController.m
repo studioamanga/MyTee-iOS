@@ -168,7 +168,7 @@
 
     NSArray *items = @[wearItem, washItem, allItem];
     RNGridMenu *menu = [[RNGridMenu alloc] initWithItems:items];
-    menu.menuView.tintColor = [UIColor orangeColor];
+    menu.menuView.tintColor = [UIColor lightGrayColor];
     menu.highlightColor = [UIColor blackColor];
     menu.delegate = self;
 

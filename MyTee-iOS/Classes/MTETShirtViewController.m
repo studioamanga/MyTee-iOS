@@ -193,7 +193,7 @@
     RNGridMenuItem *washItem = [[RNGridMenuItem alloc] initWithImage:washImage title:NSLocalizedString(@"Wash Today", nil)];
 
     RNGridMenu *menu = [[RNGridMenu alloc] initWithItems:@[wearItem, washItem]];
-    menu.menuView.tintColor = self.view.window.tintColor;
+    menu.menuView.tintColor = [UIColor lightGrayColor];
     menu.highlightColor = [UIColor blackColor];
     menu.delegate = self;
 
